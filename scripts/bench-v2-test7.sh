@@ -6,8 +6,9 @@ set -euo pipefail
 # kata-qemu vs runc memory overhead measurement
 # ============================================================
 
-NODE="ip-172-31-19-254.us-west-2.compute.internal"
-NODE_SHORT="ip-172-31-19-254"
+# Replace with your own node FQDN (e.g., ip-x-x-x-x.region.compute.internal)
+NODE="node-2"
+NODE_SHORT="node-2"
 NS="bench7"
 RESULTS="/home/ec2-user/benchmark/results"
 PAUSE_IMAGE="registry.k8s.io/pause:3.10"

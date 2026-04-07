@@ -10,23 +10,23 @@ mkdir -p "$RESULTS_DIR"
 IMAGE_REPO="ghcr.io/openclaw/openclaw"
 IMAGE_TAG="latest"
 
-# Nodes
-UNTAINTED_NODE="ip-172-31-29-155.us-west-2.compute.internal"
-R8I_NODE="ip-172-31-18-5.us-west-2.compute.internal"
+# Nodes — replace with your own node FQDNs (e.g., ip-x-x-x-x.region.compute.internal)
+UNTAINTED_NODE="node-10"       # untainted m8i.4xlarge node
+R8I_NODE="node-oversell"       # r8i.2xlarge oversell test node
 
 # m8i.4xlarge nodes with kata-benchmark taint (for Test 2/3)
 TAINTED_NODES=(
-  "ip-172-31-18-241.us-west-2.compute.internal"
-  "ip-172-31-19-254.us-west-2.compute.internal"
-  "ip-172-31-19-97.us-west-2.compute.internal"
-  "ip-172-31-21-152.us-west-2.compute.internal"
-  "ip-172-31-22-253.us-west-2.compute.internal"
-  "ip-172-31-24-12.us-west-2.compute.internal"
-  "ip-172-31-25-251.us-west-2.compute.internal"
-  "ip-172-31-27-93.us-west-2.compute.internal"
+  "node-1"   # tainted benchmark node 1
+  "node-2"   # tainted benchmark node 2
+  "node-3"   # tainted benchmark node 3
+  "node-4"   # tainted benchmark node 4
+  "node-5"   # tainted benchmark node 5
+  "node-6"   # tainted benchmark node 6
+  "node-7"   # tainted benchmark node 7
+  "node-8"   # tainted benchmark node 8
 )
 # Additional untainted m8i for Test 3
-UNTAINTED_NODE2="ip-172-31-28-206.us-west-2.compute.internal"
+UNTAINTED_NODE2="node-9"  # replace with your own
 
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >&2; }
 
@@ -232,7 +232,7 @@ run_test2() {
   local csv="$RESULTS_DIR/v2-test2-saturated-boot-time.csv"
   echo "runtime,iteration,boot_time_sec,node,kernel,num_existing_pods,timestamp" > "$csv"
 
-  local target_node="${TAINTED_NODES[0]}"  # ip-172-31-18-241
+  local target_node="${TAINTED_NODES[0]}"  # node-1
   log "Target node: $target_node"
 
   for runtime in runc kata-qemu kata-clh; do
@@ -340,7 +340,7 @@ run_test3() {
         local tol_key=""
         # Check if node is tainted
         case "$node" in
-          ip-172-31-18-241*|ip-172-31-19-254*|ip-172-31-19-97*|ip-172-31-21-152*|ip-172-31-22-253*|ip-172-31-24-12*|ip-172-31-25-251*|ip-172-31-27-93*)
+          node-1*|node-2*|node-3*|node-4*|node-5*|node-6*|node-7*|node-8*)
             tol_key="kata-benchmark"
             ;;
         esac

@@ -1,7 +1,7 @@
 # Test 7: Runtime Memory Footprint Profiling
 
 **Date:** 2026-04-07  
-**Node:** ip-172-31-19-254 (m8i.4xlarge, 64 GiB RAM, 16 vCPU)  
+**Node:** node-2 (m8i.4xlarge, 64 GiB RAM, 16 vCPU)  
 **Kernel:** 6.12.68-92.122.amzn2023.x86_64  
 **Total Node Memory:** 63,257 MiB  
 **Runtimes:** runc (default containerd) vs kata-qemu  

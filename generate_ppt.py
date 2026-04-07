@@ -499,7 +499,7 @@ chart_path = save_chart(fig, 'test4')
 
 slide = prs.slides.add_slide(prs.slide_layouts[6])
 set_slide_bg(slide, DARK_BLUE)
-add_slide_title(slide, 'Test 4 \u2014 \u8fd0\u884c\u65f6\u5bf9\u6bd4', '\u540c\u4e00\u8282\u70b9 (ip-172-31-29-155) \u4e0a\u4e09\u79cd\u8fd0\u884c\u65f6\u5bf9\u6bd4')
+add_slide_title(slide, 'Test 4 \u2014 \u8fd0\u884c\u65f6\u5bf9\u6bd4', '\u540c\u4e00\u8282\u70b9 (node-10) \u4e0a\u4e09\u79cd\u8fd0\u884c\u65f6\u5bf9\u6bd4')
 slide.shapes.add_picture(chart_path, Inches(0.5), Inches(2.0), Inches(12.3), Inches(4.0))
 
 # Key insight

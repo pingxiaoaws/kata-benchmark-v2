@@ -28,7 +28,7 @@
 
 ## Test 2: Saturated Node Boot (15 existing pods, 3 iterations each)
 
-Target: ip-172-31-18-241 (m8i.4xlarge, 16 vCPU)
+Target: node-1 (m8i.4xlarge, 16 vCPU)
 
 | Runtime    | Iter 1 | Iter 2 | Iter 3 | Avg     |
 |------------|--------|--------|--------|---------|
@@ -59,7 +59,7 @@ Target: ip-172-31-18-241 (m8i.4xlarge, 16 vCPU)
 
 ---
 
-## Test 4: Runtime Comparison (same node: ip-172-31-29-155)
+## Test 4: Runtime Comparison (same node: node-10)
 
 | Runtime    | Boot Time | Gateway | CPU (idle) | Memory (idle) | Kernel  |
 |------------|-----------|---------|------------|---------------|---------|
@@ -77,7 +77,7 @@ Target: ip-172-31-18-241 (m8i.4xlarge, 16 vCPU)
 
 ## Test 5: R8i Oversell Stability (16 kata-qemu pods, 2h monitoring)
 
-**Node**: ip-172-31-18-5 (r8i.2xlarge, 8 vCPU, 64GB RAM)  
+**Node**: node-oversell (r8i.2xlarge, 8 vCPU, 64GB RAM)  
 **Overcommit**: 16 pods x 400m CPU request = 6.4 CPU (fits scheduler)  
 **Potential usage**: 16 pods x 1 CPU limit = 16 CPU (200% of 8 vCPU capacity)
 

@@ -4,23 +4,23 @@ set -euo pipefail
 
 RESULTS_DIR="/home/ec2-user/benchmark/results"
 
-# Node lists
+# Node lists — replace with your own node FQDNs (e.g., ip-x-x-x-x.region.compute.internal)
 BENCH_NODES=(
-  "ip-172-31-18-241.us-west-2.compute.internal"
-  "ip-172-31-19-254.us-west-2.compute.internal"
-  "ip-172-31-19-97.us-west-2.compute.internal"
-  "ip-172-31-21-152.us-west-2.compute.internal"
-  "ip-172-31-22-253.us-west-2.compute.internal"
-  "ip-172-31-24-12.us-west-2.compute.internal"
-  "ip-172-31-25-251.us-west-2.compute.internal"
-  "ip-172-31-27-93.us-west-2.compute.internal"
+  "node-1"   # tainted m8i.4xlarge benchmark node 1
+  "node-2"   # tainted m8i.4xlarge benchmark node 2
+  "node-3"   # tainted m8i.4xlarge benchmark node 3
+  "node-4"   # tainted m8i.4xlarge benchmark node 4
+  "node-5"   # tainted m8i.4xlarge benchmark node 5
+  "node-6"   # tainted m8i.4xlarge benchmark node 6
+  "node-7"   # tainted m8i.4xlarge benchmark node 7
+  "node-8"   # tainted m8i.4xlarge benchmark node 8
 )
-UNTAINTED_NODE="ip-172-31-29-155.us-west-2.compute.internal"
-OVERSELL_NODE="ip-172-31-18-5.us-west-2.compute.internal"
+UNTAINTED_NODE="node-10"       # untainted m8i.4xlarge node — replace with your own
+OVERSELL_NODE="node-oversell"  # r8i.2xlarge oversell test node — replace with your own
 PRIMARY_NODE="${BENCH_NODES[0]}"
 
 # All m8i.4xlarge nodes for Test 3 (9 tainted + 1 untainted)
-# Note: ip-172-31-28-206 excluded - no workload-type=kata label
+# Note: node-9 excluded - no workload-type=kata label
 ALL_M8I_NODES=(
   "${BENCH_NODES[@]}"
   "$UNTAINTED_NODE"

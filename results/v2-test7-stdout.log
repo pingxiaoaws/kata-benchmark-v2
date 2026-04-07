@@ -1,5 +1,5 @@
 [05:52:24] === Test 7: Runtime Memory Footprint Profiling ===
-[05:52:24] Target node: ip-172-31-19-254.us-west-2.compute.internal
+[05:52:24] Target node: node-2
 [05:52:28] Deploying host access pod...
 [05:52:33] Node total memory: 63257 MiB
 [05:52:33] 

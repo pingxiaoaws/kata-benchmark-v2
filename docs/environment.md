@@ -6,7 +6,7 @@
 - **K8s 版本**: v1.34.4-eks-f69f56f
 - **区域**: us-west-2
 - **VPC**: vpc-05356dbcee07a48de
-- **AWS Account**: 970547376847
+- **AWS Account**: XXXXXXXXXXXX
 
 ## 节点列表
 
@@ -14,28 +14,28 @@
 
 | 节点 | Private IP | Taint |
 |------|-----------|-------|
-| ip-172-31-18-241 | 172.31.18.241 | kata-benchmark=true:NoSchedule |
-| ip-172-31-19-254 | 172.31.19.254 | kata-benchmark=true:NoSchedule |
-| ip-172-31-19-97 | 172.31.19.97 | kata-benchmark=true:NoSchedule |
-| ip-172-31-21-152 | 172.31.21.152 | kata-benchmark=true:NoSchedule |
-| ip-172-31-22-253 | 172.31.22.253 | kata-benchmark=true:NoSchedule |
-| ip-172-31-24-12 | 172.31.24.12 | kata-benchmark=true:NoSchedule |
-| ip-172-31-25-251 | 172.31.25.251 | kata-benchmark=true:NoSchedule |
-| ip-172-31-27-93 | 172.31.27.93 | kata-benchmark=true:NoSchedule |
-| ip-172-31-29-155 | 172.31.29.155 | (无 taint，untainted) |
+| node-1 | x.x.x.x | kata-benchmark=true:NoSchedule |
+| node-2 | x.x.x.x | kata-benchmark=true:NoSchedule |
+| node-3 | x.x.x.x | kata-benchmark=true:NoSchedule |
+| node-4 | x.x.x.x | kata-benchmark=true:NoSchedule |
+| node-5 | x.x.x.x | kata-benchmark=true:NoSchedule |
+| node-6 | x.x.x.x | kata-benchmark=true:NoSchedule |
+| node-7 | x.x.x.x | kata-benchmark=true:NoSchedule |
+| node-8 | x.x.x.x | kata-benchmark=true:NoSchedule |
+| node-10 | x.x.x.x | (无 taint，untainted) |
 
 ### Oversell 节点 (r8i.2xlarge × 1, ASG: eks-test-s4-r8i-oversell)
 
 | 节点 | Private IP | Taint |
 |------|-----------|-------|
-| ip-172-31-18-5 | 172.31.18.5 | kata-oversell=true:NoSchedule |
+| node-oversell | x.x.x.x | kata-oversell=true:NoSchedule |
 
 ### 节点公共配置
 
 - **OS**: Amazon Linux 2023.10.20260216
 - **Host Kernel**: 6.12.68-92.122.amzn2023.x86_64
 - **containerd**: 2.1.5
-- **AMI**: ami-070ee402905300035
+- **AMI**: ${AMI_ID}
 - **Launch Template**: lt-0dd7cfb1e76d7b01e (eks-node-m8i-nested-virt)
 - **标签**: workload-type=kata
 - **嵌套虚拟化**: 已启用 (Intel VMX, /dev/kvm available)
