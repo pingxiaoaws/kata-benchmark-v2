@@ -13,7 +13,7 @@ SUMMARY="$RESULTS_DIR/v2-test5b-summary.md"
 LOGFILE="$RESULTS_DIR/v2-test5b-stdout.log"
 
 NS="bench5b"
-TARGET_NODE="ip-172-31-18-5.us-west-2.compute.internal"
+TARGET_NODE="node-oversell"
 PAUSE_IMAGE="registry.k8s.io/pause:3.10"
 HOSTPOD_NAME="bench5b-hostpod"
 
@@ -53,7 +53,7 @@ metadata:
 spec:
   hostPID: true
   nodeSelector:
-    kubernetes.io/hostname: ip-172-31-18-5.us-west-2.compute.internal
+    kubernetes.io/hostname: node-oversell
   tolerations:
   - key: kata-oversell
     operator: Equal

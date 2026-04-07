@@ -1,7 +1,7 @@
 # Test 8: Pod Overhead Configuration Validation
 
 **Date:** 2026-04-07 14:03 UTC
-**Node:** ip-172-31-18-5.us-west-2.compute.internal (r8i.2xlarge, 8 vCPU, 64GB RAM)
+**Node:** node-oversell (r8i.2xlarge, 8 vCPU, 64GB RAM)
 **Allocatable:** 7910m CPU, 63084396Ki (~60GiB) memory
 **Pod spec:** pause container, request=128Mi/50m, limit=256Mi/100m
 **Overhead tested:** memory=250Mi, cpu=100m

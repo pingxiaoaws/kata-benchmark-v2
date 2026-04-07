@@ -15,7 +15,7 @@ SUMMARY="$RESULTS_DIR/v2-test8-summary.md"
 LOGFILE="$RESULTS_DIR/v2-test8-stdout.log"
 
 NS="bench8"
-TARGET_NODE="ip-172-31-18-5.us-west-2.compute.internal"
+TARGET_NODE="node-oversell"
 PAUSE_IMAGE="registry.k8s.io/pause:3.10"
 HOSTPOD_NAME="bench8-hostpod"
 RUNTIME_CLASS="kata-qemu"

@@ -1,7 +1,7 @@
 [2026-04-07 14:03:24] ============================================================
 [2026-04-07 14:03:24] === Test 8: Pod Overhead Configuration Validation ===
 [2026-04-07 14:03:24] ============================================================
-[2026-04-07 14:03:24] Target node: ip-172-31-18-5.us-west-2.compute.internal (r8i.2xlarge, 8 vCPU, 64GB RAM)
+[2026-04-07 14:03:24] Target node: node-oversell (r8i.2xlarge, 8 vCPU, 64GB RAM)
 [2026-04-07 14:03:24] RuntimeClass: kata-qemu
 [2026-04-07 14:03:24] Overhead to test: memory=250Mi, cpu=100m
 [2026-04-07 14:03:24] Pod spec: request=128Mi/50m, limit=256Mi/100m
