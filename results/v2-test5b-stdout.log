@@ -1,0 +1,217 @@
+Both background runs confirmed complete with exit code 0. The final results and summary are already reviewed and reported above — no further action needed.
+e, 8 vCPU, 64GB RAM)
+[2026-04-07 07:59:21] Allocatable memory: ~60Gi
+[2026-04-07 07:59:21] 
+[2026-04-07 07:59:21] ========== PHASE 1: Baseline Comparison (runc vs kata-qemu, 10 pods) ==========
+[2026-04-07 07:59:21] Cleaning up namespace bench5b...
+[2026-04-07 07:59:22] Namespace bench5b cleaned.
+[2026-04-07 07:59:23] Deploying host-access privileged pod...
+pod/bench5b-hostpod created
+pod/bench5b-hostpod condition met
+[2026-04-07 07:59:25] Hostpod ready.
+[2026-04-07 07:59:25] --- Phase 1a: runc baseline (10 pods) ---
+[2026-04-07 07:59:26] MemAvailable before deployment: 61310MiB
+[2026-04-07 07:59:27] Scaling bench5b-runc to 10 replicas (runtime=runc)...
+[2026-04-07 07:59:27] Waiting up to 120s for pods to reach Ready state...
+pod/bench5b-runc-79fbd45d5d-6q5p5 condition met
+pod/bench5b-runc-79fbd45d5d-bnwgn condition met
+pod/bench5b-runc-79fbd45d5d-f46fw condition met
+pod/bench5b-runc-79fbd45d5d-fzwst condition met
+pod/bench5b-runc-79fbd45d5d-jhcxq condition met
+pod/bench5b-runc-79fbd45d5d-jmnqs condition met
+pod/bench5b-runc-79fbd45d5d-ljl9g condition met
+pod/bench5b-runc-79fbd45d5d-q7nnq condition met
+pod/bench5b-runc-79fbd45d5d-qfd5p condition met
+pod/bench5b-runc-79fbd45d5d-zwmf6 condition met
+[2026-04-07 07:59:42]   target=10 running=10 pending=0 failed=0 MemAvailable=61225MiB OOM=0
+[2026-04-07 07:59:42] --- Phase 1b: kata-qemu baseline (10 pods) ---
+[2026-04-07 08:00:13] OOM baseline set to 0
+[2026-04-07 08:00:13] MemAvailable after runc cleanup: 61328MiB
+[2026-04-07 08:00:14] Scaling bench5b-kata to 10 replicas (runtime=kata-qemu)...
+[2026-04-07 08:00:15] Waiting up to 120s for pods to reach Ready state...
+pod/bench5b-kata-8f5786d6d-46gqs condition met
+pod/bench5b-kata-8f5786d6d-6vvc8 condition met
+pod/bench5b-kata-8f5786d6d-7rzfr condition met
+pod/bench5b-kata-8f5786d6d-8vjzl condition met
+pod/bench5b-kata-8f5786d6d-9q64f condition met
+pod/bench5b-kata-8f5786d6d-b26ml condition met
+pod/bench5b-kata-8f5786d6d-fcd6t condition met
+pod/bench5b-kata-8f5786d6d-fmzsz condition met
+pod/bench5b-kata-8f5786d6d-h5ks4 condition met
+pod/bench5b-kata-8f5786d6d-tm7bt condition met
+[2026-04-07 08:00:31]   target=10 running=10 pending=0 failed=0 MemAvailable=59269MiB OOM=0
+[2026-04-07 08:00:31] ==> VM overhead for 10 pods: 1956MiB total, ~195MiB per pod
+[2026-04-07 08:01:02] 
+[2026-04-07 08:01:02] ========== PHASE 2: Progressive Load (kata-qemu, finding OOM tipping point) ==========
+[2026-04-07 08:01:02] OOM baseline set to 0
+[2026-04-07 08:01:03] 
+[2026-04-07 08:01:03] --- Phase 2: Scaling to 10 kata-qemu pods ---
+[2026-04-07 08:01:03] Scaling bench5b-kata-load to 10 replicas (runtime=kata-qemu)...
+[2026-04-07 08:01:04] Waiting up to 120s for pods to reach Ready state...
+pod/bench5b-kata-load-748c798479-4qblt condition met
+pod/bench5b-kata-load-748c798479-82qbz condition met
+pod/bench5b-kata-load-748c798479-9ls2b condition met
+pod/bench5b-kata-load-748c798479-f4bt4 condition met
+pod/bench5b-kata-load-748c798479-kkbzp condition met
+pod/bench5b-kata-load-748c798479-pl4dj condition met
+pod/bench5b-kata-load-748c798479-rch7v condition met
+pod/bench5b-kata-load-748c798479-vvb9k condition met
+pod/bench5b-kata-load-748c798479-wsvrv condition met
+pod/bench5b-kata-load-748c798479-xd2tz condition met
+[2026-04-07 08:01:21]   target=10 running=10 pending=0 failed=0 MemAvailable=59273MiB OOM=0
+[2026-04-07 08:01:21] 
+[2026-04-07 08:01:21] --- Phase 2: Scaling to 20 kata-qemu pods ---
+[2026-04-07 08:01:21] Scaling bench5b-kata-load to 20 replicas (runtime=kata-qemu)...
+[2026-04-07 08:01:21] Waiting up to 120s for pods to reach Ready state...
+pod/bench5b-kata-load-748c798479-4pcll condition met
+pod/bench5b-kata-load-748c798479-4qblt condition met
+pod/bench5b-kata-load-748c798479-4vtpl condition met
+pod/bench5b-kata-load-748c798479-82qbz condition met
+pod/bench5b-kata-load-748c798479-88797 condition met
+pod/bench5b-kata-load-748c798479-9ls2b condition met
+pod/bench5b-kata-load-748c798479-bb2cw condition met
+pod/bench5b-kata-load-748c798479-f4bt4 condition met
+pod/bench5b-kata-load-748c798479-gd9rd condition met
+pod/bench5b-kata-load-748c798479-k4w8m condition met
+pod/bench5b-kata-load-748c798479-kkbzp condition met
+pod/bench5b-kata-load-748c798479-lptk9 condition met
+pod/bench5b-kata-load-748c798479-pl4dj condition met
+pod/bench5b-kata-load-748c798479-rch7v condition met
+pod/bench5b-kata-load-748c798479-vvb9k condition met
+pod/bench5b-kata-load-748c798479-w7x8b condition met
+pod/bench5b-kata-load-748c798479-wsvrv condition met
+pod/bench5b-kata-load-748c798479-wzjfb condition met
+pod/bench5b-kata-load-748c798479-xd2tz condition met
+pod/bench5b-kata-load-748c798479-xx627 condition met
+[2026-04-07 08:01:48]   target=20 running=20 pending=0 failed=0 MemAvailable=57198MiB OOM=0
+[2026-04-07 08:01:48] 
+[2026-04-07 08:01:48] --- Phase 2: Scaling to 30 kata-qemu pods ---
+[2026-04-07 08:01:48] Scaling bench5b-kata-load to 30 replicas (runtime=kata-qemu)...
+[2026-04-07 08:01:48] Waiting up to 120s for pods to reach Ready state...
+pod/bench5b-kata-load-748c798479-2fskn condition met
+pod/bench5b-kata-load-748c798479-4pcll condition met
+pod/bench5b-kata-load-748c798479-4qblt condition met
+pod/bench5b-kata-load-748c798479-4vtpl condition met
+pod/bench5b-kata-load-748c798479-5qlzs condition met
+pod/bench5b-kata-load-748c798479-6djsh condition met
+pod/bench5b-kata-load-748c798479-77qjf condition met
+pod/bench5b-kata-load-748c798479-82qbz condition met
+pod/bench5b-kata-load-748c798479-88797 condition met
+pod/bench5b-kata-load-748c798479-9ls2b condition met
+pod/bench5b-kata-load-748c798479-bb2cw condition met
+pod/bench5b-kata-load-748c798479-cfblk condition met
+pod/bench5b-kata-load-748c798479-d67db condition met
+pod/bench5b-kata-load-748c798479-f4bt4 condition met
+pod/bench5b-kata-load-748c798479-gbmd4 condition met
+pod/bench5b-kata-load-748c798479-gd9rd condition met
+pod/bench5b-kata-load-748c798479-ggwhd condition met
+pod/bench5b-kata-load-748c798479-k4w8m condition met
+pod/bench5b-kata-load-748c798479-kkbzp condition met
+pod/bench5b-kata-load-748c798479-lptk9 condition met
+pod/bench5b-kata-load-748c798479-pl4dj condition met
+pod/bench5b-kata-load-748c798479-q2lpr condition met
+pod/bench5b-kata-load-748c798479-rch7v condition met
+pod/bench5b-kata-load-748c798479-vvb9k condition met
+pod/bench5b-kata-load-748c798479-w7x8b condition met
+pod/bench5b-kata-load-748c798479-wsvrv condition met
+pod/bench5b-kata-load-748c798479-wzjfb condition met
+pod/bench5b-kata-load-748c798479-xd2tz condition met
+pod/bench5b-kata-load-748c798479-xx627 condition met
+pod/bench5b-kata-load-748c798479-z4xhd condition met
+[2026-04-07 08:02:20]   target=30 running=30 pending=0 failed=0 MemAvailable=55112MiB OOM=0
+[2026-04-07 08:02:20] 
+[2026-04-07 08:02:20] --- Phase 2: Scaling to 40 kata-qemu pods ---
+[2026-04-07 08:02:20] Scaling bench5b-kata-load to 40 replicas (runtime=kata-qemu)...
+[2026-04-07 08:02:20] Waiting up to 120s for pods to reach Ready state...
+pod/bench5b-kata-load-748c798479-2fskn condition met
+[2026-04-07 08:05:09]   target=40 running=36 pending=0 failed=0 MemAvailable=53020MiB OOM=0
+[2026-04-07 08:05:09] 
+[2026-04-07 08:05:09] --- Phase 2: Scaling to 50 kata-qemu pods ---
+[2026-04-07 08:05:09] Scaling bench5b-kata-load to 50 replicas (runtime=kata-qemu)...
+[2026-04-07 08:05:10] Waiting up to 120s for pods to reach Ready state...
+pod/bench5b-kata-load-748c798479-2fskn condition met
+pod/bench5b-kata-load-748c798479-4fblv condition met
+pod/bench5b-kata-load-748c798479-4pcll condition met
+pod/bench5b-kata-load-748c798479-4qblt condition met
+pod/bench5b-kata-load-748c798479-4vtpl condition met
+pod/bench5b-kata-load-748c798479-4x5cm condition met
+pod/bench5b-kata-load-748c798479-5qlzs condition met
+pod/bench5b-kata-load-748c798479-6djsh condition met
+[2026-04-07 08:07:58]   target=50 running=39 pending=0 failed=0 MemAvailable=53150MiB OOM=0
+[2026-04-07 08:07:58] 
+[2026-04-07 08:07:58] --- Phase 2: Scaling to 60 kata-qemu pods ---
+[2026-04-07 08:07:58] Scaling bench5b-kata-load to 60 replicas (runtime=kata-qemu)...
+[2026-04-07 08:07:58] Waiting up to 120s for pods to reach Ready state...
+pod/bench5b-kata-load-748c798479-2fskn condition met
+[2026-04-07 08:11:01]   target=60 running=35 pending=0 failed=4 MemAvailable=51429MiB OOM=0
+[2026-04-07 08:11:01] 
+[2026-04-07 08:11:01] --- Phase 2: Scaling to 80 kata-qemu pods ---
+[2026-04-07 08:11:01] Scaling bench5b-kata-load to 80 replicas (runtime=kata-qemu)...
+[2026-04-07 08:11:01] Waiting up to 120s for pods to reach Ready state...
+pod/bench5b-kata-load-748c798479-2fskn condition met
+[2026-04-07 08:13:17]   target=80 running=35 pending=0 failed=4 MemAvailable=53518MiB OOM=0
+[2026-04-07 08:13:17] 
+[2026-04-07 08:13:17] --- Phase 2: Scaling to 100 kata-qemu pods ---
+[2026-04-07 08:13:17] Scaling bench5b-kata-load to 100 replicas (runtime=kata-qemu)...
+[2026-04-07 08:13:17] Waiting up to 120s for pods to reach Ready state...
+pod/bench5b-kata-load-748c798479-2fskn condition met
+[2026-04-07 08:15:54]   target=100 running=36 pending=0 failed=4 MemAvailable=51344MiB OOM=0
+[2026-04-07 08:15:54] 
+[2026-04-07 08:15:54] --- Phase 2: Scaling to 120 kata-qemu pods ---
+[2026-04-07 08:15:54] Scaling bench5b-kata-load to 120 replicas (runtime=kata-qemu)...
+[2026-04-07 08:15:55] Waiting up to 120s for pods to reach Ready state...
+[2026-04-07 08:19:07]   target=120 running=40 pending=12 failed=4 MemAvailable=52138MiB OOM=0
+[2026-04-07 08:19:07] WARNING: 12 pods pending (scheduler pressure)
+[2026-04-07 08:19:07] 
+[2026-04-07 08:19:07] --- Phase 2: Scaling to 150 kata-qemu pods ---
+[2026-04-07 08:19:07] Scaling bench5b-kata-load to 150 replicas (runtime=kata-qemu)...
+[2026-04-07 08:19:07] Waiting up to 120s for pods to reach Ready state...
+[2026-04-07 08:22:05]   target=150 running=40 pending=40 failed=4 MemAvailable=52526MiB OOM=0
+[2026-04-07 08:22:05] WARNING: 40 pods pending (scheduler pressure)
+[2026-04-07 08:22:05] 
+[2026-04-07 08:22:05] --- Phase 2: Scaling to 200 kata-qemu pods ---
+[2026-04-07 08:22:05] Scaling bench5b-kata-load to 200 replicas (runtime=kata-qemu)...
+[2026-04-07 08:22:06] Waiting up to 120s for pods to reach Ready state...
+[2026-04-07 08:24:48]   target=200 running=40 pending=90 failed=4 MemAvailable=N/AMiB OOM=0
+[2026-04-07 08:24:48] WARNING: 90 pods pending (scheduler pressure)
+[2026-04-07 08:24:48] Cleaning up phase 2...
+[2026-04-07 08:25:48] Phase 2 cleanup done.
+[2026-04-07 08:25:48] 
+[2026-04-07 08:25:48] ========== PHASE 3: runc Comparison at 40 pods (kata max safe) ==========
+[2026-04-07 08:25:48] Deploying 40 runc pods for comparison...
+[2026-04-07 08:25:49] Scaling bench5b-runc-compare to 40 replicas (runtime=runc)...
+[2026-04-07 08:25:49] Waiting up to 120s for pods to reach Ready state...
+pod/bench5b-runc-compare-64895bbf56-2sqxz condition met
+pod/bench5b-runc-compare-64895bbf56-4q2vp condition met
+pod/bench5b-runc-compare-64895bbf56-58bst condition met
+pod/bench5b-runc-compare-64895bbf56-6rq8d condition met
+pod/bench5b-runc-compare-64895bbf56-6sqmc condition met
+pod/bench5b-runc-compare-64895bbf56-6wmwq condition met
+pod/bench5b-runc-compare-64895bbf56-88nh4 condition met
+pod/bench5b-runc-compare-64895bbf56-979c2 condition met
+pod/bench5b-runc-compare-64895bbf56-9d8br condition met
+pod/bench5b-runc-compare-64895bbf56-c4lfc condition met
+pod/bench5b-runc-compare-64895bbf56-czx22 condition met
+pod/bench5b-runc-compare-64895bbf56-dhwl9 condition met
+pod/bench5b-runc-compare-64895bbf56-gm22t condition met
+pod/bench5b-runc-compare-64895bbf56-hdtkw condition met
+pod/bench5b-runc-compare-64895bbf56-kdg5l condition met
+pod/bench5b-runc-compare-64895bbf56-kjglm condition met
+pod/bench5b-runc-compare-64895bbf56-l74sg condition met
+pod/bench5b-runc-compare-64895bbf56-mq2vg condition met
+pod/bench5b-runc-compare-64895bbf56-p9cqb condition met
+pod/bench5b-runc-compare-64895bbf56-r9bm5 condition met
+pod/bench5b-runc-compare-64895bbf56-rqd5x condition met
+pod/bench5b-runc-compare-64895bbf56-sxscc condition met
+pod/bench5b-runc-compare-64895bbf56-x7skt condition met
+pod/bench5b-runc-compare-64895bbf56-xhb6m condition met
+pod/bench5b-runc-compare-64895bbf56-xv9nr condition met
+[2026-04-07 08:27:53]   target=40 running=40 pending=0 failed=0 MemAvailable=60944MiB OOM=0
+[2026-04-07 08:27:53] runc at 40 pods: MemAvailable=60944MiB running=40 OOM=0
+[2026-04-07 08:27:54] 
+[2026-04-07 08:27:54] ========== Generating Summary ==========
+[2026-04-07 08:27:54] Summary written to /home/ec2-user/benchmark/results/v2-test5b-summary.md
+[2026-04-07 08:27:54] CSV written to /home/ec2-user/benchmark/results/v2-test5b-memory-oversell.csv
+[2026-04-07 08:27:54] Cleaning up namespace bench5b...
+[2026-04-07 08:28:28] Namespace bench5b cleaned.
+[2026-04-07 08:28:28] === Test 5b Complete ===
