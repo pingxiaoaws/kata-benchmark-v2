@@ -1,0 +1,4 @@
+runtime,boot_time_sec,node,kernel,gateway_status,cpu_usage,memory_usage,timestamp
+runc,47.51,ip-172-31-29-155.us-west-2.compute.internal,6.12.68-92.122.amzn2023.x86_64,200,999m,881Mi,2026-04-03T03:44:40Z
+kata-qemu,69.24,ip-172-31-29-155.us-west-2.compute.internal,6.18.12,200,468m,876Mi,2026-04-03T03:45:45Z
+kata-clh,66.20,ip-172-31-29-155.us-west-2.compute.internal,6.18.12,200,137m,400Mi,2026-04-03T03:47:12Z

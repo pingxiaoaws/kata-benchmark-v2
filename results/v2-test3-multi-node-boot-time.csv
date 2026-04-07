@@ -1,0 +1,10 @@
+runtime,iteration,boot_time_sec,node,kernel,total_fill_pods,timestamp
+runc,1,49.17,ip-172-31-19-97.us-west-2.compute.internal,6.12.68-92.122.amzn2023.x86_64,120,2026-04-03T03:21:03Z
+runc,2,52.20,ip-172-31-18-241.us-west-2.compute.internal,6.12.68-92.122.amzn2023.x86_64,120,2026-04-03T03:21:57Z
+runc,3,52.41,ip-172-31-22-253.us-west-2.compute.internal,6.12.68-92.122.amzn2023.x86_64,120,2026-04-03T03:22:54Z
+kata-qemu,1,68.97,ip-172-31-24-12.us-west-2.compute.internal,6.18.12,120,2026-04-03T03:27:07Z
+kata-qemu,2,69.12,ip-172-31-25-251.us-west-2.compute.internal,6.18.12,120,2026-04-03T03:28:21Z
+kata-qemu,3,67.19,ip-172-31-19-97.us-west-2.compute.internal,6.18.12,120,2026-04-03T03:29:35Z
+kata-clh,1,104.86,ip-172-31-21-152.us-west-2.compute.internal,6.18.12,120,2026-04-03T03:33:56Z
+kata-clh,2,104.82,ip-172-31-18-241.us-west-2.compute.internal,6.18.12,120,2026-04-03T03:35:46Z
+kata-clh,3,67.16,ip-172-31-19-97.us-west-2.compute.internal,6.18.12,120,2026-04-03T03:37:36Z
