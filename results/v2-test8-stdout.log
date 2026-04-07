@@ -1,0 +1,362 @@
+[2026-04-07 14:03:24] ============================================================
+[2026-04-07 14:03:24] === Test 8: Pod Overhead Configuration Validation ===
+[2026-04-07 14:03:24] ============================================================
+[2026-04-07 14:03:24] Target node: ip-172-31-18-5.us-west-2.compute.internal (r8i.2xlarge, 8 vCPU, 64GB RAM)
+[2026-04-07 14:03:24] RuntimeClass: kata-qemu
+[2026-04-07 14:03:24] Overhead to test: memory=250Mi, cpu=100m
+[2026-04-07 14:03:24] Pod spec: request=128Mi/50m, limit=256Mi/100m
+[2026-04-07 14:03:24] 
+[2026-04-07 14:03:24] 
+[2026-04-07 14:03:24] ========== PHASE 0: Baseline (no overhead) ==========
+[2026-04-07 14:03:24] Applying RuntimeClass kata-qemu WITHOUT overhead...
+runtimeclass.node.k8s.io/kata-qemu configured
+[2026-04-07 14:03:25] RuntimeClass updated (no overhead).
+[2026-04-07 14:03:28] RuntimeClass overhead before: none
+[2026-04-07 14:03:28] Cleaning up namespace bench8...
+[2026-04-07 14:03:28] Namespace bench8 cleaned.
+[2026-04-07 14:03:29] Deploying host-access privileged pod...
+pod/bench8-hostpod created
+pod/bench8-hostpod condition met
+[2026-04-07 14:03:32] Hostpod ready.
+[2026-04-07 14:03:33] OOM baseline set to 0
+[2026-04-07 14:03:34] Pre-deploy: MemAvailable=61261MiB, scheduler_mem=150Mi, scheduler_cpu=190m
+[2026-04-07 14:03:34] Deploying 1 kata-qemu pod (no overhead)...
+[2026-04-07 14:03:35] Scaling bench8-no-oh to 1 replicas (runtime=kata-qemu, overhead=false)...
+[2026-04-07 14:03:35] Waiting up to 120s for pods to reach Ready state...
+pod/bench8-no-oh-5b4bf6495f-57xfj condition met
+[2026-04-07 14:03:50]   target=1 running=1 pending=0 failed=0 MemAvail=61067MiB sched_mem=278Mi sched_cpu=240m OOM=0
+[2026-04-07 14:03:50] Pod spec overhead (no-overhead RC): '<empty>'
+[2026-04-07 14:03:50] PASS: Pod has no overhead field as expected.
+[2026-04-07 14:03:51] Waiting for pod termination...
+[2026-04-07 14:04:21] 
+[2026-04-07 14:04:21] ========== PHASE 1: Apply Pod Overhead ==========
+[2026-04-07 14:04:21] Applying RuntimeClass kata-qemu WITH overhead (mem=250Mi, cpu=100m)...
+runtimeclass.node.k8s.io/kata-qemu configured
+[2026-04-07 14:04:22] RuntimeClass updated (with overhead).
+[2026-04-07 14:04:24] RuntimeClass overhead: {"cpu":"100m","memory":"250Mi"}
+[2026-04-07 14:04:24] PASS: RuntimeClass overhead configured successfully.
+[2026-04-07 14:04:24] RuntimeClass after update:
+[2026-04-07 14:04:24] overhead:
+  podFixed:
+    cpu: 100m
+    memory: 250Mi
+scheduling:
+  nodeSelector:
+[2026-04-07 14:04:24] 
+[2026-04-07 14:04:24] ========== PHASE 2: Verify Overhead Injection ==========
+[2026-04-07 14:04:24] Deploying 1 kata-qemu pod (with overhead)...
+[2026-04-07 14:04:25] Scaling bench8-with-oh to 1 replicas (runtime=kata-qemu, overhead=true)...
+[2026-04-07 14:04:26] Waiting up to 120s for pods to reach Ready state...
+pod/bench8-with-oh-74c9b664cb-bznr9 condition met
+[2026-04-07 14:04:39]   target=1 running=1 pending=0 failed=0 MemAvail=61076MiB sched_mem=528Mi sched_cpu=340m OOM=0
+[2026-04-07 14:04:40] Pod spec overhead (with-overhead RC): '{"cpu":"100m","memory":"250Mi"}'
+[2026-04-07 14:04:41] PASS: Pod overhead injected — memory=250Mi, cpu=100m
+[2026-04-07 14:04:41] Scheduler sees: mem_requests=528Mi, cpu_requests=340m
+[2026-04-07 14:04:41] Expected: mem >= 378Mi (container + overhead), cpu >= 150m
+[2026-04-07 14:04:41] PASS: Pod running normally with overhead.
+[2026-04-07 14:05:12] 
+[2026-04-07 14:05:12] ========== PHASE 3: Scale Test WITHOUT Overhead ==========
+[2026-04-07 14:05:12] Applying RuntimeClass kata-qemu WITHOUT overhead...
+runtimeclass.node.k8s.io/kata-qemu configured
+[2026-04-07 14:05:13] RuntimeClass updated (no overhead).
+[2026-04-07 14:05:15] OOM baseline set to 0
+[2026-04-07 14:05:16] 
+[2026-04-07 14:05:16] --- Phase 3: Scaling to 10 pods (no overhead) ---
+[2026-04-07 14:05:16] Scaling bench8-scale-no-oh to 10 replicas (runtime=kata-qemu, overhead=false)...
+[2026-04-07 14:05:16] Waiting up to 120s for pods to reach Ready state...
+pod/bench8-scale-no-oh-5f84bcbdb6-7zbtz condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-bdgsm condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-jxs5v condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-mjq67 condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-pwprf condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-rrntx condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-ts5wp condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-vkbgg condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-wgkmk condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-zng4t condition met
+[2026-04-07 14:05:33]   target=10 running=10 pending=0 failed=0 MemAvail=59239MiB sched_mem=1430Mi sched_cpu=690m OOM=0
+[2026-04-07 14:05:33] 
+[2026-04-07 14:05:33] --- Phase 3: Scaling to 20 pods (no overhead) ---
+[2026-04-07 14:05:33] Scaling bench8-scale-no-oh to 20 replicas (runtime=kata-qemu, overhead=false)...
+[2026-04-07 14:05:34] Waiting up to 120s for pods to reach Ready state...
+pod/bench8-scale-no-oh-5f84bcbdb6-7zbtz condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-b5fk6 condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-bdgsm condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-crzgl condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-cz8q8 condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-hgfrl condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-jxs5v condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-mjq67 condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-ng6bq condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-pfnjc condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-pwprf condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-r87ww condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-rrntx condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-ts5wp condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-v9s8w condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-vkbgg condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-wgkmk condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-wqrg6 condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-zng4t condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-ztt5k condition met
+[2026-04-07 14:05:52]   target=20 running=20 pending=0 failed=0 MemAvail=57165MiB sched_mem=2710Mi sched_cpu=1190m OOM=0
+[2026-04-07 14:05:52] 
+[2026-04-07 14:05:52] --- Phase 3: Scaling to 30 pods (no overhead) ---
+[2026-04-07 14:05:52] Scaling bench8-scale-no-oh to 30 replicas (runtime=kata-qemu, overhead=false)...
+[2026-04-07 14:05:52] Waiting up to 120s for pods to reach Ready state...
+pod/bench8-scale-no-oh-5f84bcbdb6-2nh9c condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-4kp7c condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-4r9bt condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-5tb2l condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-7zbtz condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-8tk85 condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-9bjdf condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-b5fk6 condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-bdgsm condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-cnl5t condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-crzgl condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-cz8q8 condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-gdc4r condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-gwhf4 condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-hgfrl condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-jxs5v condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-mjq67 condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-ng6bq condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-pfnjc condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-pwprf condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-r87ww condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-rrntx condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-ts5wp condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-v9s8w condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-vkbgg condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-w9vrh condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-wgkmk condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-wqrg6 condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-zng4t condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-ztt5k condition met
+[2026-04-07 14:06:24]   target=30 running=30 pending=0 failed=0 MemAvail=55075MiB sched_mem=3990Mi sched_cpu=1690m OOM=0
+[2026-04-07 14:06:24] 
+[2026-04-07 14:06:24] --- Phase 3: Scaling to 40 pods (no overhead) ---
+[2026-04-07 14:06:24] Scaling bench8-scale-no-oh to 40 replicas (runtime=kata-qemu, overhead=false)...
+[2026-04-07 14:06:25] Waiting up to 120s for pods to reach Ready state...
+pod/bench8-scale-no-oh-5f84bcbdb6-2nh9c condition met
+[2026-04-07 14:08:52]   target=40 running=34 pending=0 failed=0 MemAvail=52978MiB sched_mem=5270Mi sched_cpu=2190m OOM=0
+[2026-04-07 14:08:52] 
+[2026-04-07 14:08:52] --- Phase 3: Scaling to 50 pods (no overhead) ---
+[2026-04-07 14:08:52] Scaling bench8-scale-no-oh to 50 replicas (runtime=kata-qemu, overhead=false)...
+[2026-04-07 14:08:53] Waiting up to 120s for pods to reach Ready state...
+pod/bench8-scale-no-oh-5f84bcbdb6-2nh9c condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-2r227 condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-4kp7c condition met
+pod/bench8-scale-no-oh-5f84bcbdb6-4r9bt condition met
+[2026-04-07 14:11:22]   target=50 running=40 pending=0 failed=0 MemAvail=52988MiB sched_mem=6550Mi sched_cpu=2690m OOM=0
+[2026-04-07 14:11:23] Phase 3 final scheduler state: mem=6550Mi, cpu=2690m
+[2026-04-07 14:11:23] Waiting for pod termination...
+[2026-04-07 14:12:23] 
+[2026-04-07 14:12:23] ========== PHASE 4: Scale Test WITH Overhead ==========
+[2026-04-07 14:12:23] Applying RuntimeClass kata-qemu WITH overhead (mem=250Mi, cpu=100m)...
+runtimeclass.node.k8s.io/kata-qemu configured
+[2026-04-07 14:12:24] RuntimeClass updated (with overhead).
+[2026-04-07 14:12:26] OOM baseline set to 0
+[2026-04-07 14:12:27] 
+[2026-04-07 14:12:27] --- Phase 4: Scaling to 10 pods (with overhead) ---
+[2026-04-07 14:12:27] Scaling bench8-scale-oh to 10 replicas (runtime=kata-qemu, overhead=true)...
+[2026-04-07 14:12:27] Waiting up to 120s for pods to reach Ready state...
+pod/bench8-scale-oh-9b8dc4fdd-547w9 condition met
+pod/bench8-scale-oh-9b8dc4fdd-5b9w4 condition met
+pod/bench8-scale-oh-9b8dc4fdd-5v8b5 condition met
+pod/bench8-scale-oh-9b8dc4fdd-65t7s condition met
+pod/bench8-scale-oh-9b8dc4fdd-l28j8 condition met
+pod/bench8-scale-oh-9b8dc4fdd-lb7xl condition met
+pod/bench8-scale-oh-9b8dc4fdd-nl8mn condition met
+pod/bench8-scale-oh-9b8dc4fdd-rjk8c condition met
+pod/bench8-scale-oh-9b8dc4fdd-zmcn5 condition met
+pod/bench8-scale-oh-9b8dc4fdd-zzd7p condition met
+[2026-04-07 14:13:24]   target=10 running=10 pending=0 failed=0 MemAvail=59209MiB sched_mem=3930Mi sched_cpu=1690m OOM=0
+[2026-04-07 14:13:24] 
+[2026-04-07 14:13:24] --- Phase 4: Scaling to 20 pods (with overhead) ---
+[2026-04-07 14:13:24] Scaling bench8-scale-oh to 20 replicas (runtime=kata-qemu, overhead=true)...
+[2026-04-07 14:13:25] Waiting up to 120s for pods to reach Ready state...
+pod/bench8-scale-oh-9b8dc4fdd-2dmh5 condition met
+pod/bench8-scale-oh-9b8dc4fdd-2tcg7 condition met
+pod/bench8-scale-oh-9b8dc4fdd-452df condition met
+pod/bench8-scale-oh-9b8dc4fdd-547w9 condition met
+pod/bench8-scale-oh-9b8dc4fdd-5b9w4 condition met
+pod/bench8-scale-oh-9b8dc4fdd-5fnj4 condition met
+pod/bench8-scale-oh-9b8dc4fdd-5v8b5 condition met
+pod/bench8-scale-oh-9b8dc4fdd-65t7s condition met
+pod/bench8-scale-oh-9b8dc4fdd-698cj condition met
+pod/bench8-scale-oh-9b8dc4fdd-849rh condition met
+pod/bench8-scale-oh-9b8dc4fdd-drnrt condition met
+pod/bench8-scale-oh-9b8dc4fdd-jsbft condition met
+pod/bench8-scale-oh-9b8dc4fdd-l28j8 condition met
+pod/bench8-scale-oh-9b8dc4fdd-lb7xl condition met
+pod/bench8-scale-oh-9b8dc4fdd-nl8mn condition met
+pod/bench8-scale-oh-9b8dc4fdd-rjk8c condition met
+pod/bench8-scale-oh-9b8dc4fdd-xx689 condition met
+pod/bench8-scale-oh-9b8dc4fdd-zkrcc condition met
+pod/bench8-scale-oh-9b8dc4fdd-zmcn5 condition met
+pod/bench8-scale-oh-9b8dc4fdd-zzd7p condition met
+[2026-04-07 14:13:43]   target=20 running=20 pending=0 failed=0 MemAvail=57151MiB sched_mem=7710Mi sched_cpu=3190m OOM=0
+[2026-04-07 14:13:43] 
+[2026-04-07 14:13:43] --- Phase 4: Scaling to 30 pods (with overhead) ---
+[2026-04-07 14:13:43] Scaling bench8-scale-oh to 30 replicas (runtime=kata-qemu, overhead=true)...
+[2026-04-07 14:13:44] Waiting up to 120s for pods to reach Ready state...
+pod/bench8-scale-oh-9b8dc4fdd-2dmh5 condition met
+pod/bench8-scale-oh-9b8dc4fdd-2tcg7 condition met
+pod/bench8-scale-oh-9b8dc4fdd-452df condition met
+pod/bench8-scale-oh-9b8dc4fdd-49prx condition met
+pod/bench8-scale-oh-9b8dc4fdd-547w9 condition met
+pod/bench8-scale-oh-9b8dc4fdd-5b9w4 condition met
+pod/bench8-scale-oh-9b8dc4fdd-5fnj4 condition met
+pod/bench8-scale-oh-9b8dc4fdd-5v8b5 condition met
+pod/bench8-scale-oh-9b8dc4fdd-65t7s condition met
+pod/bench8-scale-oh-9b8dc4fdd-698cj condition met
+pod/bench8-scale-oh-9b8dc4fdd-849rh condition met
+pod/bench8-scale-oh-9b8dc4fdd-9x46f condition met
+pod/bench8-scale-oh-9b8dc4fdd-bqdr2 condition met
+pod/bench8-scale-oh-9b8dc4fdd-drnrt condition met
+pod/bench8-scale-oh-9b8dc4fdd-fdv5k condition met
+pod/bench8-scale-oh-9b8dc4fdd-gphbg condition met
+pod/bench8-scale-oh-9b8dc4fdd-jsbft condition met
+pod/bench8-scale-oh-9b8dc4fdd-jt5fl condition met
+pod/bench8-scale-oh-9b8dc4fdd-kcc29 condition met
+pod/bench8-scale-oh-9b8dc4fdd-l28j8 condition met
+pod/bench8-scale-oh-9b8dc4fdd-lb7xl condition met
+pod/bench8-scale-oh-9b8dc4fdd-nl8mn condition met
+pod/bench8-scale-oh-9b8dc4fdd-qjb4w condition met
+pod/bench8-scale-oh-9b8dc4fdd-rjk8c condition met
+pod/bench8-scale-oh-9b8dc4fdd-t8ttd condition met
+pod/bench8-scale-oh-9b8dc4fdd-w6c6p condition met
+pod/bench8-scale-oh-9b8dc4fdd-xx689 condition met
+pod/bench8-scale-oh-9b8dc4fdd-zkrcc condition met
+pod/bench8-scale-oh-9b8dc4fdd-zmcn5 condition met
+pod/bench8-scale-oh-9b8dc4fdd-zzd7p condition met
+[2026-04-07 14:14:15]   target=30 running=30 pending=0 failed=0 MemAvail=55036MiB sched_mem=11490Mi sched_cpu=4690m OOM=0
+[2026-04-07 14:14:15] 
+[2026-04-07 14:14:15] --- Phase 4: Scaling to 40 pods (with overhead) ---
+[2026-04-07 14:14:15] Scaling bench8-scale-oh to 40 replicas (runtime=kata-qemu, overhead=true)...
+[2026-04-07 14:14:15] Waiting up to 120s for pods to reach Ready state...
+pod/bench8-scale-oh-9b8dc4fdd-2dmh5 condition met
+pod/bench8-scale-oh-9b8dc4fdd-2tcg7 condition met
+pod/bench8-scale-oh-9b8dc4fdd-452df condition met
+pod/bench8-scale-oh-9b8dc4fdd-49prx condition met
+pod/bench8-scale-oh-9b8dc4fdd-547w9 condition met
+pod/bench8-scale-oh-9b8dc4fdd-5b9w4 condition met
+pod/bench8-scale-oh-9b8dc4fdd-5fnj4 condition met
+pod/bench8-scale-oh-9b8dc4fdd-5v8b5 condition met
+pod/bench8-scale-oh-9b8dc4fdd-65t7s condition met
+pod/bench8-scale-oh-9b8dc4fdd-698cj condition met
+pod/bench8-scale-oh-9b8dc4fdd-849rh condition met
+[2026-04-07 14:16:57]   target=40 running=35 pending=0 failed=0 MemAvail=N/AMiB sched_mem=15270Mi sched_cpu=6190m OOM=0
+[2026-04-07 14:16:57] 
+[2026-04-07 14:16:57] --- Phase 4: Scaling to 50 pods (with overhead) ---
+[2026-04-07 14:16:57] Scaling bench8-scale-oh to 50 replicas (runtime=kata-qemu, overhead=true)...
+[2026-04-07 14:16:57] Waiting up to 120s for pods to reach Ready state...
+pod/bench8-scale-oh-9b8dc4fdd-2dmh5 condition met
+pod/bench8-scale-oh-9b8dc4fdd-2tcg7 condition met
+pod/bench8-scale-oh-9b8dc4fdd-452df condition met
+pod/bench8-scale-oh-9b8dc4fdd-49prx condition met
+[2026-04-07 14:19:39]   target=50 running=40 pending=0 failed=0 MemAvail=N/AMiB sched_mem=19050Mi sched_cpu=7690m OOM=0
+[2026-04-07 14:19:40] Phase 4 final scheduler state: mem=19050Mi, cpu=7690m
+[2026-04-07 14:20:40] 
+[2026-04-07 14:20:40] ========== PHASE 5: Memory Pressure Validation (stress-ng, with overhead) ==========
+[2026-04-07 14:20:41] RuntimeClass overhead: {"cpu":"100m","memory":"250Mi"}
+[2026-04-07 14:20:43] OOM baseline set to 0
+[2026-04-07 14:20:44] 
+[2026-04-07 14:20:44] --- Phase 5: Scaling stress-ng pods to 5 (256Mi each, with overhead) ---
+[2026-04-07 14:20:44] Waiting up to 180s for pods...
+pod/bench8-stress-7ff8d494b8-6rm4d condition met
+pod/bench8-stress-7ff8d494b8-dftp6 condition met
+pod/bench8-stress-7ff8d494b8-vhh2n condition met
+pod/bench8-stress-7ff8d494b8-vwjw8 condition met
+pod/bench8-stress-7ff8d494b8-wk8g2 condition met
+[2026-04-07 14:23:01]   target=5 running=5 pending=0 failed=0 MemAvail=58879MiB sched_mem=2680Mi sched_cpu=940m OOM=0
+[2026-04-07 14:23:01] 
+[2026-04-07 14:23:01] --- Phase 5: Scaling stress-ng pods to 10 (256Mi each, with overhead) ---
+[2026-04-07 14:23:01] Waiting up to 180s for pods...
+pod/bench8-stress-7ff8d494b8-5g8fb condition met
+pod/bench8-stress-7ff8d494b8-6qlt2 condition met
+pod/bench8-stress-7ff8d494b8-6rm4d condition met
+pod/bench8-stress-7ff8d494b8-dftp6 condition met
+pod/bench8-stress-7ff8d494b8-k2jrk condition met
+pod/bench8-stress-7ff8d494b8-vhh2n condition met
+pod/bench8-stress-7ff8d494b8-vwjw8 condition met
+pod/bench8-stress-7ff8d494b8-wk8g2 condition met
+pod/bench8-stress-7ff8d494b8-xxfgd condition met
+pod/bench8-stress-7ff8d494b8-zt8wq condition met
+[2026-04-07 14:23:23]   target=10 running=10 pending=0 failed=0 MemAvail=56492MiB sched_mem=5210Mi sched_cpu=1690m OOM=0
+[2026-04-07 14:23:23] 
+[2026-04-07 14:23:23] --- Phase 5: Scaling stress-ng pods to 15 (256Mi each, with overhead) ---
+[2026-04-07 14:23:23] Waiting up to 180s for pods...
+pod/bench8-stress-7ff8d494b8-5g8fb condition met
+pod/bench8-stress-7ff8d494b8-5pcvj condition met
+pod/bench8-stress-7ff8d494b8-6qlt2 condition met
+pod/bench8-stress-7ff8d494b8-6rm4d condition met
+pod/bench8-stress-7ff8d494b8-dftp6 condition met
+pod/bench8-stress-7ff8d494b8-hf6n6 condition met
+pod/bench8-stress-7ff8d494b8-jf6s8 condition met
+pod/bench8-stress-7ff8d494b8-k2jrk condition met
+pod/bench8-stress-7ff8d494b8-t4l9h condition met
+pod/bench8-stress-7ff8d494b8-vhh2n condition met
+pod/bench8-stress-7ff8d494b8-vwjw8 condition met
+pod/bench8-stress-7ff8d494b8-wk8g2 condition met
+pod/bench8-stress-7ff8d494b8-xcxm8 condition met
+pod/bench8-stress-7ff8d494b8-xxfgd condition met
+pod/bench8-stress-7ff8d494b8-zt8wq condition met
+[2026-04-07 14:24:00]   target=15 running=15 pending=0 failed=0 MemAvail=54142MiB sched_mem=7740Mi sched_cpu=2440m OOM=0
+[2026-04-07 14:24:00] 
+[2026-04-07 14:24:00] --- Phase 5: Scaling stress-ng pods to 20 (256Mi each, with overhead) ---
+[2026-04-07 14:24:01] Waiting up to 180s for pods...
+pod/bench8-stress-7ff8d494b8-5g8fb condition met
+pod/bench8-stress-7ff8d494b8-5pcvj condition met
+pod/bench8-stress-7ff8d494b8-6qlt2 condition met
+pod/bench8-stress-7ff8d494b8-6rm4d condition met
+pod/bench8-stress-7ff8d494b8-7tfpj condition met
+pod/bench8-stress-7ff8d494b8-d6mw4 condition met
+pod/bench8-stress-7ff8d494b8-dftp6 condition met
+pod/bench8-stress-7ff8d494b8-hf6n6 condition met
+pod/bench8-stress-7ff8d494b8-jf6s8 condition met
+pod/bench8-stress-7ff8d494b8-k2jrk condition met
+pod/bench8-stress-7ff8d494b8-qtdmd condition met
+pod/bench8-stress-7ff8d494b8-t4l9h condition met
+pod/bench8-stress-7ff8d494b8-vhh2n condition met
+pod/bench8-stress-7ff8d494b8-vwjw8 condition met
+pod/bench8-stress-7ff8d494b8-wk8g2 condition met
+pod/bench8-stress-7ff8d494b8-xcxm8 condition met
+pod/bench8-stress-7ff8d494b8-xnlrn condition met
+pod/bench8-stress-7ff8d494b8-xvwqw condition met
+pod/bench8-stress-7ff8d494b8-xxfgd condition met
+pod/bench8-stress-7ff8d494b8-zt8wq condition met
+[2026-04-07 14:24:23]   target=20 running=20 pending=0 failed=0 MemAvail=51768MiB sched_mem=10270Mi sched_cpu=3190m OOM=0
+[2026-04-07 14:24:23] 
+[2026-04-07 14:24:23] --- Phase 5: Scaling stress-ng pods to 25 (256Mi each, with overhead) ---
+[2026-04-07 14:24:23] Waiting up to 180s for pods...
+pod/bench8-stress-7ff8d494b8-5g8fb condition met
+pod/bench8-stress-7ff8d494b8-5pcvj condition met
+pod/bench8-stress-7ff8d494b8-6qlt2 condition met
+pod/bench8-stress-7ff8d494b8-6rm4d condition met
+pod/bench8-stress-7ff8d494b8-7tfpj condition met
+pod/bench8-stress-7ff8d494b8-d6mw4 condition met
+pod/bench8-stress-7ff8d494b8-dftp6 condition met
+pod/bench8-stress-7ff8d494b8-hf6n6 condition met
+pod/bench8-stress-7ff8d494b8-jf6s8 condition met
+pod/bench8-stress-7ff8d494b8-k2jrk condition met
+pod/bench8-stress-7ff8d494b8-kt8wf condition met
+pod/bench8-stress-7ff8d494b8-nltcm condition met
+pod/bench8-stress-7ff8d494b8-pkw2f condition met
+pod/bench8-stress-7ff8d494b8-qtdmd condition met
+pod/bench8-stress-7ff8d494b8-rfs7z condition met
+pod/bench8-stress-7ff8d494b8-swpdh condition met
+pod/bench8-stress-7ff8d494b8-t4l9h condition met
+pod/bench8-stress-7ff8d494b8-vhh2n condition met
+pod/bench8-stress-7ff8d494b8-vwjw8 condition met
+pod/bench8-stress-7ff8d494b8-wk8g2 condition met
+pod/bench8-stress-7ff8d494b8-xcxm8 condition met
+pod/bench8-stress-7ff8d494b8-xnlrn condition met
+pod/bench8-stress-7ff8d494b8-xvwqw condition met
+pod/bench8-stress-7ff8d494b8-xxfgd condition met
+pod/bench8-stress-7ff8d494b8-zt8wq condition met
+[2026-04-07 14:24:45]   target=25 running=25 pending=0 failed=0 MemAvail=49407MiB sched_mem=12800Mi sched_cpu=3940m OOM=0
+[2026-04-07 14:24:45] 
+[2026-04-07 14:24:45] --- Phase 5: Final node resource check ---

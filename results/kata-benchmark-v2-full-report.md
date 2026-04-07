@@ -22,7 +22,9 @@
 8. [Test 5b: 内存超卖稳定性](#8-test-5b-内存超卖稳定性)
 9. [Test 6: 运行时开销](#9-test-6-运行时开销)
 10. [Test 7: 内存占用画像](#10-test-7-内存占用画像)
-11. [综合结论](#11-综合结论)
+11. [Test 8: Pod Overhead 配置验证](#11-test-8-pod-overhead-配置验证)
+12. [综合结论](#12-综合结论)
+13. [生产部署建议](#13-生产部署建议)
 12. [生产部署建议](#12-生产部署建议)
 
 ---
@@ -427,7 +429,110 @@ Kata 数据反而比 runc 快 15-17 倍，原因是 virtiofs 有额外 DAX/page 
 
 ---
 
-## 11. 综合结论
+## 11. Test 8: Pod Overhead 配置验证
+
+### 测试目的
+验证 Kubernetes Pod Overhead 机制能否解决 Test 5b/7 发现的问题：kata-qemu VM 的 ~200 MiB 内存开销对 scheduler 不可见，导致调度决策不准确。
+
+### Overhead 值推导
+
+#### Memory: 250Mi
+
+| 测试 | 方法 | 实测值 | 说明 |
+|------|------|--------|------|
+| Test 7A | host MemAvailable delta（单 pod） | 200-206 MiB | 最直接的 scheduler 视角 |
+| Test 7B | QEMU 进程 VmRSS | 269 MiB | 包含共享库映射 |
+| Test 7D | 不同压力下的净 overhead | 200-255 MiB | overhead 是固定税 |
+| Test 7E | 多 Pod 线性度（1/2/4/8 pods） | 207-213 MiB/pod | 无 VM 间内存共享 |
+| Test 5b | 10 pods 基线对比 | 195 MiB/pod | 大规模验证 |
+
+```
+测试中位数（7A/7E/5b）:  ~207 MiB
++20% buffer:             207 × 1.20 ≈ 248 MiB → 取整 250 MiB
+```
+
+Buffer 覆盖：virtiofs cache 波动、guest 内核 slab 增长、QEMU 设备队列分配。宁可让 scheduler 保守（略多报）也不要过度调度导致 OOM。
+
+#### CPU: 100m
+
+| 来源 | 值 | 说明 |
+|------|-----|------|
+| QEMU idle 进程 (host top) | 20-30m | vCPU 线程 + 事件循环 |
+| virtio-net 网络处理 | 10-20m | VM exit + 虚拟中断 |
+| virtiofs 文件系统 | 10-20m | I/O 请求处理 |
+| Guest 定时器 (HZ=100) | 5-10m | 每秒 100 次 timer interrupt |
+| **总计** | **~50-80m → 取 100m** | 含 buffer |
+
+K8s 官方示例用 250m (Kata+Firecracker)，但我们实测 QEMU idle CPU 远低于此。100m 平衡安全和 pod 密度。
+
+### 测试方法
+
+| 阶段 | 内容 |
+|------|------|
+| Phase 0 | 记录无 overhead 基线（1 kata-qemu pod） |
+| Phase 1-2 | 应用 overhead 到 RuntimeClass，验证 admission controller 注入 |
+| Phase 3 | 无 overhead 调度测试（10→50 pods） |
+| Phase 4 | 有 overhead 调度测试（同规模对比） |
+| Phase 5 | stress-ng 内存压力验证（25 pods × 256MiB） |
+
+### 测试结果
+
+**Overhead 注入验证 ✅**
+
+```bash
+$ kubectl get pod test-kata -o jsonpath='{.spec.overhead}'
+{"cpu":"100m","memory":"250Mi"}
+
+# scheduler 看到的 per-pod request:
+# 无 overhead: 128Mi mem, 50m cpu
+# 有 overhead: 378Mi mem, 150m cpu  (+250Mi, +100m)
+```
+
+**Phase 3 vs 4 调度对比:**
+
+| Pods | 无 Overhead Sched Mem | 有 Overhead Sched Mem | 倍数 | 无 OH Sched CPU | 有 OH Sched CPU |
+|------|----------------------|----------------------|------|----------------|----------------|
+| 10 | 1,430 Mi | 3,930 Mi | 2.75x | 690m | 1,690m |
+| 20 | 2,710 Mi | 7,710 Mi | 2.84x | 1,190m | 3,190m |
+| 30 | 3,990 Mi | 11,490 Mi | **2.88x** | 1,690m | 4,690m |
+| 40 | 5,270 Mi | 15,270 Mi | 2.90x | 2,190m | 6,190m |
+| 50 | 6,550 Mi | 19,050 Mi | **2.91x** | 2,690m | 7,690m |
+
+**内存计账准确性（30 pods）:**
+
+| 指标 | 无 Overhead | 有 Overhead |
+|------|-----------|-----------|
+| Scheduler 认为用了 | 3,990 Mi | 11,490 Mi |
+| Host 实际消耗 | ~6,186 MiB | ~6,225 MiB |
+| 差距 | **-2,196 MiB (36% 不可见)** | **+5,265 MiB (安全侧超报)** |
+
+**Phase 5 内存压力 (stress-ng + overhead):**
+
+| Pods | stress-ng MiB | MemAvailable | Sched Mem | OOM |
+|------|--------------|-------------|-----------|-----|
+| 5 | 256 × 5 | 58,879 MiB | 2,680 Mi | 0 |
+| 10 | 256 × 10 | 56,492 MiB | 5,210 Mi | 0 |
+| 15 | 256 × 15 | 54,142 MiB | 7,740 Mi | 0 |
+| 20 | 256 × 20 | 51,768 MiB | 10,270 Mi | 0 |
+| 25 | 256 × 25 | 49,407 MiB | 12,800 Mi | **0** ✅ |
+
+25 pods × (256Mi stress + ~200Mi VM overhead) = ~11.4 GiB host 内存消耗，MemAvailable 从 61 GiB 降到 49 GiB，全程零 OOM。
+
+### 结果分析
+
+1. **Scheduler 可见性提升 ~3 倍**: 有 overhead 后，scheduler 看到的内存消耗从 6.5 GiB 提升到 19 GiB（50 pods），准确反映 VM 真实开销。
+
+2. **防止过度调度**: 无 overhead 时 scheduler 以为 50 pods 只用 10.4% 内存（实际消耗 ~16%），有 overhead 后报告 30.2%，更接近真实值。
+
+3. **安全侧超报优于低报**: 有 overhead 后 scheduler 略微高估内存消耗（因为 250Mi > 实测 207Mi），这意味着 scheduler 会比实际稍早停止调度，**在正确的方向上犯错**。
+
+4. **CPU 仍是瓶颈**: 在当前配置（request 50m + overhead 100m = 150m/pod）下，8 vCPU 节点的 CPU 约在 50 pods 时饱和。内存保护在**更大节点（如 m8i.4xlarge 16 vCPU）或更低 CPU request** 时更关键。
+
+5. **零 OOM**: 全部 6 个阶段、最高 50 pods + 25 stress-ng pods，零 OOM kill。
+
+---
+
+## 12. 综合结论
 
 ### 开销总览
 
@@ -458,7 +563,30 @@ Kata 数据反而比 runc 快 15-17 倍，原因是 virtiofs 有额外 DAX/page 
 
 ---
 
-## 12. 生产部署建议
+## 13. 生产部署建议
+
+### ⭐ 首要：配置 Pod Overhead（Test 8 验证）
+
+```yaml
+apiVersion: node.k8s.io/v1
+kind: RuntimeClass
+metadata:
+  name: kata-qemu
+handler: kata-qemu
+overhead:
+  podFixed:
+    memory: "250Mi"   # 实测 ~207MiB + 20% buffer
+    cpu: "100m"        # QEMU idle + virtio 处理
+scheduling:
+  nodeSelector:
+    workload-type: kata
+  tolerations:
+  - effect: NoSchedule
+    key: kata-dedicated
+    operator: Exists
+```
+
+**效果**: Scheduler 内存可见性提升 ~3 倍，防止因不可见 VM 开销导致的过度调度。Test 8 验证零 OOM。
 
 ### 容量规划
 
@@ -539,12 +667,15 @@ Kata 数据反而比 runc 快 15-17 倍，原因是 virtiofs 有额外 DAX/page 
 | `v2-test7c-cgroup-vs-top.csv` | 2 条 | cgroup 对比 |
 | `v2-test7d-stress-overhead.csv` | 8 条 | 内存压力测试 |
 | `v2-test7e-multi-pod-linearity.csv` | 8 条 | 多 Pod 线性度 |
+| `v2-test5b-memory-oversell.csv` | 15 条 | 内存超卖 |
+| `v2-test8-pod-overhead.csv` | 多条 | Pod Overhead 验证 |
 
 ### 测试脚本
 
 | 脚本 | 用途 |
 |------|------|
 | `bench-v2.sh` | Test 1-5 主脚本 |
+| `bench-v2-test5b.sh` | Test 5b 内存超卖 |
 | `bench-v2-test7.sh` | Test 7 主脚本 |
+| `bench-v2-test8.sh` | Test 8 Pod Overhead 验证 |
 | `v2-lib.sh` | 公共函数库 |
-| `test7-memory-footprint.sh` | Test 7 设计稿（未直接使用） |
