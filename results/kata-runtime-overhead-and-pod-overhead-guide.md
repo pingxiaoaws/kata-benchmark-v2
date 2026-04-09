@@ -273,17 +273,21 @@ scheduling:             # 可选：限制调度到专用节点
 
 ```
 每节点最大 Kata Pods ≈ min(
-    (Allocatable Memory - System Reserve) / (Container Request + 250Mi),
-    (Allocatable CPU - System Reserve) / (Container CPU Request + 100m)
+    Allocatable Memory / (Container Memory Request + 250Mi),
+    Allocatable CPU / (Container CPU Request + 100m)
 )
+
+# Allocatable 已包含 system reserve 的扣除，直接使用即可：
+kubectl get node <node> -o jsonpath='{.status.allocatable.memory}'  # 内存
+kubectl get node <node> -o jsonpath='{.status.allocatable.cpu}'     # CPU
 ```
 
-**示例**: m8i.4xlarge (16 vCPU / 60 GiB allocatable)，每 Pod request 512Mi / 200m：
+**示例**: m8i.4xlarge (Allocatable: 15800m CPU / 60 GiB Memory)，每 Pod request 512Mi / 200m：
 
 ```
-Memory 维度: (60Gi - 2Gi) / (512Mi + 250Mi) ≈ 78 pods
-CPU 维度:    (15800m - 500m) / (200m + 100m) ≈ 51 pods
-实际上限:    ~51 pods (CPU 先饱和)
+Memory: 60 GiB / (512Mi + 250Mi) ≈ 81 pods
+CPU:    15800m / (200m + 100m)   ≈ 52 pods
+实际上限: ~52 pods (CPU 先饱和)
 ```
 
 ### 6.3 注意事项
