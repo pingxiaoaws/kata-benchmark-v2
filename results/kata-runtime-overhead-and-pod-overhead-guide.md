@@ -171,11 +171,11 @@ overhead:
 ```
 
 **影响范围：**
-- ✅ Scheduler 调度决策（request + overhead）
+- ✅ Scheduler 调度决策（effective request = container request + overhead）
 - ✅ ResourceQuota 计算
 - ✅ Kubelet eviction 排序
-- ✅ Pod cgroup limits（limits + overhead）
-- ❌ `kubectl top pod`（仍然只看 cgroup，不含 VM 开销）
+- ⚠️ Pod cgroup limits（kubelet 将 limits + overhead 写入 cgroup 上限，但 kata 的 QEMU 进程运行在 cgroup 之外，实际不受此限制约束）
+- ❌ `kubectl top pod`（读取 cgroup 实时用量，kata-qemu 的 QEMU 进程不在 cgroup 内，仍报 0）
 
 ### 4.3 验证：调度器可见性提升 ~3 倍
 
