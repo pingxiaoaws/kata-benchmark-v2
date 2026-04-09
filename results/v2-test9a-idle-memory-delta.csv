@@ -1,0 +1,7 @@
+test,runtime,round,mem_available_before_MiB,mem_available_after_MiB,delta_MiB,timestamp
+9A,runc,1,61404,61392,12,2026-04-09T13:32:35Z
+9A,runc,2,61403,61393,10,2026-04-09T13:33:09Z
+9A,runc,3,61403,61403,0,2026-04-09T13:33:43Z
+9A,kata-clh,1,61413,61248,165,2026-04-09T13:34:17Z
+9A,kata-clh,2,61406,61237,169,2026-04-09T13:34:51Z
+9A,kata-clh,3,61402,61235,167,2026-04-09T13:35:25Z
