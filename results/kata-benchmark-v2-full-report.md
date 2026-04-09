@@ -23,8 +23,9 @@
 9. [Test 6: 运行时开销](#9-test-6-运行时开销)
 10. [Test 7: 内存占用画像](#10-test-7-内存占用画像)
 11. [Test 8: Pod Overhead 配置验证](#11-test-8-pod-overhead-配置验证)
-12. [综合结论](#12-综合结论)
-13. [生产部署建议](#13-生产部署建议)
+12. [Test 9: kata-clh 内存占用画像](#12-test-9-kata-clh-内存占用画像)
+13. [综合结论](#13-综合结论)
+14. [生产部署建议](#14-生产部署建议)
 12. [生产部署建议](#12-生产部署建议)
 
 ---
@@ -539,7 +540,103 @@ $ kubectl get pod test-kata -o jsonpath='{.spec.overhead}'
 
 ---
 
-## 12. 综合结论
+## 12. Test 9: kata-clh 内存占用画像
+
+### 测试目的
+对 kata-clh (Cloud Hypervisor) 运行与 Test 7 相同的 5 个子测试，量化其 VM 内存开销并与 kata-qemu 直接对比。
+
+### 测试环境
+- 节点: m8i.4xlarge (16 vCPU, 64 GiB RAM)，与 Test 7 同节点
+- 基础镜像: registry.k8s.io/pause:3.10
+- Namespace: bench9
+
+### 9A: 单 Pod Idle 内存 Delta
+
+| 运行时 | Round 1 | Round 2 | Round 3 | **均值** |
+|--------|---------|---------|---------|---------|
+| runc | 12 MiB | 10 MiB | 0 MiB | **7.3 MiB** |
+| kata-clh | 165 MiB | 169 MiB | 167 MiB | **167.0 MiB** |
+
+**对比 Test 7A (kata-qemu)**: kata-qemu 均值 203.7 MiB → kata-clh 低 **18%**。
+
+### 9B: cloud-hypervisor 进程 RSS 分解
+
+| 组件 | kata-clh (Test 9B) | kata-qemu (Test 7B) | CLH 优势 |
+|------|-------------------|--------------------| ---------|
+| RssAnon (堆) | **1.3 MiB** | 16 MiB | -92% |
+| RssFile (库映射) | **3.7 MiB** | 84 MiB | -96% |
+| RssShmem (Guest RAM) | **148 MiB** | 168 MiB | -12% |
+| **VmRSS 合计** | **~150 MiB** | ~269 MiB | **-44%** |
+| PSS | ~149 MiB | ~268 MiB | -44% |
+
+**分析**:
+- Cloud Hypervisor 进程自身极小：Rust 静态编译 + 最小设备集（仅 virtio），堆内存仅 1.3 MiB（QEMU 是 16 MiB）
+- 共享库映射 3.7 MiB（QEMU 因依赖 glib/pixman 等达 84 MiB）
+- Guest RAM 是主要消耗（两者都在 148-168 MiB），这部分与 VMM 选择无关，由 VM 内存配置决定
+- VmRSS ≈ VmHWM，同 QEMU 一样无启动瞬态尖峰
+
+### 9C: Cgroup 内存计账
+
+| 运行时 | cgroup memory.current |
+|--------|----------------------|
+| runc | 0.47 MiB |
+| kata-clh | **0 bytes** |
+
+与 kata-qemu 一致——Cloud Hypervisor 进程同样运行在 Pod cgroup 之外，`kubectl top pod` 对 VM 开销完全不可见。**kata-clh 同样需要 Pod Overhead。**
+
+### 9D: 内存压力下的开销
+
+| stress-ng 分配 | runc Delta | kata-clh Delta | 净 VM 开销 |
+|---------------|-----------|---------------|-----------|
+| 0 MiB | 10 MiB | 202 MiB | **192 MiB** |
+| 256 MiB | 281 MiB | 453 MiB | **172 MiB** |
+| 512 MiB | 533 MiB | 724 MiB | **191 MiB** |
+| 1,024 MiB | 1,043 MiB | 1,265 MiB | **222 MiB** |
+| **均值** | | | **~194 MiB** |
+
+**对比 Test 7D (kata-qemu)**: kata-qemu 均值 ~228 MiB → kata-clh 低 **15%**。
+开销同样保持固定，不随应用内存线性增长——是固定税。
+
+### 9E: 多 Pod 线性度
+
+| Pod 数 | kata-clh 总 Delta | Per-Pod | kata-qemu Per-Pod (Test 7E) |
+|--------|-------------------|---------|----------------------------|
+| 1 | 175 MiB | **175.0 MiB** | 208.0 MiB |
+| 2 | 341 MiB | **170.5 MiB** | 212.5 MiB |
+| 4 | 678 MiB | **169.5 MiB** | 210.2 MiB |
+| 8 | 1,335 MiB | **166.8 MiB** | 207.3 MiB |
+
+与 kata-qemu 一样线性增长，无 VM 间内存共享。Per-pod 开销稳定在 ~167-175 MiB。
+
+### kata-qemu vs kata-clh 内存开销总览
+
+| 指标 | kata-qemu | kata-clh | CLH 优势 |
+|------|-----------|----------|---------|
+| 单 Pod Delta | ~204 MiB | ~167 MiB | **-18%** |
+| VMM 进程 RSS | ~269 MiB | ~150 MiB | **-44%** |
+| VMM 堆内存 (RssAnon) | 16 MiB | 1.3 MiB | **-92%** |
+| VMM 库映射 (RssFile) | 84 MiB | 3.7 MiB | **-96%** |
+| Guest RAM (RssShmem) | 168 MiB | 148 MiB | -12% |
+| Stress 下净开销 | ~228 MiB | ~194 MiB | **-15%** |
+| Per-Pod (8 pods) | 207 MiB | 167 MiB | **-19%** |
+| Cgroup 可见性 | 0 bytes | 0 bytes | 一样盲 |
+
+### 结论
+
+1. **kata-clh 的 VMM 进程比 QEMU 轻 44%**（150 vs 269 MiB RSS），但 per-pod 实际内存开销只低 ~18%（167 vs 204 MiB），因为 Guest RAM 是主体且两者差别不大。
+
+2. **Cgroup 盲区完全一致**，两者都需要 Pod Overhead。
+
+3. **Pod Overhead 建议值**:
+   - kata-qemu: `memory: 250Mi` (实测 204 + 20% buffer)
+   - kata-clh: `memory: 200Mi` (实测 167 + 20% buffer ≈ 200)
+   - 两者 CPU 均为 `100m`
+
+4. 选用 kata-clh 可在相同节点上多放 **~20% 的 Pods**（按内存 overhead 差算），但需权衡 Test 5 发现的**高负载稳定性问题**。
+
+---
+
+## 13. 综合结论
 
 ### 开销总览
 
@@ -570,7 +667,7 @@ $ kubectl get pod test-kata -o jsonpath='{.spec.overhead}'
 
 ---
 
-## 13. 生产部署建议
+## 14. 生产部署建议
 
 ### ⭐ 首要：配置 Pod Overhead（Test 8 验证）
 
