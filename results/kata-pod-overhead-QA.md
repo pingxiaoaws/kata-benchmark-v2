@@ -186,10 +186,10 @@ stress-ng --cpu 4 --timeout 60s
 | | 设置方 | kata-qemu 的情况 |
 |---|-------|-----------------|
 | cgroup **limit** (memory.max) | kubelet 写入 | = container limit + overhead = 506Mi ✅ |
-| cgroup **usage** (memory.current) | 内核实时统计 | = 0（QEMU 不在 cgroup 里）❌ |
-| kubectl top | 读 usage | 报 0 |
+| cgroup **usage** (memory.current) | 内核实时统计 | ≈ 372 KiB（严重低估，实际 RSS ~275 MiB）❌ |
+| kubectl top | 读 usage | 报极低值（接近 0） |
 
-kubelet 确实把 cgroup 上限设高了（limit + overhead），但 QEMU 进程运行在 cgroup 之外，实际不受此限制约束。两者不矛盾——一个是"规则设置"，一个是"实时计量"。
+kubelet 确实把 cgroup 上限设高了（limit + overhead），QEMU 进程也在 pod cgroup 内，但 Guest RAM 通过 /dev/shm + MAP_SHARED 分配、QEMU 共享库是文件映射，cgroupv2 均不计入，导致 `memory.current` 严重低估实际消耗。两者不矛盾——一个是"规则设置"，一个是"实时计量"（但计量严重失真）。
 
 ---
 
@@ -208,7 +208,7 @@ kubelet 确实把 cgroup 上限设高了（limit + overhead），但 QEMU 进程
 | 组件 | 数据来源 | kata-qemu 时的问题 |
 |------|---------|-------------------|
 | Scheduler | Pod spec request（账本） | 只看到 128Mi，不知道还有 200Mi VM |
-| kubectl top | cgroup 实时用量 | 报 0 |
+| kubectl top | cgroup 实时用量 | 报极低值（严重低估） |
 | Kubelet eviction | cgroup + request | 看不到 VM 真实消耗 |
 | Node OOM Killer | /proc/meminfo（内核级） | 能看到，但已经太晚了 |
 
@@ -256,9 +256,9 @@ kubectl get node <node> -o jsonpath='{.status.capacity.memory}'
 
 ---
 
-## Q14: "两种 VMM cgroup 均报 0" 是如何检测的？
+## Q14: "两种 VMM cgroup memory.current 严重低估" 是如何检测的？
 
-通过在 host 上直接读取 cgroup v2 的内存计量文件。
+通过在 host 上直接读取 cgroup v2 的内存计量文件，并与 QEMU 进程的实际 RSS 对比。
 
 ### 步骤 1: 获取 Pod UID
 
@@ -286,8 +286,8 @@ cat /sys/fs/cgroup/.../memory.current
 | 运行时 | `memory.current` | 含义 |
 |--------|------------------|------|
 | runc | 495,616 bytes (0.47 MiB) | ✅ 容器进程 (pause) 的内存，正常 |
-| kata-qemu | **0 bytes** | ❌ cgroup 里只有 kata-shim，QEMU 不在里面 |
-| kata-clh | **0 bytes** | ❌ 同理，cloud-hypervisor 不在 cgroup 里 |
+| kata-qemu | **~381 KiB** | ❌ QEMU 在 pod cgroup 内，但 memory.current 严重低估（实际 RSS ~275 MiB） |
+| kata-clh | **~381 KiB** | ❌ 同理，cloud-hypervisor 在 pod cgroup 内但 memory.current 严重低估 |
 
 ### 原始数据 (CSV)
 
@@ -295,19 +295,27 @@ cat /sys/fs/cgroup/.../memory.current
 # Test 7C (kata-qemu)
 test,runtime,cgroup_memory_current_bytes
 7C,runc,495616
-7C,kata-qemu,0
+7C,kata-qemu,~390144    # ~381 KiB，严重低估
 
 # Test 9C (kata-clh)
 test,runtime,cgroup_memory_current_bytes
 9C,runc,495616
-9C,kata-clh,0
+9C,kata-clh,~390144     # ~381 KiB，严重低估
 ```
 
-### 为什么是 0？
+### 为什么严重低估？
 
 `memory.current` 是 cgroup v2 的实时内存计量文件——内核将属于该 cgroup 的**所有进程**的内存用量累加到此。`kubectl top` 和 Metrics Server 最终读的就是这个值。
 
-对于 Kata Pod，cgroup 里只有一个轻量的 `kata-shim` 进程（负责 gRPC 通信），而真正消耗内存的 QEMU / cloud-hypervisor 进程是由 Kata runtime 在 **host 级别 fork 出来的**，不属于 Pod 的 cgroup 层级，因此不被计入。
+QEMU 进程**确实在 pod cgroup 内**（通过 `/proc/<qemu-pid>/cgroup` 可确认其 cgroup 路径包含 pod UID），但 `memory.current` 仅报 ~372 KiB，远低于 QEMU 的实际 RSS (~275 MiB)。原因在于 cgroupv2 的内存统计规则：
+
+| QEMU 内存组成 | 大小 | cgroupv2 是否计入 | 原因 |
+|---------------|------|------------------|------|
+| Guest RAM (通过 /dev/shm + MAP_SHARED) | ~169 MiB | ❌ 不计入 | 共享内存映射（shmem），cgroupv2 不计入 |
+| QEMU 二进制 + 共享库 (文件映射) | ~84 MiB | ❌ 不计入 | 文件映射属于 page cache，可回收 |
+| RssAnon (匿名页) | ~16 MiB | ✅ 计入 | 仅此部分被 cgroup 统计 |
+
+因此 `memory.current` 仅反映了极小一部分实际消耗，导致 `kubectl top` 对 Kata Pod 报出极低值。
 
 ---
 
@@ -318,15 +326,15 @@ test,runtime,cgroup_memory_current_bytes
 | | Pod Overhead | `sandbox_cgroup_only = true` |
 |---|---|---|
 | **作用层** | Kubernetes 调度器 | Kata 运行时 |
-| **解决什么** | 让调度器知道每个 Pod 还需要额外 250Mi/100m，**调度时预留空间** | 让 Kata 把 VMM 进程（QEMU、I/O 线程、Shim）**放进 Pod cgroup 内**，而不是放到不受限的 `/kata_overhead/` |
-| **不配的后果** | 调度器低估资源 → 节点过载 → OOM | VMM 跑在 cgroup 外 → 无资源隔离，`kubectl top` 报 0 |
+| **解决什么** | 让调度器知道每个 Pod 还需要额外 250Mi/100m，**调度时预留空间** | 让 Kata 把 VMM 进程（QEMU、I/O 线程、Shim）**放进 Pod cgroup 内并受其 limit 约束**，而不是放到不受限的 `/kata_overhead/` |
+| **不配的后果** | 调度器低估资源 → 节点过载 → OOM | VMM 可能跑在不受限 cgroup 里 → 无资源隔离，`kubectl top` 严重低估 |
 
 简单说：
 
 - **Pod Overhead** = 告诉 K8s："这个 Pod 要多占 250Mi" → Kubelet 把 Pod cgroup **撑大**
 - **`sandbox_cgroup_only = true`** = 告诉 Kata："把 VMM 进程放进这个撑大的 cgroup 里"
 
-如果只配 Pod Overhead 不开 `sandbox_cgroup_only`：调度器算对了，但 VMM 还是跑在 `/kata_overhead/` 不受限 cgroup 里，cgroup 统计还是不准。
+如果只配 Pod Overhead 不开 `sandbox_cgroup_only`：调度器算对了，但 VMM 还是跑在 `/kata_overhead/` 不受限 cgroup 里，不受 Pod cgroup 的 limit 约束。
 
 如果只开 `sandbox_cgroup_only` 不配 Pod Overhead：Kata 把 VMM 塞进 Pod cgroup，但 cgroup 没有被撑大（只按容器 request 分配），VMM 和容器抢资源 → 性能下降甚至 OOM。
 
@@ -336,30 +344,30 @@ test,runtime,cgroup_memory_current_bytes
 
 ---
 
-## Q16: `kubectl top` 报 0 有什么实际影响？
+## Q16: `kubectl top` 严重低估有什么实际影响？
 
-`kubectl top` 报 0 的影响主要在**可观测性和自动扩缩**，但对调度和节点稳定性影响不大：
+`kubectl top` 对 Kata Pod 报极低值（接近 0）的影响主要在**可观测性和自动扩缩**，但对调度和节点稳定性影响不大：
 
 ### 有影响的场景
 
 | 场景 | 影响 |
 |------|------|
-| **HPA 自动扩缩** | 如果用 `metrics.k8s.io`（即 metrics-server / `kubectl top` 的数据源）做内存型 HPA，永远看到 0 → 永远不会触发扩容 ❌ |
-| **运维排查** | `kubectl top pod` 看不到 Kata Pod 真实资源消耗，排障时会误判 |
-| **Grafana/Prometheus 面板** | 如果 dashboard 用 `container_memory_working_set_bytes`（来自 cAdvisor/cgroup），Kata Pod 全部显示 0，监控形同虚设 |
-| **VPA** | Vertical Pod Autoscaler 基于历史 metrics 推荐 request，数据是 0 就推荐不出合理值 |
+| **HPA 自动扩缩** | 如果用 `metrics.k8s.io`（即 metrics-server / `kubectl top` 的数据源）做内存型 HPA，看到的值接近 0 → 永远不会触发扩容 ❌ |
+| **运维排查** | `kubectl top pod` 看不到 Kata Pod 真实资源消耗（严重低估），排障时会误判 |
+| **Grafana/Prometheus 面板** | 如果 dashboard 用 `container_memory_working_set_bytes`（来自 cAdvisor/cgroup），Kata Pod 全部显示极低值，监控形同虚设 |
+| **VPA** | Vertical Pod Autoscaler 基于历史 metrics 推荐 request，数据严重偏低就推荐不出合理值 |
 
 ### 没影响的场景
 
 | 场景 | 为什么没影响 |
 |------|------------|
-| **调度器** | 调度器**从来不看** `kubectl top` 的数据，它只做 request 加减法（纯账本制），所以 Pod Overhead 能完全解决调度准确性 |
+| **调度器** | 调度器**从来不看** `kubectl top` 的数据，它只做 request 加减法（纯账本制），所以 Pod Overhead 能完全解决调度准确性问题 |
 | **Kubelet eviction** | Kubelet 看的是 node 级别的 `memory.available`（来自 `/proc/meminfo`），不是 Pod cgroup，所以 VMM 吃的内存在 eviction 判断中是可见的 |
 | **OOM Killer** | 内核 OOM Killer 看的是整个系统内存压力，不依赖 cgroup 统计 |
 
 ### 解决方案
 
-如果依赖 metrics-server 数据做 HPA 或监控，需要换数据源——比如用 node_exporter 的 `node_memory_MemAvailable` 或在 VM 内装 agent 导出 metrics。配合 Q15 中的 `sandbox_cgroup_only = true`，可以让 VMM 进程回到 Pod cgroup 内，从而恢复 `kubectl top` 的准确性。
+如果依赖 metrics-server 数据做 HPA 或监控，需要换数据源——比如用 node_exporter 的 `node_memory_MemAvailable` 或在 VM 内装 agent 导出 metrics。注意：即使配合 Q15 中的 `sandbox_cgroup_only = true` 确保 VMM 在 Pod cgroup 内，由于 Guest RAM（/dev/shm + MAP_SHARED）和文件映射本身不被 cgroupv2 计入，`kubectl top` 的低估问题仍然存在。
 
 ---
 
@@ -384,7 +392,7 @@ Node Allocatable:     60 GiB     ← 固定值（capacity - system-reserved - ku
 
 所以哪怕节点实际内存已经快爆了，只要账本上还有余额，scheduler 照样往上面塞 Pod。反过来，节点实际很空闲但账本满了，新 Pod 就会 Pending。
 
-**Pod Overhead 不是让调度器"看到"cgroup——而是在账本层面把 VM 开销补上去。** 这就是为什么 Pod Overhead 能解决调度准确性问题，而跟 `kubectl top` 报不报 0 完全无关。
+**Pod Overhead 不是让调度器"看到"cgroup——而是在账本层面把 VM 开销补上去。** 这就是为什么 Pod Overhead 能解决调度准确性问题，而跟 `kubectl top` 是否严重低估完全无关。
 
 ---
 
