@@ -22,10 +22,11 @@
 8. [Test 5b: 内存超卖稳定性](#8-test-5b-内存超卖稳定性)
 9. [Test 6: 运行时开销](#9-test-6-运行时开销)
 10. [Test 7: 内存占用画像](#10-test-7-内存占用画像)
-11. [Test 8: Pod Overhead 配置验证](#11-test-8-pod-overhead-配置验证)
+11. [Test 8: Pod Overhead 配置验证 (kata-qemu)](#11-test-8-pod-overhead-配置验证-kata-qemu)
 12. [Test 9: kata-clh 内存占用画像](#12-test-9-kata-clh-内存占用画像)
-13. [综合结论](#13-综合结论)
-14. [生产部署建议](#14-生产部署建议)
+13. [Test 10: Pod Overhead 配置验证 (kata-clh)](#13-test-10-pod-overhead-配置验证-kata-clh)
+14. [综合结论](#14-综合结论)
+15. [生产部署建议](#15-生产部署建议)
 12. [生产部署建议](#12-生产部署建议)
 
 ---
@@ -636,7 +637,76 @@ $ kubectl get pod test-kata -o jsonpath='{.spec.overhead}'
 
 ---
 
-## 13. 综合结论
+## 13. Test 10: Pod Overhead 配置验证 (kata-clh)
+
+### 测试目的
+对 kata-clh 做与 Test 8 (kata-qemu) 相同的 Pod Overhead 验证，确认 K8s Pod Overhead 机制在 Cloud Hypervisor 运行时下同样有效。
+
+### 测试环境
+- 节点: r8i.2xlarge (8 vCPU, 64GB RAM)，与 Test 8 同节点
+- Overhead: `memory: 200Mi, cpu: 100m`（基于 Test 9 实测 167 MiB + 20% buffer）
+- Pod 配置: pause 容器，request 128Mi/50m, limit 256Mi/100m
+
+### Overhead 注入验证 ✅
+
+```bash
+# RuntimeClass 配置（源头）
+$ kubectl get runtimeclass kata-clh -o jsonpath='{.overhead.podFixed}'
+{"cpu":"100m","memory":"200Mi"}
+
+# Pod 创建后自动注入（验证注入成功）
+$ kubectl get pod test-clh -o jsonpath='{.spec.overhead}'
+{"cpu":"100m","memory":"200Mi"}
+
+# Effective request: 128Mi+200Mi=328Mi, 50m+100m=150m
+```
+
+### Phase 3 vs 4 调度对比
+
+| Pods | 无 OH Sched Mem | 有 OH Sched Mem | 倍数 | 无 OH Running | 有 OH Running | 无 OH Failed | 有 OH Failed |
+|------|----------------|----------------|------|--------------|--------------|-------------|-------------|
+| 10 | 1,430 Mi | 3,558 Mi | 2.49x | 10 | 10 | 0 | 0 |
+| 20 | 2,710 Mi | 6,838 Mi | 2.52x | 20 | 20 | 0 | 0 |
+| 30 | 3,990 Mi | 9,990 Mi | 2.50x | 30 | 30 | 0 | 0 |
+| 40 | 5,270 Mi | 13,270 Mi | 2.52x | 33 | 30 | **3** | **1** |
+| 50 | 6,550 Mi | 16,550 Mi | 2.53x | 36 | 35 | **1** | **3** |
+
+**⚠️ CLH 稳定性**: 在 40-50 pods 时出现 failed pods（Phase 3 共 4 个, Phase 4 共 4 个），再次验证了 Test 5 的发现——kata-clh 在高密度部署下不如 kata-qemu 稳定。
+
+### Phase 5 stress-ng 压力测试
+
+| Pods | MemAvail (MiB) | Sched Mem (Mi) | OOM |
+|------|---------------|----------------|-----|
+| 5 | 59,035 | 2,430 | 0 |
+| 10 | 56,723 | 4,710 | 0 |
+| 15 | 54,470 | 6,990 | 0 |
+| 20 | 52,158 | 9,270 | 0 |
+| 25 | 49,957 | 11,550 | **0** ✅ |
+
+25 pods stress-ng 全部成功运行，零 OOM。
+
+### Test 8 (kata-qemu) vs Test 10 (kata-clh) 对比
+
+| 指标 | kata-qemu | kata-clh |
+|------|-----------|----------|
+| Overhead memory | 250Mi | **200Mi** |
+| Overhead cpu | 100m | 100m |
+| 30 pods 调度器可见 mem | 11,490 Mi | **9,990 Mi** |
+| 50 pods 调度器可见 mem | 19,050 Mi | **16,550 Mi** |
+| Injection 验证 | ✅ | ✅ |
+| stress-ng 25 pods OOM | 0 | **0** |
+| Scale 50 failed pods | 0 | **3-4** ⚠️ |
+
+### 结论
+
+1. **Pod Overhead 对 kata-clh 完全有效**——admission controller 正确注入，scheduler 正确计算。
+2. **调度器可见性提升 ~2.5 倍**（vs kata-qemu 的 ~2.9 倍，因为 overhead 更小）。
+3. **CLH 的稳定性问题在 Pod Overhead 测试中再次复现**——即使有 overhead，40+ pods 时仍出现 failed pods。
+4. **生产建议**: 如果选择 kata-clh，必须配置 `overhead: {memory: 200Mi, cpu: 100m}`，同时关注高密度下的稳定性。
+
+---
+
+## 14. 综合结论
 
 ### 开销总览
 
@@ -667,7 +737,7 @@ $ kubectl get pod test-kata -o jsonpath='{.spec.overhead}'
 
 ---
 
-## 14. 生产部署建议
+## 15. 生产部署建议
 
 ### ⭐ 首要：配置 Pod Overhead（Test 8 验证）
 

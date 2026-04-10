@@ -152,7 +152,7 @@ CLH 进程自身极小（Rust 静态编译 + 仅 virtio 设备），但 Guest RA
 
 ---
 
-## 4. 解决方案：Pod Overhead（Test 8）
+## 4. 解决方案：Pod Overhead（Test 8 & Test 10）
 
 ### 4.1 什么是 Pod Overhead？
 
@@ -225,6 +225,23 @@ overhead:
 | 25 | 49,407 MiB | 12,800 Mi | **0** |
 
 全程零 OOM，调度器正确追踪了 VM 开销 + 应用内存的总消耗。
+
+### 4.5 kata-clh 验证（Test 10）
+
+对 kata-clh 执行了相同的验证流程（overhead: 200Mi / 100m）：
+
+**调度器可见性对比（30 pods）：**
+
+| | kata-qemu (Test 8) | kata-clh (Test 10) |
+|---|-------|-------|
+| 无 Overhead 调度器认为 | 3,990 Mi | 3,990 Mi |
+| 有 Overhead 调度器认为 | 11,490 Mi (2.88x) | 9,990 Mi (2.50x) |
+| stress-ng 25 pods OOM | 0 | **0** |
+| Scale 50 failed pods | 0 | **3-4** ⚠️ |
+
+**两个 VMM 的 Pod Overhead 均验证通过**——admission controller 注入、scheduler 计算、stress-ng 压力测试全部正常。
+
+⚠️ **kata-clh 稳定性注意**: 在 40-50 pods 高密度场景下，kata-clh 出现 3-4 个 failed pods（非 OOM，而是 VM 启动失败），kata-qemu 无此问题。
 
 ---
 
