@@ -311,4 +311,81 @@ test,runtime,cgroup_memory_current_bytes
 
 ---
 
+## Q15: Pod Overhead 和 `sandbox_cgroup_only = true` 是不是重叠了？
+
+**不重叠，它们解决的是不同层的问题，必须配合使用：**
+
+| | Pod Overhead | `sandbox_cgroup_only = true` |
+|---|---|---|
+| **作用层** | Kubernetes 调度器 | Kata 运行时 |
+| **解决什么** | 让调度器知道每个 Pod 还需要额外 250Mi/100m，**调度时预留空间** | 让 Kata 把 VMM 进程（QEMU、I/O 线程、Shim）**放进 Pod cgroup 内**，而不是放到不受限的 `/kata_overhead/` |
+| **不配的后果** | 调度器低估资源 → 节点过载 → OOM | VMM 跑在 cgroup 外 → 无资源隔离，`kubectl top` 报 0 |
+
+简单说：
+
+- **Pod Overhead** = 告诉 K8s："这个 Pod 要多占 250Mi" → Kubelet 把 Pod cgroup **撑大**
+- **`sandbox_cgroup_only = true`** = 告诉 Kata："把 VMM 进程放进这个撑大的 cgroup 里"
+
+如果只配 Pod Overhead 不开 `sandbox_cgroup_only`：调度器算对了，但 VMM 还是跑在 `/kata_overhead/` 不受限 cgroup 里，cgroup 统计还是不准。
+
+如果只开 `sandbox_cgroup_only` 不配 Pod Overhead：Kata 把 VMM 塞进 Pod cgroup，但 cgroup 没有被撑大（只按容器 request 分配），VMM 和容器抢资源 → 性能下降甚至 OOM。
+
+**一个撑伞，一个站进去，缺一不可。**
+
+参考：[Kata Host Cgroup 设计文档](https://github.com/kata-containers/kata-containers/blob/main/docs/design/host-cgroups.md)
+
+---
+
+## Q16: `kubectl top` 报 0 有什么实际影响？
+
+`kubectl top` 报 0 的影响主要在**可观测性和自动扩缩**，但对调度和节点稳定性影响不大：
+
+### 有影响的场景
+
+| 场景 | 影响 |
+|------|------|
+| **HPA 自动扩缩** | 如果用 `metrics.k8s.io`（即 metrics-server / `kubectl top` 的数据源）做内存型 HPA，永远看到 0 → 永远不会触发扩容 ❌ |
+| **运维排查** | `kubectl top pod` 看不到 Kata Pod 真实资源消耗，排障时会误判 |
+| **Grafana/Prometheus 面板** | 如果 dashboard 用 `container_memory_working_set_bytes`（来自 cAdvisor/cgroup），Kata Pod 全部显示 0，监控形同虚设 |
+| **VPA** | Vertical Pod Autoscaler 基于历史 metrics 推荐 request，数据是 0 就推荐不出合理值 |
+
+### 没影响的场景
+
+| 场景 | 为什么没影响 |
+|------|------------|
+| **调度器** | 调度器**从来不看** `kubectl top` 的数据，它只做 request 加减法（纯账本制），所以 Pod Overhead 能完全解决调度准确性 |
+| **Kubelet eviction** | Kubelet 看的是 node 级别的 `memory.available`（来自 `/proc/meminfo`），不是 Pod cgroup，所以 VMM 吃的内存在 eviction 判断中是可见的 |
+| **OOM Killer** | 内核 OOM Killer 看的是整个系统内存压力，不依赖 cgroup 统计 |
+
+### 解决方案
+
+如果依赖 metrics-server 数据做 HPA 或监控，需要换数据源——比如用 node_exporter 的 `node_memory_MemAvailable` 或在 VM 内装 agent 导出 metrics。配合 Q15 中的 `sandbox_cgroup_only = true`，可以让 VMM 进程回到 Pod cgroup 内，从而恢复 `kubectl top` 的准确性。
+
+---
+
+## Q17: K8s Scheduler 调度到底走不走 cgroup？
+
+**完全不走。** Scheduler 是纯"账本制"：
+
+```
+Node Allocatable:     60 GiB     ← 固定值（capacity - system-reserved - kube-reserved）
+所有 Pod request 之和: 10 GiB     ← 纯加法（从 etcd 读 Pod spec）
+剩余可调度:           50 GiB     ← 纯减法
+```
+
+各组件的数据来源对比：
+
+| 组件 | 数据来源 | 看不看 cgroup？ |
+|------|---------|---------------|
+| **Scheduler** | Pod spec request（etcd 账本） | ❌ 完全不看 |
+| kubectl top | cgroup 实时用量 | 是（读 cgroup） |
+| Kubelet eviction | /proc/meminfo + cgroup | 是（但看 node 级） |
+| Node OOM Killer | /proc/meminfo（内核级） | 否（看系统内存压力） |
+
+所以哪怕节点实际内存已经快爆了，只要账本上还有余额，scheduler 照样往上面塞 Pod。反过来，节点实际很空闲但账本满了，新 Pod 就会 Pending。
+
+**Pod Overhead 不是让调度器"看到"cgroup——而是在账本层面把 VM 开销补上去。** 这就是为什么 Pod Overhead 能解决调度准确性问题，而跟 `kubectl top` 报不报 0 完全无关。
+
+---
+
 *整理自 Kata Containers benchmark 测试过程中的实际技术讨论。*
