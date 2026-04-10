@@ -11,7 +11,7 @@
 
 Kata Containers 通过在每个 Pod 内启动一个轻量级 VM（microVM）来提供硬件级隔离。但这引入了一个关键问题：
 
-> **每个 Kata Pod 的 VM 基础设施（QEMU 进程 + Guest 内核 + virtio 设备）会消耗额外的 CPU 和内存，而 Kubernetes 默认对此完全不可见。**
+> **每个 Kata Pod 的 VM 基础设施（QEMU 进程 + Guest 内核 + virtio 设备）会消耗额外的 CPU 和内存，而 Kubernetes cgroup 内存计账严重低估这部分开销。**
 
 这意味着：
 - `kubectl top pod` 报告的内存极低（cgroup memory.current 严重低估 VM 开销，~275 MiB 仅计入 <1 MiB）
@@ -112,7 +112,7 @@ CLH 进程自身极小（Rust 静态编译 + 仅 virtio 设备），但 Guest RA
 > **为什么 VmRSS ≠ MemAvailable delta?**
 > RssFile 是磁盘映射的共享库，Linux 内核可随时回收，MemAvailable 不将其计为"已消耗"。MemAvailable delta 更能反映对调度器有意义的**真实不可回收消耗**。
 
-### 3.3 Kubernetes 对 VM 开销完全不可见
+### 3.3 Kubernetes cgroup 对 VM 开销严重低估
 
 | 工具 | runc Pod | kata-qemu Pod | kata-clh Pod |
 |------|----------|---------------|--------------|
