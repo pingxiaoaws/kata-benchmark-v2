@@ -256,4 +256,59 @@ kubectl get node <node> -o jsonpath='{.status.capacity.memory}'
 
 ---
 
+## Q14: "两种 VMM cgroup 均报 0" 是如何检测的？
+
+通过在 host 上直接读取 cgroup v2 的内存计量文件。
+
+### 步骤 1: 获取 Pod UID
+
+```bash
+pod_uid=$(kubectl get pod -n bench7 t7c-kata-qemu -o jsonpath='{.metadata.uid}')
+# → fed8292e-158d-487d-8508-b3f1fb424e16
+```
+
+### 步骤 2: 在 host 上找到 Pod 对应的 cgroup 目录并读取
+
+通过 hostPod（配置了 `hostPID: true` 的特权 Pod）进入目标节点，查找 cgroup v2 的 `memory.current` 文件：
+
+```bash
+# 查找 Pod 的 cgroup 路径
+find /sys/fs/cgroup -path "*pod${pod_uid}*" -name "memory.current"
+# → /sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/
+#     kubepods-burstable-pod<uid>.slice/memory.current
+
+# 读取当前内存用量
+cat /sys/fs/cgroup/.../memory.current
+```
+
+### 实际结果
+
+| 运行时 | `memory.current` | 含义 |
+|--------|------------------|------|
+| runc | 495,616 bytes (0.47 MiB) | ✅ 容器进程 (pause) 的内存，正常 |
+| kata-qemu | **0 bytes** | ❌ cgroup 里只有 kata-shim，QEMU 不在里面 |
+| kata-clh | **0 bytes** | ❌ 同理，cloud-hypervisor 不在 cgroup 里 |
+
+### 原始数据 (CSV)
+
+```csv
+# Test 7C (kata-qemu)
+test,runtime,cgroup_memory_current_bytes
+7C,runc,495616
+7C,kata-qemu,0
+
+# Test 9C (kata-clh)
+test,runtime,cgroup_memory_current_bytes
+9C,runc,495616
+9C,kata-clh,0
+```
+
+### 为什么是 0？
+
+`memory.current` 是 cgroup v2 的实时内存计量文件——内核将属于该 cgroup 的**所有进程**的内存用量累加到此。`kubectl top` 和 Metrics Server 最终读的就是这个值。
+
+对于 Kata Pod，cgroup 里只有一个轻量的 `kata-shim` 进程（负责 gRPC 通信），而真正消耗内存的 QEMU / cloud-hypervisor 进程是由 Kata runtime 在 **host 级别 fork 出来的**，不属于 Pod 的 cgroup 层级，因此不被计入。
+
+---
+
 *整理自 Kata Containers benchmark 测试过程中的实际技术讨论。*
