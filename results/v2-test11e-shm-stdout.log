@@ -1,0 +1,266 @@
+[13:22:27] === Test 11e: /dev/shm Exhaustion Reproduction ===
+[13:22:27] Node: ip-172-31-17-237.us-west-2.compute.internal (m8i.2xlarge, 8 vCPU, 32 GiB)
+[13:22:27] Kata config: default_vcpus=5, default_memory=2048
+[13:22:27] Plan: shrink /dev/shm to 14G, deploy pods until failure
+[13:22:27] 
+[13:22:27] Cleaning up any leftover namespaces...
+[13:22:36] Shrinking /dev/shm to 14G...
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            14G     0   14G   0% /dev/shm
+[13:22:37] 
+[13:22:37] === Phase 0: Baseline ===
+[13:22:46]   phase=baseline target=0 running=0 failed=0 restarts=0
+[13:22:46]   node_cpu=0.0% mem_avail=30064MiB shm_used=0MiB shm_avail=14336MiB qemu=0
+0(0.0%)
+[13:22:46] 
+[13:22:46] === Phase 1: Deploying pod shm-1 (1 / 10) ===
+namespace/t11e-1 created
+namespace/t11e-1 labeled
+pod/shm-1 created
+[13:22:47]   Waiting up to 120s for pod Ready...
+pod/shm-1 condition met
+[13:22:52]   ✅ Pod shm-1 is Ready
+[13:23:08]   phase=deployed-1 target=1 running=1 failed=0 restarts=0
+[13:23:08]   node_cpu=0.0% mem_avail=29793MiB shm_used=202MiB shm_avail=14135MiB qemu=1(11.1%)
+[13:23:08]   /dev/shm:
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            14G  202M   14G   2% /dev/shm
+[13:23:09]   QEMU RSS:
+ 241028 10.6  0.9 309076 qemu-system-x86
+[13:23:09] 
+[13:23:09] === Phase 2: Deploying pod shm-2 (2 / 10) ===
+namespace/t11e-2 created
+namespace/t11e-2 labeled
+pod/shm-2 created
+[13:23:11]   Waiting up to 120s for pod Ready...
+pod/shm-2 condition met
+[13:23:13]   ✅ Pod shm-2 is Ready
+[13:23:29]   phase=deployed-2 target=2 running=2 failed=0 restarts=0
+[13:23:29]   node_cpu=0.0% mem_avail=29577MiB shm_used=402MiB shm_avail=13935MiB qemu=2(17.6%)
+[13:23:29]   /dev/shm:
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            14G  402M   14G   3% /dev/shm
+[13:23:30]   QEMU RSS:
+ 241028  5.6  0.9 309088 qemu-system-x86
+ 241574 11.3  0.9 307084 qemu-system-x86
+[13:23:30] 
+[13:23:31] === Phase 3: Deploying pod shm-3 (3 / 10) ===
+namespace/t11e-3 created
+namespace/t11e-3 labeled
+pod/shm-3 created
+[13:23:32]   Waiting up to 120s for pod Ready...
+pod/shm-3 condition met
+[13:23:35]   ✅ Pod shm-3 is Ready
+[13:23:51]   phase=deployed-3 target=3 running=3 failed=0 restarts=0
+[13:23:51]   node_cpu=0.0% mem_avail=29333MiB shm_used=605MiB shm_avail=13732MiB qemu=3(21.1%)
+[13:23:51]   /dev/shm:
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            14G  605M   14G   5% /dev/shm
+[13:23:52]   QEMU RSS:
+ 242036 10.6  0.9 310848 qemu-system-x86
+ 241028  4.0  0.9 309088 qemu-system-x86
+ 241574  5.8  0.9 307088 qemu-system-x86
+[13:23:52] 
+[13:23:53] === Phase 4: Deploying pod shm-4 (4 / 10) ===
+namespace/t11e-4 created
+namespace/t11e-4 labeled
+pod/shm-4 created
+[13:23:54]   Waiting up to 120s for pod Ready...
+pod/shm-4 condition met
+[13:23:56]   ✅ Pod shm-4 is Ready
+[13:24:12]   phase=deployed-4 target=4 running=4 failed=0 restarts=0
+[13:24:12]   node_cpu=0.0% mem_avail=29082MiB shm_used=805MiB shm_avail=13532MiB qemu=4(24.8%)
+[13:24:12]   /dev/shm:
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            14G  805M   14G   6% /dev/shm
+[13:24:13]   QEMU RSS:
+ 242036  5.6  0.9 310980 qemu-system-x86
+ 241028  3.3  0.9 309088 qemu-system-x86
+ 242514 11.0  0.9 307360 qemu-system-x86
+ 241574  4.1  0.9 307088 qemu-system-x86
+[13:24:13] 
+[13:24:14] === Phase 5: Deploying pod shm-5 (5 / 10) ===
+namespace/t11e-5 created
+namespace/t11e-5 labeled
+pod/shm-5 created
+[13:24:15]   Waiting up to 120s for pod Ready...
+pod/shm-5 condition met
+[13:24:17]   ✅ Pod shm-5 is Ready
+[13:24:33]   phase=deployed-5 target=5 running=5 failed=0 restarts=0
+[13:24:33]   node_cpu=0.0% mem_avail=28840MiB shm_used=1005MiB shm_avail=13332MiB qemu=5(27.5%)
+[13:24:33]   /dev/shm:
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            14G 1005M   14G   8% /dev/shm
+[13:24:34]   QEMU RSS:
+ 242036  4.0  0.9 310980 qemu-system-x86
+ 241028  2.8  0.9 309088 qemu-system-x86
+ 242514  5.7  0.9 307368 qemu-system-x86
+ 241574  3.3  0.9 307088 qemu-system-x86
+ 242982 11.2  0.9 306736 qemu-system-x86
+[13:24:34] 
+[13:24:35] === Phase 6: Deploying pod shm-6 (6 / 10) ===
+namespace/t11e-6 created
+namespace/t11e-6 labeled
+pod/shm-6 created
+[13:24:36]   Waiting up to 120s for pod Ready...
+pod/shm-6 condition met
+[13:24:38]   ✅ Pod shm-6 is Ready
+[13:24:54]   phase=deployed-6 target=6 running=6 failed=0 restarts=0
+[13:24:54]   node_cpu=0.0% mem_avail=28589MiB shm_used=1206MiB shm_avail=13131MiB qemu=6(30.1%)
+[13:24:54]   /dev/shm:
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            14G  1.2G   13G   9% /dev/shm
+[13:24:55]   QEMU RSS:
+ 242036  3.2  0.9 311012 qemu-system-x86
+ 241028  2.5  0.9 309088 qemu-system-x86
+ 243445 11.1  0.9 307360 qemu-system-x86
+ 242514  4.0  0.9 307368 qemu-system-x86
+ 241574  2.8  0.9 307088 qemu-system-x86
+ 242982  5.8  0.9 306740 qemu-system-x86
+[13:24:55] 
+[13:24:55] === Phase 7: Deploying pod shm-7 (7 / 10) ===
+namespace/t11e-7 created
+namespace/t11e-7 labeled
+pod/shm-7 created
+[13:24:57]   Waiting up to 120s for pod Ready...
+pod/shm-7 condition met
+[13:24:59]   ✅ Pod shm-7 is Ready
+[13:25:15]   phase=deployed-7 target=7 running=7 failed=0 restarts=0
+[13:25:15]   node_cpu=0.0% mem_avail=28349MiB shm_used=1407MiB shm_avail=12930MiB qemu=7(32.5%)
+[13:25:15]   /dev/shm:
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            14G  1.4G   13G  10% /dev/shm
+[13:25:16]   QEMU RSS:
+ 242036  2.7  0.9 311012 qemu-system-x86
+ 241028  2.2  0.9 309088 qemu-system-x86
+ 243914 11.3  0.9 308036 qemu-system-x86
+ 243445  5.7  0.9 307368 qemu-system-x86
+ 242514  3.2  0.9 307368 qemu-system-x86
+ 241574  2.5  0.9 307088 qemu-system-x86
+ 242982  4.1  0.9 306740 qemu-system-x86
+[13:25:16] 
+[13:25:17] === Phase 8: Deploying pod shm-8 (8 / 10) ===
+namespace/t11e-8 created
+namespace/t11e-8 labeled
+pod/shm-8 created
+[13:25:18]   Waiting up to 120s for pod Ready...
+pod/shm-8 condition met
+[13:25:20]   ✅ Pod shm-8 is Ready
+[13:25:36]   phase=deployed-8 target=8 running=8 failed=0 restarts=0
+[13:25:36]   node_cpu=0.0% mem_avail=28112MiB shm_used=1610MiB shm_avail=12727MiB qemu=8(34.7%)
+[13:25:36]   /dev/shm:
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            14G  1.6G   13G  12% /dev/shm
+[13:25:37]   QEMU RSS:
+ 242036  2.4  0.9 311016 qemu-system-x86
+ 244428 11.4  0.9 310600 qemu-system-x86
+ 241028  2.1  0.9 309092 qemu-system-x86
+ 243914  5.7  0.9 308040 qemu-system-x86
+ 243445  4.0  0.9 307372 qemu-system-x86
+ 242514  2.7  0.9 307368 qemu-system-x86
+ 241574  2.2  0.9 307092 qemu-system-x86
+ 242982  3.2  0.9 306744 qemu-system-x86
+[13:25:37] 
+[13:25:38] === Phase 9: Deploying pod shm-9 (9 / 10) ===
+namespace/t11e-9 created
+namespace/t11e-9 labeled
+pod/shm-9 created
+[13:25:39]   Waiting up to 120s for pod Ready...
+pod/shm-9 condition met
+[13:25:41]   ✅ Pod shm-9 is Ready
+[13:25:57]   phase=deployed-9 target=9 running=9 failed=0 restarts=0
+[13:25:57]   node_cpu=0.0% mem_avail=27866MiB shm_used=1813MiB shm_avail=12524MiB qemu=9(36.1%)
+[13:25:57]   /dev/shm:
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            14G  1.8G   13G  13% /dev/shm
+[13:25:58]   QEMU RSS:
+ 242036  2.2  0.9 311016 qemu-system-x86
+ 244428  5.8  0.9 310604 qemu-system-x86
+ 244895 11.1  0.9 310148 qemu-system-x86
+ 241028  1.9  0.9 309092 qemu-system-x86
+ 243914  4.0  0.9 308040 qemu-system-x86
+ 243445  3.2  0.9 307372 qemu-system-x86
+ 242514  2.3  0.9 307368 qemu-system-x86
+ 241574  2.0  0.9 307092 qemu-system-x86
+ 242982  2.7  0.9 306744 qemu-system-x86
+[13:25:58] 
+[13:25:59] === Phase 10: Deploying pod shm-10 (10 / 10) ===
+namespace/t11e-10 created
+namespace/t11e-10 labeled
+pod/shm-10 created
+[13:26:00]   Waiting up to 120s for pod Ready...
+pod/shm-10 condition met
+[13:26:02]   ✅ Pod shm-10 is Ready
+[13:26:18]   phase=deployed-10 target=10 running=10 failed=0 restarts=0
+[13:26:18]   node_cpu=0.0% mem_avail=27609MiB shm_used=2013MiB shm_avail=12324MiB qemu=10(37.6%)
+[13:26:18]   /dev/shm:
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            14G  2.0G   13G  15% /dev/shm
+[13:26:19]   QEMU RSS:
+ 242036  2.0  0.9 311072 qemu-system-x86
+ 244428  4.0  0.9 310604 qemu-system-x86
+ 244895  5.7  0.9 310172 qemu-system-x86
+ 241028  1.8  0.9 309128 qemu-system-x86
+ 243914  3.2  0.9 308052 qemu-system-x86
+ 243445  2.7  0.9 307376 qemu-system-x86
+ 242514  2.1  0.9 307372 qemu-system-x86
+ 245357 11.1  0.9 307048 qemu-system-x86
+ 241574  1.9  0.9 307096 qemu-system-x86
+ 242982  2.4  0.9 306748 qemu-system-x86
+[13:26:20] 
+[13:26:20] 
+[13:26:20] === Final Status ===
+NAMESPACE   NAME     READY   STATUS    RESTARTS   AGE     IP              NODE                                          NOMINATED NODE   READINESS GATES
+t11e-1      shm-1    2/2     Running   0          3m33s   172.31.16.91    ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11e-10     shm-10   2/2     Running   0          20s     172.31.31.172   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11e-2      shm-2    2/2     Running   0          3m9s    172.31.23.114   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11e-3      shm-3    2/2     Running   0          2m48s   172.31.28.9     ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11e-4      shm-4    2/2     Running   0          2m26s   172.31.27.122   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11e-5      shm-5    2/2     Running   0          2m5s    172.31.27.218   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11e-6      shm-6    2/2     Running   0          104s    172.31.27.247   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11e-7      shm-7    2/2     Running   0          83s     172.31.19.88    ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11e-8      shm-8    2/2     Running   0          62s     172.31.26.240   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11e-9      shm-9    2/2     Running   0          41s     172.31.21.199   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+[13:26:20] 
+[13:26:20] === /dev/shm Final ===
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            14G  2.0G   13G  15% /dev/shm
+total 0
+[13:26:21] 
+[13:26:21] === CSV ===
+phase,target_pods,running,pending,failed,not_ready,total_restarts,node_cpu_pct,mem_available_MiB,shm_used_MiB,shm_avail_MiB,qemu_count,qemu_total_cpu_pct,timestamp
+baseline,0,0,0,0,0,0,0.0,30064,0,14336,0
+0,0.0,2026-04-11T13:22:46Z
+deployed-1,1,1,0,0,1,0,0.0,29793,202,14135,1,11.1,2026-04-11T13:23:08Z
+deployed-2,2,2,0,0,2,0,0.0,29577,402,13935,2,17.6,2026-04-11T13:23:29Z
+deployed-3,3,3,0,0,3,0,0.0,29333,605,13732,3,21.1,2026-04-11T13:23:51Z
+deployed-4,4,4,0,0,4,0,0.0,29082,805,13532,4,24.8,2026-04-11T13:24:12Z
+deployed-5,5,5,0,0,5,0,0.0,28840,1005,13332,5,27.5,2026-04-11T13:24:33Z
+deployed-6,6,6,0,0,6,0,0.0,28589,1206,13131,6,30.1,2026-04-11T13:24:54Z
+deployed-7,7,7,0,0,7,0,0.0,28349,1407,12930,7,32.5,2026-04-11T13:25:15Z
+deployed-8,8,8,0,0,8,0,0.0,28112,1610,12727,8,34.7,2026-04-11T13:25:36Z
+deployed-9,9,9,0,0,9,0,0.0,27866,1813,12524,9,36.1,2026-04-11T13:25:57Z
+deployed-10,10,10,0,0,10,0,0.0,27609,2013,12324,10,37.6,2026-04-11T13:26:18Z
+[13:26:21] 
+[13:26:21] Test 11e complete.
+[13:26:21] === Cleanup (trap) ===
+[13:26:21] Cleaning up...
+namespace "t11e-1" deleted
+namespace "t11e-2" deleted
+namespace "t11e-3" deleted
+namespace "t11e-4" deleted
+namespace "t11e-5" deleted
+namespace "t11e-6" deleted
+namespace "t11e-7" deleted
+namespace "t11e-8" deleted
+namespace "t11e-9" deleted
+namespace "t11e-10" deleted
+[13:26:25] Restoring /dev/shm to default size...
+[13:26:26] Waiting for namespace cleanup...
+namespace/t11e-1 condition met
+namespace/t11e-2 condition met
+namespace/t11e-4 condition met
+namespace/t11e-5 condition met
+namespace/t11e-6 condition met
+namespace/t11e-7 condition met
+[13:26:38] Done.

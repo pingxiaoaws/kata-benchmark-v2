@@ -1,0 +1,152 @@
+[13:34:14] === Test 11e: Memory Pressure Reproduction ===
+[13:34:14] Node: ip-172-31-17-237.us-west-2.compute.internal (m8i.2xlarge, 8 vCPU, 32 GiB)
+[13:34:14] Plan: default_memory=4096MiB, stress-ng --vm 2560m per VM
+[13:34:14] Expected: QEMU RSS ~2.5-3 GiB each, OOM at pod 7-8
+[13:34:14] 
+[13:34:14] Cleaning up leftover namespaces...
+[13:34:23] Setting default_memory=4096...
+default_memory = 4096
+# be default_memory.
+[13:34:24] 
+[13:34:24] === Phase 0: Baseline ===
+[13:34:33]   phase=baseline target=0 running=0 pending=0 failed=0 not_ready=0 restarts=0
+[13:34:33]   node_cpu=0.0% mem_total=31555MiB mem_avail=30048MiB shm_used=0MiB
+[13:34:33]   qemu_count=0
+0 qemu_cpu=0.0% qemu_total_rss=0MiB
+[13:34:33] 
+[13:34:33] === Phase 1: Deploying pod stress-1 (1 / 10) ===
+namespace/t11em-1 created
+pod/stress-1 created
+[13:34:35]   Waiting up to 180s for pod Ready...
+[13:37:35]   ❌ Pod stress-1 FAILED to become Ready within 180s
+[13:37:35]   Pod status:
+NAME       READY   STATUS             RESTARTS      AGE   IP              NODE                                          NOMINATED NODE   READINESS GATES
+stress-1   1/2     CrashLoopBackOff   4 (85s ago)   3m    172.31.26.186   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+      Reason:       Error
+      Exit Code:    2
+      Started:      Sat, 11 Apr 2026 13:36:10 +0000
+      Finished:     Sat, 11 Apr 2026 13:36:10 +0000
+    Ready:          False
+    Restart Count:  4
+--
+Events:
+  Type     Reason     Age                    From               Message
+  ----     ------     ----                   ----               -------
+  Normal   Scheduled  3m                     default-scheduler  Successfully assigned t11em-1/stress-1 to ip-172-31-17-237.us-west-2.compute.internal
+  Normal   Pulled     2m58s                  kubelet            spec.containers{stress}: Successfully pulled image "alexeiled/stress-ng:latest" in 407ms (407ms including waiting). Image size: 3939132 bytes.
+  Normal   Pulled     2m58s                  kubelet            spec.containers{sleep}: Container image "busybox:1.36" already present on machine
+--
+  Warning  BackOff    7s (x14 over 2m56s)    kubelet            spec.containers{stress}: Back-off restarting failed container stress in pod stress-1_t11em-1(e7ade1ca-b35b-41c9-91a4-8fb8faf34713)
+[13:37:35]   Recent dmesg:
+  (none)
+[13:37:36]   Waiting 20s for memory to fill...
+[13:38:03]   phase=deployed-1 target=1 running=1 pending=0 failed=0 not_ready=1 restarts=0
+[13:38:03]   node_cpu=0.0% mem_total=31555MiB mem_avail=29716MiB shm_used=286MiB
+[13:38:03]   qemu_count=1 qemu_cpu=2.4% qemu_total_rss=387MiB
+[13:38:03]   === Host top (QEMU + virtiofsd) ===
+[13:38:03]   =================================
+[13:38:03] 
+[13:38:04] === Phase 2: Deploying pod stress-2 (2 / 10) ===
+namespace/t11em-2 created
+pod/stress-2 created
+[13:38:06]   Waiting up to 180s for pod Ready...
+[13:38:35] 
+[13:38:35] === Cleanup (trap) ===
+[13:38:35] Cleaning up pods...
+namespace "t11em-1" deleted
+namespace "t11em-2" deleted
+[13:40:45] === Test 11e: Memory Pressure Reproduction ===
+[13:40:45] Node: ip-172-31-17-237.us-west-2.compute.internal (m8i.2xlarge, 8 vCPU, 32 GiB)
+[13:40:45] Plan: default_memory=4096MiB, stress-ng --vm 2g per VM
+[13:40:45] Expected: QEMU RSS ~2.5-3 GiB each, OOM at pod 7-8
+[13:40:45] 
+[13:40:45] Cleaning up leftover namespaces...
+[13:40:54] Setting default_memory=4096...
+default_memory = 4096
+# be default_memory.
+[13:40:55] 
+[13:40:55] === Phase 0: Baseline ===
+[13:41:05]   phase=baseline target=0 running=0 pending=0 failed=0 not_ready=0 restarts=0
+[13:41:05]   node_cpu=0.0% mem_total=31555MiB mem_avail=30020MiB shm_used=0MiB
+[13:41:05]   qemu_count=0
+0 qemu_cpu=0.0% qemu_total_rss=0MiB
+[13:41:05] 
+[13:41:05] === Phase 1: Deploying pod stress-1 (1 / 10) ===
+namespace/t11em-1 created
+pod/stress-1 created
+[13:41:06]   Waiting up to 180s for pod Ready...
+pod/stress-1 condition met
+[13:41:09]   ✅ Pod stress-1 is Ready
+[13:41:09]   Waiting 20s for memory to fill...
+[13:41:36]   phase=deployed-1 target=1 running=1 pending=0 failed=0 not_ready=1 restarts=0
+[13:41:36]   node_cpu=0.0% mem_total=31555MiB mem_avail=26043MiB shm_used=3908MiB
+[13:41:36]   qemu_count=1 qemu_cpu=194.0% qemu_total_rss=4009MiB
+[13:41:36]   === Host top (QEMU + virtiofsd) ===
+[13:41:36]   =================================
+[13:41:36] 
+[13:41:37] === Phase 2: Deploying pod stress-2 (2 / 10) ===
+namespace/t11em-2 created
+pod/stress-2 created
+[13:41:39]   Waiting up to 180s for pod Ready...
+pod/stress-2 condition met
+[13:41:42]   ✅ Pod stress-2 is Ready
+[13:41:42]   Waiting 20s for memory to fill...
+[13:42:09]   phase=deployed-2 target=2 running=2 pending=0 failed=0 not_ready=2 restarts=0
+[13:42:09]   node_cpu=0.0% mem_total=31555MiB mem_avail=22082MiB shm_used=7821MiB
+[13:42:09]   qemu_count=2 qemu_cpu=394.0% qemu_total_rss=8024MiB
+[13:42:09]   === Host top (QEMU + virtiofsd) ===
+[13:42:09]   =================================
+[13:42:09] 
+[13:42:10] === Phase 3: Deploying pod stress-3 (3 / 10) ===
+namespace/t11em-3 created
+pod/stress-3 created
+[13:42:12]   Waiting up to 180s for pod Ready...
+pod/stress-3 condition met
+[13:42:15]   ✅ Pod stress-3 is Ready
+[13:42:15]   Waiting 20s for memory to fill...
+[13:42:42]   phase=deployed-3 target=3 running=3 pending=0 failed=0 not_ready=3 restarts=0
+[13:42:42]   node_cpu=0.0% mem_total=31555MiB mem_avail=18101MiB shm_used=11753MiB
+[13:42:42]   qemu_count=3 qemu_cpu=594.0% qemu_total_rss=12057MiB
+[13:42:42]   === Host top (QEMU + virtiofsd) ===
+[13:42:42]   =================================
+[13:42:42] 
+[13:42:43] === Phase 4: Deploying pod stress-4 (4 / 10) ===
+namespace/t11em-4 created
+pod/stress-4 created
+[13:42:45]   Waiting up to 180s for pod Ready...
+pod/stress-4 condition met
+[13:42:50]   ✅ Pod stress-4 is Ready
+[13:42:50]   Waiting 20s for memory to fill...
+[13:43:17]   phase=deployed-4 target=4 running=4 pending=0 failed=0 not_ready=4 restarts=0
+[13:43:17]   node_cpu=0.0% mem_total=31555MiB mem_avail=14092MiB shm_used=15686MiB
+[13:43:17]   qemu_count=4 qemu_cpu=784.0% qemu_total_rss=16094MiB
+[13:43:17]   === Host top (QEMU + virtiofsd) ===
+[13:43:18]   =================================
+[13:43:18] 
+[13:43:19] === Phase 5: Deploying pod stress-5 (5 / 10) ===
+namespace/t11em-5 created
+pod/stress-5 created
+[13:43:20]   Waiting up to 180s for pod Ready...
+pod/stress-5 condition met
+[13:43:29]   ✅ Pod stress-5 is Ready
+[13:43:29]   Waiting 20s for memory to fill...
+[13:43:55]   phase=deployed-5 target=5 running=5 pending=0 failed=0 not_ready=5 restarts=0
+[13:43:55]   node_cpu=0.0% mem_total=31555MiB mem_avail=22752MiB shm_used=7915MiB
+[13:43:55]   qemu_count=5 qemu_cpu=760.0% qemu_total_rss=9992MiB
+[13:43:55]   === Host top (QEMU + virtiofsd) ===
+[13:43:56]   =================================
+[13:43:56] 
+[13:43:57] === Phase 6: Deploying pod stress-6 (6 / 10) ===
+namespace/t11em-6 created
+pod/stress-6 created
+[13:43:58]   Waiting up to 180s for pod Ready...
+pod/stress-6 condition met
+[13:44:09]   ✅ Pod stress-6 is Ready
+[13:44:09]   Waiting 20s for memory to fill...
+[13:44:36]   phase=deployed-6 target=6 running=6 pending=0 failed=0 not_ready=6 restarts=0
+[13:44:36]   node_cpu=0.0% mem_total=31555MiB mem_avail=13299MiB shm_used=16384MiB
+[13:44:36]   qemu_count=6 qemu_cpu=716.3% qemu_total_rss=16991MiB
+[13:44:36]   === Host top (QEMU + virtiofsd) ===
+[13:44:37]   =================================
+[13:44:37] 
+[13:44:38] === Phase 7: Deploying pod stress-7 (7 / 10) ===
