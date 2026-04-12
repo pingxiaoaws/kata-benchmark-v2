@@ -339,6 +339,75 @@ Test 11g 中 sandbox-4 的 gateway 容器被重启，但不是 OOM kill：
 
 ---
 
+### Test 11h: 内存 OOM 复现（三种场景）
+
+**目标**：分别复现 Kata 环境下三种内存相关的 pod 失败模式。
+
+**脚本**: [`test11h-memory-oom-repro.sh`](test11h-memory-oom-repro.sh)
+
+```bash
+# 复现全部三种场景
+bash reproduce/test11h-memory-oom-repro.sh all
+
+# 或单独运行
+bash reproduce/test11h-memory-oom-repro.sh scenario_a   # Guest OOM (exit 137)
+bash reproduce/test11h-memory-oom-repro.sh scenario_b   # Memory pressure (exit 0)
+bash reproduce/test11h-memory-oom-repro.sh scenario_c   # Host OOM (说明文档)
+```
+
+#### Scenario A: Guest 内 OOM（容器超 limit）
+
+容器尝试分配 512 MiB 但 limit 只有 256 MiB → guest cgroup OOM killer 杀进程。
+
+**预期结果**：
+- `memory-hog` 容器：Reason=OOMKilled, Exit Code=137, Restart Count > 0
+- `healthy-sidecar` 容器：正常运行，不受影响
+
+#### Scenario B: Guest 内存压力（probe 超时）
+
+3 个 sidecar 各写 800 MiB 到 `/dev/shm` → 内存分配风暴 → nginx liveness probe 1s 超时。
+
+**预期结果**：
+- `gateway` 容器：Reason=Completed, Exit Code=0（SIGTERM 优雅退出，非 OOM）
+- sidecar 容器：正常运行
+
+#### Scenario C: Host 级 OOM（说明）
+
+部署过多 VM 耗尽 host 物理内存 → host kernel OOM killer 杀 QEMU 进程。
+（破坏性测试，默认不执行，仅提供说明文档）
+
+**诊断特征**：Host dmesg 中有 `Out of memory: Killed process (qemu-system-x86)`
+
+---
+
+### Test 11i: CPU 争抢复现
+
+**目标**：复现 vCPU 超配 + CPU 负载 → Dead Agent 级联崩溃。
+
+**脚本**: [`test11i-cpu-contention-repro.sh`](test11i-cpu-contention-repro.sh)
+
+```bash
+# Step 1: 部署 4 个 Kata pod（基线，无压力）
+bash reproduce/test11i-cpu-contention-repro.sh deploy
+
+# Step 2: 注入 CPU 压力
+bash reproduce/test11i-cpu-contention-repro.sh stress
+
+# Step 3: 观察结果（Dead Agent / restarts）
+bash reproduce/test11i-cpu-contention-repro.sh observe
+
+# Step 4: 清理
+bash reproduce/test11i-cpu-contention-repro.sh cleanup
+```
+
+**预期结果**：
+- 注入 stress 后 ~1 分钟内，多个 pod 同时 restart
+- containerd 日志出现 `Dead agent` / `exit_status:255`
+- 所有容器同一秒退出（sandbox 级别死亡）
+- 不需要安装 stress-ng，使用纯 shell CPU burn
+
+---
+
 ## Root Cause 总结
 
 ### Test 11f: CPU 争抢导致 Dead Agent（与客户问题匹配）
@@ -371,7 +440,9 @@ kubectl top pod 只看到 guest 内容器 cgroup 的 memory.current
 
 ---
 
-## 修复建议
+## 修复建议与调优
+
+> **详细调优指南请见 [`tuning-guide.md`](tuning-guide.md)**，涵盖 vCPU 配置、Pod Overhead、Probe 调优、内存监控、节点容量规划等。
 
 ### 立即可做
 
@@ -418,12 +489,18 @@ kubectl top pod 只看到 guest 内容器 cgroup 的 memory.current
 
 ```
 reproduce/
-├── README.md                              ← 本文件
-├── test11f-customer-repro.sh              ← Test 11f: CPU 压力崩溃复现脚本
-├── test11g-v4-exact-profile.sh            ← Test 11g: 稳态内存画像脚本（当前运行版本）
+├── README.md                              ← 本文件（复现报告 + 分析）
+├── tuning-guide.md                        ← 生产调优指南
+│
+├── test11f-customer-repro.sh              ← Test 11f: CPU 压力崩溃复现（原始版）
+├── test11g-v4-exact-profile.sh            ← Test 11g: 稳态内存画像（当前运行版本）
+├── test11h-memory-oom-repro.sh            ← Test 11h: 内存 OOM 三场景复现
+├── test11i-cpu-contention-repro.sh        ← Test 11i: CPU 争抢 Dead Agent 复现
+│
 ├── test11g-realistic-workload.sh          ← Test 11g v1: 早期版本
 ├── test11g-customer-steady-state.sh       ← Test 11g v2: 中间版本
 ├── test11g-v3-exact-profile.sh            ← Test 11g v3: 中间版本
+│
 ├── v2-test11f-customer-repro-stdout.log   ← Test 11f 脚本完整输出
 ├── v2-test11f-customer-repro.csv          ← Test 11f 数据 CSV
 ├── containerd-crash-logs.txt              ← containerd 崩溃日志（Dead agent 链路）
