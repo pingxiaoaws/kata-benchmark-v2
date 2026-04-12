@@ -1,0 +1,1329 @@
+=== Pod Status (2026-04-12T02:38:31Z) ===
+NAMESPACE   NAME        READY   STATUS    RESTARTS      AGE   IP              NODE                                          NOMINATED NODE   READINESS GATES
+t11f-1      sandbox-1   4/4     Running   4 (20m ago)   58m   172.31.16.241   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11f-2      sandbox-2   4/4     Running   4 (20m ago)   57m   172.31.19.147   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11f-3      sandbox-3   4/4     Running   4 (20m ago)   56m   172.31.22.227   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11f-4      sandbox-4   4/4     Running   4 (20m ago)   55m   172.31.26.231   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11f-5      sandbox-5   4/4     Running   4 (20m ago)   55m   172.31.31.143   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11f-6      sandbox-6   4/4     Running   4 (20m ago)   54m   172.31.27.218   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11f-7      sandbox-7   4/4     Running   4 (20m ago)   53m   172.31.16.233   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+t11f-8      sandbox-8   4/4     Running   4 (20m ago)   52m   172.31.26.240   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+
+=== Pod Describe ===
+--- sandbox-1 ---
+Name:                sandbox-1
+Namespace:           t11f-1
+Priority:            0
+Runtime Class Name:  kata-qemu
+Service Account:     default
+Node:                ip-172-31-17-237.us-west-2.compute.internal/172.31.17.237
+Start Time:          Sun, 12 Apr 2026 01:39:48 +0000
+Labels:              app=customer-repro
+Annotations:         <none>
+Status:              Running
+IP:                  172.31.16.241
+IPs:
+  IP:  172.31.16.241
+Containers:
+  gateway:
+    Container ID:   containerd://d723b7fe320a1cd11358ae8b3b6dd06c889129218cbf9ce29831cbd226613a5d
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:18 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:39:50 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:15 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     1500m
+      memory:  2Gi
+    Requests:
+      cpu:        150m
+      memory:     1Gi
+    Liveness:     http-get http://:80/ delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:80/ delay=5s timeout=5s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5xvxk (ro)
+  config-watcher:
+    Container ID:  containerd://edcb829b35f854c47332b8a78d41be938ccf18e8032dd181cc5d5bba491383d1
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do sleep 5; cat /proc/loadavg > /dev/null; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:18 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:39:50 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:15 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5xvxk (ro)
+  envoy:
+    Container ID:  containerd://cf5b302c0b1de2459ef9bd2b28fd30c16c6846260673d76bd4054281ed698534
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do dd if=/dev/zero of=/dev/null bs=1k count=100 2>/dev/null; sleep 0.1; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:18 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:39:50 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:15 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5xvxk (ro)
+  wazuh:
+    Container ID:  containerd://1b04b8b17dccd8842a5c4194cc06fca1c9b83465a2422980d44dc101dbc7e9c3
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do find / -maxdepth 3 -type f 2>/dev/null | wc -l > /dev/null; sleep 2; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:18 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:39:50 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:15 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  1Gi
+    Requests:
+      cpu:        100m
+      memory:     512Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5xvxk (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-5xvxk:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/hostname=ip-172-31-17-237.us-west-2.compute.internal
+                             workload-type=kata
+Tolerations:                 kata-dedicated:NoSchedule op=Exists
+                             kata-oversell=true:NoSchedule
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason          Age                From               Message
+  ----     ------          ----               ----               -------
+  Normal   Scheduled       58m                default-scheduler  Successfully assigned t11f-1/sandbox-1 to ip-172-31-17-237.us-west-2.compute.internal
+  Normal   SandboxChanged  20m                kubelet            Pod sandbox changed, it will be killed and re-created.
+  Normal   Pulled          20m (x2 over 58m)  kubelet            spec.containers{gateway}: Container image "nginx:1.27" already present on machine
+  Normal   Created         20m (x2 over 58m)  kubelet            spec.containers{gateway}: Created container: gateway
+  Warning  Unhealthy       20m                kubelet            spec.containers{gateway}: Readiness probe failed: Get "http://172.31.16.91:80/": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+  Normal   Started         20m (x2 over 58m)  kubelet            spec.containers{config-watcher}: Started container config-watcher
+  Normal   Created         20m (x2 over 58m)  kubelet            spec.containers{config-watcher}: Created container: config-watcher
+  Normal   Pulled          20m (x2 over 58m)  kubelet            spec.containers{envoy}: Container image "busybox:1.36" already present on machine
+  Normal   Created         20m (x2 over 58m)  kubelet            spec.containers{envoy}: Created container: envoy
+  Normal   Started         20m (x2 over 58m)  kubelet            spec.containers{envoy}: Started container envoy
+  Normal   Pulled          20m (x2 over 58m)  kubelet            spec.containers{wazuh}: Container image "busybox:1.36" already present on machine
+  Normal   Created         20m (x2 over 58m)  kubelet            spec.containers{wazuh}: Created container: wazuh
+  Normal   Started         20m (x2 over 58m)  kubelet            spec.containers{wazuh}: Started container wazuh
+  Normal   Pulled          20m (x2 over 58m)  kubelet            spec.containers{config-watcher}: Container image "busybox:1.36" already present on machine
+  Normal   Started         20m (x2 over 58m)  kubelet            spec.containers{gateway}: Started container gateway
+
+--- sandbox-2 ---
+Name:                sandbox-2
+Namespace:           t11f-2
+Priority:            0
+Runtime Class Name:  kata-qemu
+Service Account:     default
+Node:                ip-172-31-17-237.us-west-2.compute.internal/172.31.17.237
+Start Time:          Sun, 12 Apr 2026 01:40:44 +0000
+Labels:              app=customer-repro
+Annotations:         <none>
+Status:              Running
+IP:                  172.31.19.147
+IPs:
+  IP:  172.31.19.147
+Containers:
+  gateway:
+    Container ID:   containerd://cda02d1fec7190078ab77e8be85a2c66f24235951cbf13fb126426622ef1918b
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:13 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:40:46 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:10 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     1500m
+      memory:  2Gi
+    Requests:
+      cpu:        150m
+      memory:     1Gi
+    Liveness:     http-get http://:80/ delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:80/ delay=5s timeout=5s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-n2qz7 (ro)
+  config-watcher:
+    Container ID:  containerd://5bb6e02b0c9985c3786a880ef0a7ec65643c5cb5f0265425044075e864ea63b8
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do sleep 5; cat /proc/loadavg > /dev/null; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:13 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:40:46 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:10 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-n2qz7 (ro)
+  envoy:
+    Container ID:  containerd://2ed880a531107ff74e6e84e604acc15c3d8bd309a4a1ce5caa2705c63c94b9a2
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do dd if=/dev/zero of=/dev/null bs=1k count=100 2>/dev/null; sleep 0.1; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:14 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:40:46 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:10 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-n2qz7 (ro)
+  wazuh:
+    Container ID:  containerd://15dbaefcb67b3c5f593ce4eeaf5e3572e43f683fe4790cd6e0e73280ac18a3ea
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do find / -maxdepth 3 -type f 2>/dev/null | wc -l > /dev/null; sleep 2; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:14 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:40:46 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:10 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  1Gi
+    Requests:
+      cpu:        100m
+      memory:     512Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-n2qz7 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-n2qz7:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/hostname=ip-172-31-17-237.us-west-2.compute.internal
+                             workload-type=kata
+Tolerations:                 kata-dedicated:NoSchedule op=Exists
+                             kata-oversell=true:NoSchedule
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason          Age                From               Message
+  ----    ------          ----               ----               -------
+  Normal  Scheduled       57m                default-scheduler  Successfully assigned t11f-2/sandbox-2 to ip-172-31-17-237.us-west-2.compute.internal
+  Normal  SandboxChanged  20m                kubelet            Pod sandbox changed, it will be killed and re-created.
+  Normal  Started         20m (x2 over 57m)  kubelet            spec.containers{config-watcher}: Started container config-watcher
+  Normal  Started         20m (x2 over 57m)  kubelet            spec.containers{gateway}: Started container gateway
+  Normal  Pulled          20m (x2 over 57m)  kubelet            spec.containers{config-watcher}: Container image "busybox:1.36" already present on machine
+  Normal  Created         20m (x2 over 57m)  kubelet            spec.containers{config-watcher}: Created container: config-watcher
+  Normal  Created         20m (x2 over 57m)  kubelet            spec.containers{gateway}: Created container: gateway
+  Normal  Pulled          20m (x2 over 57m)  kubelet            spec.containers{envoy}: Container image "busybox:1.36" already present on machine
+  Normal  Created         20m (x2 over 57m)  kubelet            spec.containers{envoy}: Created container: envoy
+  Normal  Pulled          20m (x2 over 57m)  kubelet            spec.containers{gateway}: Container image "nginx:1.27" already present on machine
+  Normal  Started         20m (x2 over 57m)  kubelet            spec.containers{envoy}: Started container envoy
+  Normal  Pulled          20m (x2 over 57m)  kubelet            spec.containers{wazuh}: Container image "busybox:1.36" already present on machine
+  Normal  Created         20m (x2 over 57m)  kubelet            spec.containers{wazuh}: Created container: wazuh
+  Normal  Started         20m (x2 over 57m)  kubelet            spec.containers{wazuh}: Started container wazuh
+
+--- sandbox-3 ---
+Name:                sandbox-3
+Namespace:           t11f-3
+Priority:            0
+Runtime Class Name:  kata-qemu
+Service Account:     default
+Node:                ip-172-31-17-237.us-west-2.compute.internal/172.31.17.237
+Start Time:          Sun, 12 Apr 2026 01:41:38 +0000
+Labels:              app=customer-repro
+Annotations:         <none>
+Status:              Running
+IP:                  172.31.22.227
+IPs:
+  IP:  172.31.22.227
+Containers:
+  gateway:
+    Container ID:   containerd://c97872f91b33e8d0cc54840446c3661d9a61c1e2e01e5d7b0202a356d4b6b0e1
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:14 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:41:40 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:10 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     1500m
+      memory:  2Gi
+    Requests:
+      cpu:        150m
+      memory:     1Gi
+    Liveness:     http-get http://:80/ delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:80/ delay=5s timeout=5s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-fx49h (ro)
+  config-watcher:
+    Container ID:  containerd://e197479f82d02d9a4d834f70c7db40f34902d6fd0a57d4545438c0f9573fcf45
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do sleep 5; cat /proc/loadavg > /dev/null; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:14 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:41:41 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:10 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-fx49h (ro)
+  envoy:
+    Container ID:  containerd://0dfd1bb8bb6bbab40fe04773cdf151708953a67c0f99417c91efae6c34a571a9
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do dd if=/dev/zero of=/dev/null bs=1k count=100 2>/dev/null; sleep 0.1; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:14 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:41:41 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:10 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-fx49h (ro)
+  wazuh:
+    Container ID:  containerd://1d0fd41daa861f4b4d91519ab223b54665aa19ba29087111963e10d812437dac
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do find / -maxdepth 3 -type f 2>/dev/null | wc -l > /dev/null; sleep 2; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:15 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:41:41 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:10 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  1Gi
+    Requests:
+      cpu:        100m
+      memory:     512Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-fx49h (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-fx49h:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/hostname=ip-172-31-17-237.us-west-2.compute.internal
+                             workload-type=kata
+Tolerations:                 kata-dedicated:NoSchedule op=Exists
+                             kata-oversell=true:NoSchedule
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason          Age                From               Message
+  ----    ------          ----               ----               -------
+  Normal  Scheduled       56m                default-scheduler  Successfully assigned t11f-3/sandbox-3 to ip-172-31-17-237.us-west-2.compute.internal
+  Normal  SandboxChanged  20m                kubelet            Pod sandbox changed, it will be killed and re-created.
+  Normal  Pulled          20m (x2 over 56m)  kubelet            spec.containers{gateway}: Container image "nginx:1.27" already present on machine
+  Normal  Created         20m (x2 over 56m)  kubelet            spec.containers{gateway}: Created container: gateway
+  Normal  Started         20m (x2 over 56m)  kubelet            spec.containers{config-watcher}: Started container config-watcher
+  Normal  Created         20m (x2 over 56m)  kubelet            spec.containers{config-watcher}: Created container: config-watcher
+  Normal  Pulled          20m (x2 over 56m)  kubelet            spec.containers{config-watcher}: Container image "busybox:1.36" already present on machine
+  Normal  Pulled          20m (x2 over 56m)  kubelet            spec.containers{envoy}: Container image "busybox:1.36" already present on machine
+  Normal  Created         20m (x2 over 56m)  kubelet            spec.containers{envoy}: Created container: envoy
+  Normal  Started         20m (x2 over 56m)  kubelet            spec.containers{envoy}: Started container envoy
+  Normal  Pulled          20m (x2 over 56m)  kubelet            spec.containers{wazuh}: Container image "busybox:1.36" already present on machine
+  Normal  Created         20m (x2 over 56m)  kubelet            spec.containers{wazuh}: Created container: wazuh
+  Normal  Started         20m (x2 over 56m)  kubelet            spec.containers{gateway}: Started container gateway
+  Normal  Started         20m (x2 over 56m)  kubelet            spec.containers{wazuh}: Started container wazuh
+
+--- sandbox-4 ---
+Name:                sandbox-4
+Namespace:           t11f-4
+Priority:            0
+Runtime Class Name:  kata-qemu
+Service Account:     default
+Node:                ip-172-31-17-237.us-west-2.compute.internal/172.31.17.237
+Start Time:          Sun, 12 Apr 2026 01:42:34 +0000
+Labels:              app=customer-repro
+Annotations:         <none>
+Status:              Running
+IP:                  172.31.26.231
+IPs:
+  IP:  172.31.26.231
+Containers:
+  gateway:
+    Container ID:   containerd://73fcca422ef9d71a3daf812fcc38b22a37d81d520a86360110984d6250aa3189
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:18 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:42:36 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:15 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     1500m
+      memory:  2Gi
+    Requests:
+      cpu:        150m
+      memory:     1Gi
+    Liveness:     http-get http://:80/ delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:80/ delay=5s timeout=5s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-r6d8z (ro)
+  config-watcher:
+    Container ID:  containerd://60ab2cde125df7fc30a73dcad5091d34f0a55d23d080846125ba597676728c10
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do sleep 5; cat /proc/loadavg > /dev/null; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:19 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:42:36 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:15 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-r6d8z (ro)
+  envoy:
+    Container ID:  containerd://34c50c72a4a4f87a359a808e4d9519c80a7015f2df9a7354c7f438831ee3577b
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do dd if=/dev/zero of=/dev/null bs=1k count=100 2>/dev/null; sleep 0.1; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:19 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:42:36 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:15 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-r6d8z (ro)
+  wazuh:
+    Container ID:  containerd://91ae21f950ab0c73354f5b58a2cbfced91455ad6e1ba57af3cc255bfb26468cd
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do find / -maxdepth 3 -type f 2>/dev/null | wc -l > /dev/null; sleep 2; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:19 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:42:36 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:15 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  1Gi
+    Requests:
+      cpu:        100m
+      memory:     512Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-r6d8z (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-r6d8z:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/hostname=ip-172-31-17-237.us-west-2.compute.internal
+                             workload-type=kata
+Tolerations:                 kata-dedicated:NoSchedule op=Exists
+                             kata-oversell=true:NoSchedule
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason          Age                From               Message
+  ----     ------          ----               ----               -------
+  Normal   Scheduled       55m                default-scheduler  Successfully assigned t11f-4/sandbox-4 to ip-172-31-17-237.us-west-2.compute.internal
+  Normal   SandboxChanged  20m                kubelet            Pod sandbox changed, it will be killed and re-created.
+  Normal   Pulled          20m (x2 over 55m)  kubelet            spec.containers{gateway}: Container image "nginx:1.27" already present on machine
+  Normal   Created         20m (x2 over 55m)  kubelet            spec.containers{gateway}: Created container: gateway
+  Normal   Started         20m (x2 over 55m)  kubelet            spec.containers{gateway}: Started container gateway
+  Normal   Pulled          20m (x2 over 55m)  kubelet            spec.containers{config-watcher}: Container image "busybox:1.36" already present on machine
+  Normal   Created         20m (x2 over 55m)  kubelet            spec.containers{config-watcher}: Created container: config-watcher
+  Normal   Started         20m (x2 over 55m)  kubelet            spec.containers{config-watcher}: Started container config-watcher
+  Normal   Created         20m (x2 over 55m)  kubelet            spec.containers{envoy}: Created container: envoy
+  Normal   Started         20m (x2 over 55m)  kubelet            spec.containers{envoy}: Started container envoy
+  Normal   Pulled          20m (x2 over 55m)  kubelet            spec.containers{wazuh}: Container image "busybox:1.36" already present on machine
+  Normal   Created         20m (x2 over 55m)  kubelet            spec.containers{wazuh}: Created container: wazuh
+  Normal   Started         20m (x2 over 55m)  kubelet            spec.containers{wazuh}: Started container wazuh
+  Normal   Pulled          20m (x2 over 55m)  kubelet            spec.containers{envoy}: Container image "busybox:1.36" already present on machine
+  Warning  Unhealthy       20m                kubelet            spec.containers{gateway}: Liveness probe failed: Get "http://172.31.21.199:80/": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+--- sandbox-5 ---
+Name:                sandbox-5
+Namespace:           t11f-5
+Priority:            0
+Runtime Class Name:  kata-qemu
+Service Account:     default
+Node:                ip-172-31-17-237.us-west-2.compute.internal/172.31.17.237
+Start Time:          Sun, 12 Apr 2026 01:43:29 +0000
+Labels:              app=customer-repro
+Annotations:         <none>
+Status:              Running
+IP:                  172.31.31.143
+IPs:
+  IP:  172.31.31.143
+Containers:
+  gateway:
+    Container ID:   containerd://4604e7b2ac58cbff271517ce053267dd31b9d6d2d7a3a801d5b127a8a74e64a7
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:14 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:43:31 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:11 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     1500m
+      memory:  2Gi
+    Requests:
+      cpu:        150m
+      memory:     1Gi
+    Liveness:     http-get http://:80/ delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:80/ delay=5s timeout=5s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zjwjj (ro)
+  config-watcher:
+    Container ID:  containerd://a0f7bbf253f1b10bb0f8cb12f7200556a095314565f36298356f42b911dd09c8
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do sleep 5; cat /proc/loadavg > /dev/null; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:15 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:43:31 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:11 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zjwjj (ro)
+  envoy:
+    Container ID:  containerd://5b676f426a62c7c4027e524358794764d53c826f9d47bf044a72d54e19267f7a
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do dd if=/dev/zero of=/dev/null bs=1k count=100 2>/dev/null; sleep 0.1; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:15 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:43:32 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:11 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zjwjj (ro)
+  wazuh:
+    Container ID:  containerd://aa0f7cf3aa5b5c5f8c2c25330e263ea256224f696353c367b97534e5a9249239
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do find / -maxdepth 3 -type f 2>/dev/null | wc -l > /dev/null; sleep 2; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:15 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:43:32 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:11 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  1Gi
+    Requests:
+      cpu:        100m
+      memory:     512Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zjwjj (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-zjwjj:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/hostname=ip-172-31-17-237.us-west-2.compute.internal
+                             workload-type=kata
+Tolerations:                 kata-dedicated:NoSchedule op=Exists
+                             kata-oversell=true:NoSchedule
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason          Age                From               Message
+  ----    ------          ----               ----               -------
+  Normal  Scheduled       55m                default-scheduler  Successfully assigned t11f-5/sandbox-5 to ip-172-31-17-237.us-west-2.compute.internal
+  Normal  SandboxChanged  20m                kubelet            Pod sandbox changed, it will be killed and re-created.
+  Normal  Pulled          20m (x2 over 55m)  kubelet            spec.containers{gateway}: Container image "nginx:1.27" already present on machine
+  Normal  Created         20m (x2 over 55m)  kubelet            spec.containers{gateway}: Created container: gateway
+  Normal  Started         20m (x2 over 55m)  kubelet            spec.containers{gateway}: Started container gateway
+  Normal  Pulled          20m (x2 over 55m)  kubelet            spec.containers{config-watcher}: Container image "busybox:1.36" already present on machine
+  Normal  Created         20m (x2 over 55m)  kubelet            spec.containers{config-watcher}: Created container: config-watcher
+  Normal  Started         20m (x2 over 55m)  kubelet            spec.containers{config-watcher}: Started container config-watcher
+  Normal  Created         20m (x2 over 55m)  kubelet            spec.containers{envoy}: Created container: envoy
+  Normal  Started         20m (x2 over 55m)  kubelet            spec.containers{envoy}: Started container envoy
+  Normal  Pulled          20m (x2 over 55m)  kubelet            spec.containers{wazuh}: Container image "busybox:1.36" already present on machine
+  Normal  Created         20m (x2 over 55m)  kubelet            spec.containers{wazuh}: Created container: wazuh
+  Normal  Started         20m (x2 over 55m)  kubelet            spec.containers{wazuh}: Started container wazuh
+  Normal  Pulled          20m (x2 over 55m)  kubelet            spec.containers{envoy}: Container image "busybox:1.36" already present on machine
+
+--- sandbox-6 ---
+Name:                sandbox-6
+Namespace:           t11f-6
+Priority:            0
+Runtime Class Name:  kata-qemu
+Service Account:     default
+Node:                ip-172-31-17-237.us-west-2.compute.internal/172.31.17.237
+Start Time:          Sun, 12 Apr 2026 01:44:25 +0000
+Labels:              app=customer-repro
+Annotations:         <none>
+Status:              Running
+IP:                  172.31.27.218
+IPs:
+  IP:  172.31.27.218
+Containers:
+  gateway:
+    Container ID:   containerd://6b64298f6f3ceeccdd10bb3187e6a5d0ec940d126cb5d9ceeb270562abe2cdfc
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:16 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:44:27 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:12 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     1500m
+      memory:  2Gi
+    Requests:
+      cpu:        150m
+      memory:     1Gi
+    Liveness:     http-get http://:80/ delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:80/ delay=5s timeout=5s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-fcdhm (ro)
+  config-watcher:
+    Container ID:  containerd://ae3aa7172e8f28ea124696edd4bcbf9df452645ec75108fa451b9c33be60b65c
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do sleep 5; cat /proc/loadavg > /dev/null; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:16 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:44:27 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:12 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-fcdhm (ro)
+  envoy:
+    Container ID:  containerd://2238301897403cedd254dec1164205c2f0bf04fe7677a7daaade12530319cca5
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do dd if=/dev/zero of=/dev/null bs=1k count=100 2>/dev/null; sleep 0.1; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:16 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:44:27 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:12 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-fcdhm (ro)
+  wazuh:
+    Container ID:  containerd://6e0d3b6280ec08fbaaef0c0fcf7ba1ccebe4f853c38089dc36aa3dfc414a4dee
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do find / -maxdepth 3 -type f 2>/dev/null | wc -l > /dev/null; sleep 2; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:17 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:44:28 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:12 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  1Gi
+    Requests:
+      cpu:        100m
+      memory:     512Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-fcdhm (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-fcdhm:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/hostname=ip-172-31-17-237.us-west-2.compute.internal
+                             workload-type=kata
+Tolerations:                 kata-dedicated:NoSchedule op=Exists
+                             kata-oversell=true:NoSchedule
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason          Age                From               Message
+  ----     ------          ----               ----               -------
+  Normal   Scheduled       54m                default-scheduler  Successfully assigned t11f-6/sandbox-6 to ip-172-31-17-237.us-west-2.compute.internal
+  Normal   SandboxChanged  20m                kubelet            Pod sandbox changed, it will be killed and re-created.
+  Warning  Unhealthy       20m                kubelet            spec.containers{gateway}: Readiness probe failed: Get "http://172.31.29.81:80/": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+  Normal   Pulled          20m (x2 over 54m)  kubelet            spec.containers{gateway}: Container image "nginx:1.27" already present on machine
+  Normal   Created         20m (x2 over 54m)  kubelet            spec.containers{gateway}: Created container: gateway
+  Normal   Started         20m (x2 over 54m)  kubelet            spec.containers{config-watcher}: Started container config-watcher
+  Normal   Created         20m (x2 over 54m)  kubelet            spec.containers{config-watcher}: Created container: config-watcher
+  Normal   Pulled          20m (x2 over 54m)  kubelet            spec.containers{envoy}: Container image "busybox:1.36" already present on machine
+  Normal   Created         20m (x2 over 54m)  kubelet            spec.containers{envoy}: Created container: envoy
+  Normal   Started         20m (x2 over 54m)  kubelet            spec.containers{envoy}: Started container envoy
+  Normal   Pulled          20m (x2 over 54m)  kubelet            spec.containers{wazuh}: Container image "busybox:1.36" already present on machine
+  Normal   Created         20m (x2 over 54m)  kubelet            spec.containers{wazuh}: Created container: wazuh
+  Normal   Pulled          20m (x2 over 54m)  kubelet            spec.containers{config-watcher}: Container image "busybox:1.36" already present on machine
+  Normal   Started         20m (x2 over 54m)  kubelet            spec.containers{gateway}: Started container gateway
+  Normal   Started         20m (x2 over 54m)  kubelet            spec.containers{wazuh}: Started container wazuh
+
+--- sandbox-7 ---
+Name:                sandbox-7
+Namespace:           t11f-7
+Priority:            0
+Runtime Class Name:  kata-qemu
+Service Account:     default
+Node:                ip-172-31-17-237.us-west-2.compute.internal/172.31.17.237
+Start Time:          Sun, 12 Apr 2026 01:45:21 +0000
+Labels:              app=customer-repro
+Annotations:         <none>
+Status:              Running
+IP:                  172.31.16.233
+IPs:
+  IP:  172.31.16.233
+Containers:
+  gateway:
+    Container ID:   containerd://619386cd8f49d7d4bd8dbf9ca2715fe476494a17adc7d50b79fcdce86c314734
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:16 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:45:23 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:13 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     1500m
+      memory:  2Gi
+    Requests:
+      cpu:        150m
+      memory:     1Gi
+    Liveness:     http-get http://:80/ delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:80/ delay=5s timeout=5s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-bx89b (ro)
+  config-watcher:
+    Container ID:  containerd://328e0f3116f09205f30fbbe6dde1f955f194d947757de1fcd85e5b102bccf736
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do sleep 5; cat /proc/loadavg > /dev/null; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:16 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:45:23 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:13 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-bx89b (ro)
+  envoy:
+    Container ID:  containerd://36af322b7c7d8515e0da2dcd7d359d5262b766108e2db08d48210e787de58b5a
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do dd if=/dev/zero of=/dev/null bs=1k count=100 2>/dev/null; sleep 0.1; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:16 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:45:23 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:13 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-bx89b (ro)
+  wazuh:
+    Container ID:  containerd://ba203464700b524e5b3431ccf26661cc8b300215972e7822bc5cf3b615a93e46
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do find / -maxdepth 3 -type f 2>/dev/null | wc -l > /dev/null; sleep 2; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:17 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:45:23 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:13 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  1Gi
+    Requests:
+      cpu:        100m
+      memory:     512Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-bx89b (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-bx89b:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/hostname=ip-172-31-17-237.us-west-2.compute.internal
+                             workload-type=kata
+Tolerations:                 kata-dedicated:NoSchedule op=Exists
+                             kata-oversell=true:NoSchedule
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason          Age                From               Message
+  ----     ------          ----               ----               -------
+  Normal   Scheduled       53m                default-scheduler  Successfully assigned t11f-7/sandbox-7 to ip-172-31-17-237.us-west-2.compute.internal
+  Normal   SandboxChanged  20m                kubelet            Pod sandbox changed, it will be killed and re-created.
+  Normal   Pulled          20m (x2 over 53m)  kubelet            spec.containers{gateway}: Container image "nginx:1.27" already present on machine
+  Normal   Created         20m (x2 over 53m)  kubelet            spec.containers{gateway}: Created container: gateway
+  Normal   Started         20m (x2 over 53m)  kubelet            spec.containers{config-watcher}: Started container config-watcher
+  Normal   Created         20m (x2 over 53m)  kubelet            spec.containers{config-watcher}: Created container: config-watcher
+  Normal   Pulled          20m (x2 over 53m)  kubelet            spec.containers{config-watcher}: Container image "busybox:1.36" already present on machine
+  Normal   Pulled          20m (x2 over 53m)  kubelet            spec.containers{envoy}: Container image "busybox:1.36" already present on machine
+  Normal   Created         20m (x2 over 53m)  kubelet            spec.containers{envoy}: Created container: envoy
+  Normal   Started         20m (x2 over 53m)  kubelet            spec.containers{envoy}: Started container envoy
+  Normal   Pulled          20m (x2 over 53m)  kubelet            spec.containers{wazuh}: Container image "busybox:1.36" already present on machine
+  Normal   Created         20m (x2 over 53m)  kubelet            spec.containers{wazuh}: Created container: wazuh
+  Normal   Started         20m (x2 over 53m)  kubelet            spec.containers{gateway}: Started container gateway
+  Warning  Unhealthy       20m                kubelet            spec.containers{gateway}: Liveness probe failed: Get "http://172.31.27.247:80/": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+  Normal   Started         20m (x2 over 53m)  kubelet            spec.containers{wazuh}: Started container wazuh
+
+--- sandbox-8 ---
+Name:                sandbox-8
+Namespace:           t11f-8
+Priority:            0
+Runtime Class Name:  kata-qemu
+Service Account:     default
+Node:                ip-172-31-17-237.us-west-2.compute.internal/172.31.17.237
+Start Time:          Sun, 12 Apr 2026 01:46:16 +0000
+Labels:              app=customer-repro
+Annotations:         <none>
+Status:              Running
+IP:                  172.31.26.240
+IPs:
+  IP:  172.31.26.240
+Containers:
+  gateway:
+    Container ID:   containerd://5e9c9c3980316eb4191950ec2b54de915904f20b3570298c3bdc36b5584379c4
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:17 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:46:18 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:13 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     1500m
+      memory:  2Gi
+    Requests:
+      cpu:        150m
+      memory:     1Gi
+    Liveness:     http-get http://:80/ delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:80/ delay=5s timeout=5s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-7zhtn (ro)
+  config-watcher:
+    Container ID:  containerd://554851f44712d4fc9a372c76bbbc5378330bdb6d53d9db2f829639a678c2d22a
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do sleep 5; cat /proc/loadavg > /dev/null; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:17 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:46:18 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:13 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-7zhtn (ro)
+  envoy:
+    Container ID:  containerd://44c7be0610eda6299cf8a170d0cbaeadaa2aa1e138dd70275f5c64816af3883e
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do dd if=/dev/zero of=/dev/null bs=1k count=100 2>/dev/null; sleep 0.1; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:17 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:46:19 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:13 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     256Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-7zhtn (ro)
+  wazuh:
+    Container ID:  containerd://ed9a3758708b6e321aef8b672fdcd6ae8c62bd15cc3f7138c7387b5472d8d388
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do find / -maxdepth 3 -type f 2>/dev/null | wc -l > /dev/null; sleep 2; done
+    State:          Running
+      Started:      Sun, 12 Apr 2026 02:18:17 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sun, 12 Apr 2026 01:46:19 +0000
+      Finished:     Sun, 12 Apr 2026 02:18:13 +0000
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      cpu:     500m
+      memory:  1Gi
+    Requests:
+      cpu:        100m
+      memory:     512Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-7zhtn (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-7zhtn:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/hostname=ip-172-31-17-237.us-west-2.compute.internal
+                             workload-type=kata
+Tolerations:                 kata-dedicated:NoSchedule op=Exists
+                             kata-oversell=true:NoSchedule
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason          Age                From               Message
+  ----     ------          ----               ----               -------
+  Normal   Scheduled       52m                default-scheduler  Successfully assigned t11f-8/sandbox-8 to ip-172-31-17-237.us-west-2.compute.internal
+  Normal   SandboxChanged  20m                kubelet            Pod sandbox changed, it will be killed and re-created.
+  Warning  Unhealthy       20m                kubelet            spec.containers{gateway}: Readiness probe failed: Get "http://172.31.26.194:80/": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+  Normal   Pulled          20m (x2 over 52m)  kubelet            spec.containers{gateway}: Container image "nginx:1.27" already present on machine
+  Normal   Created         20m (x2 over 52m)  kubelet            spec.containers{gateway}: Created container: gateway
+  Normal   Started         20m (x2 over 52m)  kubelet            spec.containers{config-watcher}: Started container config-watcher
+  Normal   Created         20m (x2 over 52m)  kubelet            spec.containers{config-watcher}: Created container: config-watcher
+  Normal   Pulled          20m (x2 over 52m)  kubelet            spec.containers{envoy}: Container image "busybox:1.36" already present on machine
+  Normal   Created         20m (x2 over 52m)  kubelet            spec.containers{envoy}: Created container: envoy
+  Normal   Started         20m (x2 over 52m)  kubelet            spec.containers{envoy}: Started container envoy
+  Normal   Pulled          20m (x2 over 52m)  kubelet            spec.containers{wazuh}: Container image "busybox:1.36" already present on machine
+  Normal   Created         20m (x2 over 52m)  kubelet            spec.containers{wazuh}: Created container: wazuh
+  Normal   Started         20m (x2 over 52m)  kubelet            spec.containers{wazuh}: Started container wazuh
+  Normal   Pulled          20m (x2 over 52m)  kubelet            spec.containers{config-watcher}: Container image "busybox:1.36" already present on machine
+  Normal   Started         20m (x2 over 52m)  kubelet            spec.containers{gateway}: Started container gateway
+

@@ -1,0 +1,328 @@
+[01:39:26] =============================================================
+[01:39:26]   Test 11f: Customer Environment Reproduction
+[01:39:26] =============================================================
+[01:39:26] 
+[01:39:26] Node: ip-172-31-17-237.us-west-2.compute.internal (m8i.2xlarge, 8 vCPU, 32 GiB)
+[01:39:26] Kata: default_vcpus=5, default_memory=2048
+[01:39:26] 
+[01:39:26] Pod spec (matching customer):
+[01:39:26]   gateway:        150m/1Gi  request, 1500m/2Gi  limit
+[01:39:26]   config-watcher: 100m/256Mi request, 500m/512Mi limit
+[01:39:26]   envoy:          100m/256Mi request, 500m/512Mi limit
+[01:39:26]   wazuh:          100m/512Mi request, 500m/1Gi  limit
+[01:39:26]   Container total: 450m CPU / 2Gi memory requests
+[01:39:26]   Kata overhead:   500m CPU / 640Mi memory
+[01:39:26]   Pod scheduling:  950m CPU / ~2.6Gi memory
+[01:39:26] 
+[01:39:26] Target: deploy 7 pods → 6650m/8000m = 83% CPU requests
+[01:39:26]   CPU limits: 3000m × 7 = 21000m → 262% overcommit
+[01:39:26] 
+[01:39:26] Expected: agent timeout → Dead agent → exit 255 → restarts
+[01:39:26] =============================================================
+[01:39:26] 
+[01:39:26] Cleaning up leftover namespaces...
+[01:39:35] Kata config verification:
+default_vcpus = 5
+default_maxvcpus = 0
+default_memory = 2048
+[01:39:35] 
+[01:39:35] === Phase 0: Baseline ===
+[01:39:47]   phase=baseline target=0 running=0 pending=0 failed=0 not_ready=0 restarts=0
+[01:39:47]   node_cpu=0.0% mem_total=31555MiB mem_avail=30028MiB shm=0MiB
+[01:39:47]   qemu=0
+0(0.0% CPU, 0MiB RSS) vfs=0
+0(0.0%) smp=N/A
+[01:39:47] 
+[01:39:47] === Phase 1: Deploying sandbox-1 (1 / 8) ===
+namespace/t11f-1 created
+pod/sandbox-1 created
+[01:39:48]   Waiting up to 180s for pod Ready (all 4 containers)...
+pod/sandbox-1 condition met
+[01:40:02]   ✅ Pod sandbox-1 is Ready (4/4 containers)
+[01:40:02]   Waiting 30s for workload stabilization...
+[01:40:41]   phase=deployed-1 target=1 running=1 pending=0 failed=0 not_ready=1 restarts=0
+[01:40:41]   node_cpu=0.0% mem_total=31555MiB mem_avail=29687MiB shm=301MiB
+[01:40:41]   qemu=1(23.9% CPU, 401MiB RSS) vfs=2(2.8%) smp=reboot=k
+5,cores=1,threads=1,sockets=8,maxcpus=8
+[01:40:41]   === Host top (QEMU + virtiofsd) ===
+[01:40:42]     PID=492574 CPU=24.0% MEM=1.2% RSS=402MiB VIRT=7.3GiB qemu-system-x86
+[01:40:42]     PID=492579 CPU=2.8% MEM=0.1% RSS=38MiB VIRT=6.0GiB virtiofsd
+[01:40:42]     PID=492573 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:40:42]   =================================
+[01:40:42]   === Pod Status ===
+[01:40:42]     t11f-1   sandbox-1   4/4   Running   0     54s   172.31.16.91   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:40:42]   ===================
+[01:40:42] 
+[01:40:42] === Phase 2: Deploying sandbox-2 (2 / 8) ===
+namespace/t11f-2 created
+pod/sandbox-2 created
+[01:40:44]   Waiting up to 180s for pod Ready (all 4 containers)...
+pod/sandbox-2 condition met
+[01:40:58]   ✅ Pod sandbox-2 is Ready (4/4 containers)
+[01:40:58]   Waiting 30s for workload stabilization...
+[01:41:36]   phase=deployed-2 target=2 running=2 pending=0 failed=0 not_ready=2 restarts=0
+[01:41:36]   node_cpu=0.0% mem_total=31555MiB mem_avail=29333MiB shm=615MiB
+[01:41:36]   qemu=2(44.5% CPU, 817MiB RSS) vfs=4(5.5%) smp=reboot=k
+5,cores=1,threads=1,sockets=8,maxcpus=8
+[01:41:36]   === Host top (QEMU + virtiofsd) ===
+[01:41:37]     PID=493290 CPU=23.1% MEM=1.2% RSS=405MiB VIRT=7.3GiB qemu-system-x86
+[01:41:37]     PID=492574 CPU=21.4% MEM=1.3% RSS=412MiB VIRT=7.3GiB qemu-system-x86
+[01:41:37]     PID=493294 CPU=2.8% MEM=0.1% RSS=39MiB VIRT=6.0GiB virtiofsd
+[01:41:37]     PID=492579 CPU=2.7% MEM=0.1% RSS=42MiB VIRT=6.0GiB virtiofsd
+[01:41:37]     PID=492573 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:41:37]     PID=493289 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:41:37]   =================================
+[01:41:37]   === Pod Status ===
+[01:41:37]     t11f-1   sandbox-1   4/4   Running   0     109s   172.31.16.91    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:41:37]     t11f-2   sandbox-2   4/4   Running   0     53s    172.31.27.122   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:41:37]   ===================
+[01:41:37] 
+[01:41:37] === Phase 3: Deploying sandbox-3 (3 / 8) ===
+namespace/t11f-3 created
+pod/sandbox-3 created
+[01:41:38]   Waiting up to 180s for pod Ready (all 4 containers)...
+pod/sandbox-3 condition met
+[01:41:53]   ✅ Pod sandbox-3 is Ready (4/4 containers)
+[01:41:53]   Waiting 30s for workload stabilization...
+[01:42:32]   phase=deployed-3 target=3 running=3 pending=0 failed=0 not_ready=3 restarts=0
+[01:42:32]   node_cpu=0.0% mem_total=31555MiB mem_avail=28966MiB shm=927MiB
+[01:42:32]   qemu=3(64.6% CPU, 1229MiB RSS) vfs=6(7.8%) smp=reboot=k
+5,cores=1,threads=1,sockets=8,maxcpus=8
+[01:42:32]   === Host top (QEMU + virtiofsd) ===
+[01:42:32]     PID=494043 CPU=22.0% MEM=1.2% RSS=402MiB VIRT=7.3GiB qemu-system-x86
+[01:42:32]     PID=493290 CPU=21.2% MEM=1.3% RSS=411MiB VIRT=7.3GiB qemu-system-x86
+[01:42:32]     PID=492574 CPU=20.7% MEM=1.3% RSS=415MiB VIRT=7.3GiB qemu-system-x86
+[01:42:32]     PID=492579 CPU=2.7% MEM=0.1% RSS=45MiB VIRT=6.0GiB virtiofsd
+[01:42:32]     PID=493294 CPU=2.6% MEM=0.1% RSS=42MiB VIRT=6.0GiB virtiofsd
+[01:42:32]     PID=494046 CPU=2.6% MEM=0.1% RSS=37MiB VIRT=6.0GiB virtiofsd
+[01:42:32]     PID=492573 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:42:32]     PID=493289 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:42:32]     PID=494041 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:42:32]   =================================
+[01:42:32]   === Pod Status ===
+[01:42:33]     t11f-1   sandbox-1   4/4   Running   0     2m45s   172.31.16.91    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:42:33]     t11f-2   sandbox-2   4/4   Running   0     109s    172.31.27.122   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:42:33]     t11f-3   sandbox-3   4/4   Running   0     55s     172.31.19.88    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:42:33]   ===================
+[01:42:33] 
+[01:42:33] === Phase 4: Deploying sandbox-4 (4 / 8) ===
+namespace/t11f-4 created
+pod/sandbox-4 created
+[01:42:34]   Waiting up to 180s for pod Ready (all 4 containers)...
+pod/sandbox-4 condition met
+[01:42:48]   ✅ Pod sandbox-4 is Ready (4/4 containers)
+[01:42:48]   Waiting 30s for workload stabilization...
+[01:43:27]   phase=deployed-4 target=4 running=4 pending=0 failed=0 not_ready=4 restarts=0
+[01:43:27]   node_cpu=0.0% mem_total=31555MiB mem_avail=28603MiB shm=1252MiB
+[01:43:27]   qemu=4(84.4% CPU, 1656MiB RSS) vfs=8(10.3%) smp=reboot=k
+5,cores=1,threads=1,sockets=8,maxcpus=8
+[01:43:27]   === Host top (QEMU + virtiofsd) ===
+[01:43:27]     PID=494740 CPU=22.6% MEM=1.3% RSS=410MiB VIRT=7.3GiB qemu-system-x86
+[01:43:27]     PID=493290 CPU=20.5% MEM=1.3% RSS=417MiB VIRT=7.3GiB qemu-system-x86
+[01:43:27]     PID=492574 CPU=20.4% MEM=1.3% RSS=416MiB VIRT=7.3GiB qemu-system-x86
+[01:43:27]     PID=494043 CPU=20.1% MEM=1.3% RSS=412MiB VIRT=7.3GiB qemu-system-x86
+[01:43:27]     PID=492579 CPU=2.6% MEM=0.1% RSS=47MiB VIRT=6.0GiB virtiofsd
+[01:43:27]     PID=493294 CPU=2.6% MEM=0.1% RSS=45MiB VIRT=6.0GiB virtiofsd
+[01:43:27]     PID=494046 CPU=2.6% MEM=0.1% RSS=42MiB VIRT=6.0GiB virtiofsd
+[01:43:27]     PID=494744 CPU=2.6% MEM=0.1% RSS=39MiB VIRT=6.0GiB virtiofsd
+[01:43:27]     PID=492573 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:43:27]     PID=493289 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:43:27]     PID=494041 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:43:27]     PID=494739 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:43:27]   =================================
+[01:43:27]   === Pod Status ===
+[01:43:28]     t11f-1   sandbox-1   4/4   Running   0     3m40s   172.31.16.91    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:43:28]     t11f-2   sandbox-2   4/4   Running   0     2m44s   172.31.27.122   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:43:28]     t11f-3   sandbox-3   4/4   Running   0     110s    172.31.19.88    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:43:28]     t11f-4   sandbox-4   4/4   Running   0     54s     172.31.21.199   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:43:28]   ===================
+[01:43:28] 
+[01:43:28] === Phase 5: Deploying sandbox-5 (5 / 8) ===
+namespace/t11f-5 created
+pod/sandbox-5 created
+[01:43:29]   Waiting up to 180s for pod Ready (all 4 containers)...
+pod/sandbox-5 condition met
+[01:43:44]   ✅ Pod sandbox-5 is Ready (4/4 containers)
+[01:43:44]   Waiting 30s for workload stabilization...
+[01:44:23]   phase=deployed-5 target=5 running=5 pending=0 failed=0 not_ready=5 restarts=0
+[01:44:23]   node_cpu=0.0% mem_total=31555MiB mem_avail=28224MiB shm=1577MiB
+[01:44:23]   qemu=5(103.9% CPU, 2081MiB RSS) vfs=10(13.0%) smp=reboot=k
+5,cores=1,threads=1,sockets=8,maxcpus=8
+[01:44:23]   === Host top (QEMU + virtiofsd) ===
+[01:44:23]     PID=495485 CPU=22.8% MEM=1.2% RSS=403MiB VIRT=7.3GiB qemu-system-x86
+[01:44:23]     PID=494740 CPU=20.5% MEM=1.3% RSS=419MiB VIRT=7.3GiB qemu-system-x86
+[01:44:23]     PID=493290 CPU=20.2% MEM=1.3% RSS=424MiB VIRT=7.3GiB qemu-system-x86
+[01:44:23]     PID=492574 CPU=20.1% MEM=1.3% RSS=420MiB VIRT=7.3GiB qemu-system-x86
+[01:44:23]     PID=494043 CPU=19.6% MEM=1.3% RSS=415MiB VIRT=7.3GiB qemu-system-x86
+[01:44:23]     PID=492579 CPU=2.6% MEM=0.1% RSS=49MiB VIRT=6.0GiB virtiofsd
+[01:44:23]     PID=493294 CPU=2.6% MEM=0.1% RSS=50MiB VIRT=6.0GiB virtiofsd
+[01:44:23]     PID=494046 CPU=2.6% MEM=0.1% RSS=44MiB VIRT=6.0GiB virtiofsd
+[01:44:23]     PID=494744 CPU=2.6% MEM=0.1% RSS=42MiB VIRT=6.0GiB virtiofsd
+[01:44:23]     PID=495490 CPU=2.6% MEM=0.1% RSS=38MiB VIRT=6.0GiB virtiofsd
+[01:44:23]     PID=492573 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:44:23]     PID=493289 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:44:23]     PID=494041 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:44:23]     PID=494739 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:44:23]     PID=495484 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:44:23]   =================================
+[01:44:23]   === Pod Status ===
+[01:44:24]     t11f-1   sandbox-1   4/4   Running   0     4m36s   172.31.16.91    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:44:24]     t11f-2   sandbox-2   4/4   Running   0     3m40s   172.31.27.122   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:44:24]     t11f-3   sandbox-3   4/4   Running   0     2m46s   172.31.19.88    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:44:24]     t11f-4   sandbox-4   4/4   Running   0     110s    172.31.21.199   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:44:24]     t11f-5   sandbox-5   4/4   Running   0     55s     172.31.30.238   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:44:24]   ===================
+[01:44:24] 
+[01:44:24] === Phase 6: Deploying sandbox-6 (6 / 8) ===
+namespace/t11f-6 created
+pod/sandbox-6 created
+[01:44:25]   Waiting up to 180s for pod Ready (all 4 containers)...
+pod/sandbox-6 condition met
+[01:44:39]   ✅ Pod sandbox-6 is Ready (4/4 containers)
+[01:44:39]   Waiting 30s for workload stabilization...
+[01:45:18]   phase=deployed-6 target=6 running=6 pending=0 failed=0 not_ready=6 restarts=0
+[01:45:18]   node_cpu=0.0% mem_total=31555MiB mem_avail=27824MiB shm=1899MiB
+[01:45:18]   qemu=6(122.7% CPU, 2505MiB RSS) vfs=12(15.7%) smp=reboot=k
+5,cores=1,threads=1,sockets=8,maxcpus=8
+[01:45:18]   === Host top (QEMU + virtiofsd) ===
+[01:45:19]     PID=496215 CPU=23.1% MEM=1.2% RSS=403MiB VIRT=7.3GiB qemu-system-x86
+[01:45:19]     PID=495485 CPU=20.4% MEM=1.2% RSS=410MiB VIRT=7.3GiB qemu-system-x86
+[01:45:19]     PID=492574 CPU=19.9% MEM=1.3% RSS=422MiB VIRT=7.3GiB qemu-system-x86
+[01:45:19]     PID=493290 CPU=19.9% MEM=1.3% RSS=425MiB VIRT=7.3GiB qemu-system-x86
+[01:45:19]     PID=494740 CPU=19.7% MEM=1.3% RSS=424MiB VIRT=7.3GiB qemu-system-x86
+[01:45:19]     PID=494043 CPU=19.1% MEM=1.3% RSS=419MiB VIRT=7.3GiB qemu-system-x86
+[01:45:19]     PID=496221 CPU=2.7% MEM=0.1% RSS=39MiB VIRT=6.0GiB virtiofsd
+[01:45:19]     PID=492579 CPU=2.6% MEM=0.1% RSS=51MiB VIRT=6.0GiB virtiofsd
+[01:45:19]     PID=493294 CPU=2.6% MEM=0.1% RSS=52MiB VIRT=6.0GiB virtiofsd
+[01:45:19]     PID=494046 CPU=2.6% MEM=0.1% RSS=47MiB VIRT=6.0GiB virtiofsd
+[01:45:19]     PID=494744 CPU=2.6% MEM=0.1% RSS=46MiB VIRT=6.0GiB virtiofsd
+[01:45:19]     PID=495490 CPU=2.6% MEM=0.1% RSS=42MiB VIRT=6.0GiB virtiofsd
+[01:45:19]     PID=492573 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:45:19]     PID=493289 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:45:19]     PID=494041 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:45:19]     PID=494739 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:45:19]     PID=495484 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:45:19]     PID=496214 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:45:19]   =================================
+[01:45:19]   === Pod Status ===
+[01:45:20]     t11f-1   sandbox-1   4/4   Running   0     5m32s   172.31.16.91    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:45:20]     t11f-2   sandbox-2   4/4   Running   0     4m36s   172.31.27.122   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:45:20]     t11f-3   sandbox-3   4/4   Running   0     3m42s   172.31.19.88    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:45:20]     t11f-4   sandbox-4   4/4   Running   0     2m46s   172.31.21.199   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:45:20]     t11f-5   sandbox-5   4/4   Running   0     111s    172.31.30.238   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:45:20]     t11f-6   sandbox-6   4/4   Running   0     55s     172.31.29.81    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:45:20]   ===================
+[01:45:20] 
+[01:45:20] === Phase 7: Deploying sandbox-7 (7 / 8) ===
+namespace/t11f-7 created
+pod/sandbox-7 created
+[01:45:21]   Waiting up to 180s for pod Ready (all 4 containers)...
+pod/sandbox-7 condition met
+[01:45:35]   ✅ Pod sandbox-7 is Ready (4/4 containers)
+[01:45:35]   Waiting 30s for workload stabilization...
+[01:46:14]   phase=deployed-7 target=7 running=7 pending=0 failed=0 not_ready=7 restarts=0
+[01:46:14]   node_cpu=0.0% mem_total=31555MiB mem_avail=27462MiB shm=2213MiB
+[01:46:14]   qemu=7(144.0% CPU, 2921MiB RSS) vfs=14(18.4%) smp=reboot=k
+5,cores=1,threads=1,sockets=8,maxcpus=8
+[01:46:14]   === Host top (QEMU + virtiofsd) ===
+[01:46:15]     PID=496976 CPU=24.0% MEM=1.2% RSS=396MiB VIRT=7.3GiB qemu-system-x86
+[01:46:15]     PID=496215 CPU=21.3% MEM=1.2% RSS=409MiB VIRT=7.3GiB qemu-system-x86
+[01:46:15]     PID=495485 CPU=19.9% MEM=1.3% RSS=413MiB VIRT=7.3GiB qemu-system-x86
+[01:46:15]     PID=493290 CPU=19.8% MEM=1.3% RSS=427MiB VIRT=7.3GiB qemu-system-x86
+[01:46:15]     PID=492574 CPU=19.7% MEM=1.3% RSS=422MiB VIRT=7.3GiB qemu-system-x86
+[01:46:15]     PID=494740 CPU=19.5% MEM=1.3% RSS=427MiB VIRT=7.3GiB qemu-system-x86
+[01:46:15]     PID=494043 CPU=18.8% MEM=1.3% RSS=423MiB VIRT=7.3GiB qemu-system-x86
+[01:46:15]     PID=496982 CPU=2.7% MEM=0.1% RSS=38MiB VIRT=6.0GiB virtiofsd
+[01:46:15]     PID=492579 CPU=2.6% MEM=0.1% RSS=52MiB VIRT=6.0GiB virtiofsd
+[01:46:15]     PID=493294 CPU=2.6% MEM=0.1% RSS=54MiB VIRT=6.0GiB virtiofsd
+[01:46:15]     PID=494046 CPU=2.6% MEM=0.1% RSS=49MiB VIRT=6.0GiB virtiofsd
+[01:46:15]     PID=494744 CPU=2.6% MEM=0.1% RSS=48MiB VIRT=6.0GiB virtiofsd
+[01:46:15]     PID=495490 CPU=2.6% MEM=0.1% RSS=44MiB VIRT=6.0GiB virtiofsd
+[01:46:15]     PID=496221 CPU=2.6% MEM=0.1% RSS=42MiB VIRT=6.0GiB virtiofsd
+[01:46:15]     PID=492573 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:46:15]     PID=493289 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:46:15]     PID=494041 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:46:15]     PID=494739 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:46:15]     PID=495484 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:46:15]     PID=496214 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:46:15]   =================================
+[01:46:15]   === Pod Status ===
+[01:46:15]     t11f-1   sandbox-1   4/4   Running   0     6m27s   172.31.16.91    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:46:15]     t11f-2   sandbox-2   4/4   Running   0     5m31s   172.31.27.122   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:46:15]     t11f-3   sandbox-3   4/4   Running   0     4m37s   172.31.19.88    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:46:15]     t11f-4   sandbox-4   4/4   Running   0     3m41s   172.31.21.199   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:46:15]     t11f-5   sandbox-5   4/4   Running   0     2m46s   172.31.30.238   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:46:15]     t11f-6   sandbox-6   4/4   Running   0     110s    172.31.29.81    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:46:15]     t11f-7   sandbox-7   4/4   Running   0     54s     172.31.27.247   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:46:15]   ===================
+[01:46:15] 
+[01:46:15] === Phase 8: Deploying sandbox-8 (8 / 8) ===
+namespace/t11f-8 created
+pod/sandbox-8 created
+[01:46:16]   Waiting up to 180s for pod Ready (all 4 containers)...
+pod/sandbox-8 condition met
+[01:46:30]   ✅ Pod sandbox-8 is Ready (4/4 containers)
+[01:46:30]   Waiting 30s for workload stabilization...
+[01:47:09]   phase=deployed-8 target=8 running=8 pending=0 failed=0 not_ready=8 restarts=0
+[01:47:09]   node_cpu=0.0% mem_total=31555MiB mem_avail=27104MiB shm=2531MiB
+[01:47:09]   qemu=8(162.1% CPU, 3338MiB RSS) vfs=16(21.1%) smp=reboot=k
+5,cores=1,threads=1,sockets=8,maxcpus=8
+[01:47:09]   === Host top (QEMU + virtiofsd) ===
+[01:47:10]     PID=497683 CPU=23.5% MEM=1.2% RSS=398MiB VIRT=7.3GiB qemu-system-x86
+[01:47:10]     PID=496976 CPU=21.5% MEM=1.2% RSS=404MiB VIRT=7.3GiB qemu-system-x86
+[01:47:10]     PID=496215 CPU=20.7% MEM=1.3% RSS=413MiB VIRT=7.3GiB qemu-system-x86
+[01:47:10]     PID=493290 CPU=19.7% MEM=1.3% RSS=429MiB VIRT=7.3GiB qemu-system-x86
+[01:47:10]     PID=492574 CPU=19.6% MEM=1.3% RSS=425MiB VIRT=7.3GiB qemu-system-x86
+[01:47:10]     PID=495485 CPU=19.6% MEM=1.3% RSS=415MiB VIRT=7.3GiB qemu-system-x86
+[01:47:10]     PID=494740 CPU=19.2% MEM=1.3% RSS=428MiB VIRT=7.3GiB qemu-system-x86
+[01:47:10]     PID=494043 CPU=18.7% MEM=1.3% RSS=423MiB VIRT=7.3GiB qemu-system-x86
+[01:47:10]     PID=496221 CPU=2.7% MEM=0.1% RSS=45MiB VIRT=6.0GiB virtiofsd
+[01:47:10]     PID=496982 CPU=2.7% MEM=0.1% RSS=42MiB VIRT=6.0GiB virtiofsd
+[01:47:10]     PID=497687 CPU=2.7% MEM=0.1% RSS=39MiB VIRT=6.0GiB virtiofsd
+[01:47:10]     PID=492579 CPU=2.6% MEM=0.1% RSS=55MiB VIRT=6.0GiB virtiofsd
+[01:47:10]     PID=493294 CPU=2.6% MEM=0.1% RSS=55MiB VIRT=6.0GiB virtiofsd
+[01:47:10]     PID=494046 CPU=2.6% MEM=0.1% RSS=51MiB VIRT=6.0GiB virtiofsd
+[01:47:10]     PID=494744 CPU=2.6% MEM=0.1% RSS=50MiB VIRT=6.0GiB virtiofsd
+[01:47:10]     PID=495490 CPU=2.6% MEM=0.1% RSS=47MiB VIRT=6.0GiB virtiofsd
+[01:47:10]     PID=492573 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:47:10]     PID=493289 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:47:10]     PID=494041 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:47:10]     PID=494739 CPU=0.0% MEM=0.0% RSS=2MiB VIRT=0GiB virtiofsd
+[01:47:10]   =================================
+[01:47:10]   === Pod Status ===
+[01:47:10]     t11f-1   sandbox-1   4/4   Running   0     7m22s   172.31.16.91    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:47:10]     t11f-2   sandbox-2   4/4   Running   0     6m26s   172.31.27.122   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:47:10]     t11f-3   sandbox-3   4/4   Running   0     5m32s   172.31.19.88    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:47:10]     t11f-4   sandbox-4   4/4   Running   0     4m36s   172.31.21.199   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:47:10]     t11f-5   sandbox-5   4/4   Running   0     3m41s   172.31.30.238   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:47:10]     t11f-6   sandbox-6   4/4   Running   0     2m45s   172.31.29.81    ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:47:10]     t11f-7   sandbox-7   4/4   Running   0     109s    172.31.27.247   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:47:10]     t11f-8   sandbox-8   4/4   Running   0     54s     172.31.26.194   ip-172-31-17-237.us-west-2.compute.internal   <none>   <none>
+[01:47:10]   ===================
+[01:47:10] 
+[01:47:10] === Steady-state monitoring (10 min, sample every 60s) ===
+[01:47:11]   Starting restarts: 0
+[01:48:20]   phase=steady-1 target=8 running=8 pending=0 failed=0 not_ready=8 restarts=0
+[01:48:20]   node_cpu=0.0% mem_total=31555MiB mem_avail=27095MiB shm=2557MiB
+[01:48:20]   qemu=8(157.4% CPU, 3365MiB RSS) vfs=16(21.0%) smp=reboot=k
+5,cores=1,threads=1,sockets=8,maxcpus=8
+[01:48:21]   [steady-1] new_restarts=0 agent_errors_last_60s=0
+0
+/home/ec2-user/kata-benchmark-v2/scripts/test11f-customer-repro.sh: line 331: [[: 0
+0: syntax error in expression (error token is "0")
+[01:49:30]   phase=steady-2 target=8 running=8 pending=0 failed=0 not_ready=8 restarts=0
+[01:49:30]   node_cpu=0.0% mem_total=31555MiB mem_avail=27047MiB shm=2584MiB
+[01:49:30]   qemu=8(154.8% CPU, 3390MiB RSS) vfs=16(20.8%) smp=reboot=k
+5,cores=1,threads=1,sockets=8,maxcpus=8
+[01:49:31]   [steady-2] new_restarts=0 agent_errors_last_60s=0
+0
+/home/ec2-user/kata-benchmark-v2/scripts/test11f-customer-repro.sh: line 331: [[: 0
+0: syntax error in expression (error token is "0")
+[01:50:40]   phase=steady-3 target=8 running=8 pending=0 failed=0 not_ready=8 restarts=0
+[01:50:40]   node_cpu=0.0% mem_total=31555MiB mem_avail=27035MiB shm=2600MiB
+[01:50:40]   qemu=8(153.8% CPU, 3408MiB RSS) vfs=16(20.8%) smp=reboot=k
+5,cores=1,threads=1,sockets=8,maxcpus=8
+[01:50:41]   [steady-3] new_restarts=0 agent_errors_last_60s=0
+0
+/home/ec2-user/kata-benchmark-v2/scripts/test11f-customer-repro.sh: line 331: [[: 0
+0: syntax error in expression (error token is "0")

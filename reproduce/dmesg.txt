@@ -1,0 +1,1301 @@
+=== dmesg ===
+2026-04-11T02:18:23,000000+00:00 Linux version 6.12.68-92.122.amzn2023.x86_64 (mockbuild@ip-10-0-38-81) (gcc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-5), GNU ld version 2.41-50.amzn2023.0.5) #1 SMP PREEMPT_DYNAMIC Mon Feb  9 10:43:10 UTC 2026
+2026-04-11T02:18:23,000000+00:00 Command line: BOOT_IMAGE=(hd0,gpt1)/boot/vmlinuz-6.12.68-92.122.amzn2023.x86_64 root=UUID=417dd49c-6f90-4edd-8517-c87dc5543f08 ro console=tty0 console=ttyS0,115200n8 nvme_core.io_timeout=4294967295 rd.emergency=poweroff rd.shell=0 selinux=1 security=selinux quiet clocksource=tsc tsc=reliable
+2026-04-11T02:18:23,000000+00:00 KASLR enabled
+2026-04-11T02:18:23,000000+00:00 x86/tme: enabled by BIOS
+2026-04-11T02:18:23,000000+00:00 x86/split lock detection: #DB: warning on user-space bus_locks
+2026-04-11T02:18:23,000000+00:00 BIOS-provided physical RAM map:
+2026-04-11T02:18:23,000000+00:00 BIOS-e820: [mem 0x0000000000000000-0x000000000009ffff] usable
+2026-04-11T02:18:23,000000+00:00 BIOS-e820: [mem 0x0000000000100000-0x00000000bf8eefff] usable
+2026-04-11T02:18:23,000000+00:00 BIOS-e820: [mem 0x00000000bf8ef000-0x00000000bfb6efff] reserved
+2026-04-11T02:18:23,000000+00:00 BIOS-e820: [mem 0x00000000bfb6f000-0x00000000bfb7efff] ACPI data
+2026-04-11T02:18:23,000000+00:00 BIOS-e820: [mem 0x00000000bfb7f000-0x00000000bfbfefff] ACPI NVS
+2026-04-11T02:18:23,000000+00:00 BIOS-e820: [mem 0x00000000bfbff000-0x00000000bff7bfff] usable
+2026-04-11T02:18:23,000000+00:00 BIOS-e820: [mem 0x00000000bff7c000-0x00000000bfffffff] reserved
+2026-04-11T02:18:23,000000+00:00 BIOS-e820: [mem 0x0000000100000000-0x000000081dffffff] usable
+2026-04-11T02:18:23,000000+00:00 BIOS-e820: [mem 0x000000081e000000-0x000000083fffffff] reserved
+2026-04-11T02:18:23,000000+00:00 BIOS-e820: [mem 0x0000000840100000-0x0000000842bfffff] reserved
+2026-04-11T02:18:23,000000+00:00 NX (Execute Disable) protection: active
+2026-04-11T02:18:23,000000+00:00 APIC: Static calls initialized
+2026-04-11T02:18:23,000000+00:00 efi: EFI v2.7 by EDK II
+2026-04-11T02:18:23,000000+00:00 efi: ACPI=0xbfb7e000 ACPI 2.0=0xbfb7e014 SMBIOS=0xbfa8b000 MEMATTR=0xbe226018 
+2026-04-11T02:18:23,000000+00:00 SMBIOS 2.7 present.
+2026-04-11T02:18:23,000000+00:00 DMI: Amazon EC2 m8i.2xlarge/, BIOS 1.0 10/16/2017
+2026-04-11T02:18:23,000000+00:00 DMI: Memory slots populated: 1/1
+2026-04-11T02:18:23,000000+00:00 Hypervisor detected: KVM
+2026-04-11T02:18:23,000000+00:00 last_pfn = 0xbff7c max_arch_pfn = 0x400000000
+2026-04-11T02:18:23,000000+00:00 kvm-clock: Using msrs 4b564d01 and 4b564d00
+2026-04-11T02:18:23,000000+00:00 kvm-clock: using sched offset of 1724355596 cycles
+2026-04-11T02:18:23,000001+00:00 clocksource: kvm-clock: mask: 0xffffffffffffffff max_cycles: 0x1cd42e4dffb, max_idle_ns: 881590591483 ns
+2026-04-11T02:18:23,000004+00:00 tsc: Detected 2700.000 MHz processor
+2026-04-11T02:18:23,000097+00:00 e820: update [mem 0x00000000-0x00000fff] usable ==> reserved
+2026-04-11T02:18:23,000099+00:00 e820: remove [mem 0x000a0000-0x000fffff] usable
+2026-04-11T02:18:23,000102+00:00 last_pfn = 0x81e000 max_arch_pfn = 0x400000000
+2026-04-11T02:18:23,000133+00:00 MTRR map: 4 entries (2 fixed + 2 variable; max 18), built from 8 variable MTRRs
+2026-04-11T02:18:23,000135+00:00 x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT  
+2026-04-11T02:18:23,000172+00:00 last_pfn = 0xbff7c max_arch_pfn = 0x400000000
+2026-04-11T02:18:23,005093+00:00 Using GB pages for direct mapping
+2026-04-11T02:18:23,005276+00:00 Secure boot disabled
+2026-04-11T02:18:23,005276+00:00 RAMDISK: [mem 0xbc474000-0xbd85ffff]
+2026-04-11T02:18:23,005280+00:00 ACPI: Early table checksum verification disabled
+2026-04-11T02:18:23,005281+00:00 ACPI: RSDP 0x00000000BFB7E014 000024 (v02 AMAZON)
+2026-04-11T02:18:23,005284+00:00 ACPI: XSDT 0x00000000BFB7D0E8 000074 (v01 AMAZON AMZNFACP 00000001      01000013)
+2026-04-11T02:18:23,005287+00:00 ACPI: FACP 0x00000000BFB76000 000114 (v04 AMAZON AMZNFACP 00000001 AMZN 00000001)
+2026-04-11T02:18:23,005290+00:00 ACPI: DSDT 0x00000000BFB77000 0016D2 (v01 AMAZON AMZNDSDT 00000001 AMZN 00000001)
+2026-04-11T02:18:23,005291+00:00 ACPI: FACS 0x00000000BFBEF000 000040
+2026-04-11T02:18:23,005293+00:00 ACPI: WAET 0x00000000BFB7C000 000028 (v01 AMAZON AMZNWAET 00000001 AMZN 00000001)
+2026-04-11T02:18:23,005294+00:00 ACPI: SLIT 0x00000000BFB7B000 00006C (v01 AMAZON AMZNSLIT 00000001 AMZN 00000001)
+2026-04-11T02:18:23,005296+00:00 ACPI: APIC 0x00000000BFB7A000 0000EC (v03 AMAZON AMZNAPIC 00000001 AMZN 00000001)
+2026-04-11T02:18:23,005298+00:00 ACPI: SRAT 0x00000000BFB79000 000140 (v03 AMAZON AMZNSRAT 00000001 AMZN 00000001)
+2026-04-11T02:18:23,005299+00:00 ACPI: HPET 0x00000000BFB75000 000038 (v01 AMAZON AMZNHPET 00000001 AMZN 00000001)
+2026-04-11T02:18:23,005301+00:00 ACPI: SSDT 0x00000000BFB73000 0017E9 (v01 AMAZON AMZNSSDT 00000001 AMZN 00000001)
+2026-04-11T02:18:23,005302+00:00 ACPI: SSDT 0x00000000BFB72000 0000D1 (v01 AMAZON AMZNSSDT 00000001 AMZN 00000001)
+2026-04-11T02:18:23,005304+00:00 ACPI: MCFG 0x00000000BFB71000 00004C (v01 AMAZON AMZNMCFG 00000001 AMZN 00000001)
+2026-04-11T02:18:23,005305+00:00 ACPI: BGRT 0x00000000BFB70000 000038 (v01 AMAZON AMAZON   00000002      01000013)
+2026-04-11T02:18:23,005306+00:00 ACPI: Reserving FACP table memory at [mem 0xbfb76000-0xbfb76113]
+2026-04-11T02:18:23,005307+00:00 ACPI: Reserving DSDT table memory at [mem 0xbfb77000-0xbfb786d1]
+2026-04-11T02:18:23,005308+00:00 ACPI: Reserving FACS table memory at [mem 0xbfbef000-0xbfbef03f]
+2026-04-11T02:18:23,005308+00:00 ACPI: Reserving WAET table memory at [mem 0xbfb7c000-0xbfb7c027]
+2026-04-11T02:18:23,005309+00:00 ACPI: Reserving SLIT table memory at [mem 0xbfb7b000-0xbfb7b06b]
+2026-04-11T02:18:23,005309+00:00 ACPI: Reserving APIC table memory at [mem 0xbfb7a000-0xbfb7a0eb]
+2026-04-11T02:18:23,005310+00:00 ACPI: Reserving SRAT table memory at [mem 0xbfb79000-0xbfb7913f]
+2026-04-11T02:18:23,005310+00:00 ACPI: Reserving HPET table memory at [mem 0xbfb75000-0xbfb75037]
+2026-04-11T02:18:23,005310+00:00 ACPI: Reserving SSDT table memory at [mem 0xbfb73000-0xbfb747e8]
+2026-04-11T02:18:23,005311+00:00 ACPI: Reserving SSDT table memory at [mem 0xbfb72000-0xbfb720d0]
+2026-04-11T02:18:23,005311+00:00 ACPI: Reserving MCFG table memory at [mem 0xbfb71000-0xbfb7104b]
+2026-04-11T02:18:23,005312+00:00 ACPI: Reserving BGRT table memory at [mem 0xbfb70000-0xbfb70037]
+2026-04-11T02:18:23,005336+00:00 ACPI: SRAT: Node 0 PXM 0 [mem 0x00000000-0xbfffffff]
+2026-04-11T02:18:23,005337+00:00 ACPI: SRAT: Node 0 PXM 0 [mem 0x100000000-0x83fffffff]
+2026-04-11T02:18:23,005343+00:00 NUMA: Initialized distance table, cnt=1
+2026-04-11T02:18:23,005344+00:00 NUMA: Node 0 [mem 0x00001000-0xbfffffff] + [mem 0x100000000-0x81dffffff] -> [mem 0x00001000-0x81dffffff]
+2026-04-11T02:18:23,005348+00:00 NODE_DATA(0) allocated [mem 0x81dfd4680-0x81dffefff]
+2026-04-11T02:18:23,005484+00:00 Zone ranges:
+2026-04-11T02:18:23,005484+00:00   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+2026-04-11T02:18:23,005485+00:00   DMA32    [mem 0x0000000001000000-0x00000000ffffffff]
+2026-04-11T02:18:23,005486+00:00   Normal   [mem 0x0000000100000000-0x000000081dffffff]
+2026-04-11T02:18:23,005487+00:00   Device   empty
+2026-04-11T02:18:23,005487+00:00 Movable zone start for each node
+2026-04-11T02:18:23,005488+00:00 Early memory node ranges
+2026-04-11T02:18:23,005488+00:00   node   0: [mem 0x0000000000001000-0x000000000009ffff]
+2026-04-11T02:18:23,005489+00:00   node   0: [mem 0x0000000000100000-0x00000000bf8eefff]
+2026-04-11T02:18:23,005490+00:00   node   0: [mem 0x00000000bfbff000-0x00000000bff7bfff]
+2026-04-11T02:18:23,005490+00:00   node   0: [mem 0x0000000100000000-0x000000081dffffff]
+2026-04-11T02:18:23,005492+00:00 Initmem setup node 0 [mem 0x0000000000001000-0x000000081dffffff]
+2026-04-11T02:18:23,005497+00:00 On node 0, zone DMA: 1 pages in unavailable ranges
+2026-04-11T02:18:23,005518+00:00 On node 0, zone DMA: 96 pages in unavailable ranges
+2026-04-11T02:18:23,009626+00:00 On node 0, zone DMA32: 784 pages in unavailable ranges
+2026-04-11T02:18:23,009809+00:00 On node 0, zone Normal: 132 pages in unavailable ranges
+2026-04-11T02:18:23,009853+00:00 On node 0, zone Normal: 8192 pages in unavailable ranges
+2026-04-11T02:18:23,010211+00:00 ACPI: PM-Timer IO Port: 0xb008
+2026-04-11T02:18:23,010219+00:00 ACPI: X2APIC_NMI (uid[0xffffffff] dfl dfl lint[0x1])
+2026-04-11T02:18:23,010268+00:00 IOAPIC[0]: apic_id 0, version 32, address 0xfec00000, GSI 0-23
+2026-04-11T02:18:23,010270+00:00 ACPI: INT_SRC_OVR (bus 0 bus_irq 5 global_irq 5 high level)
+2026-04-11T02:18:23,010271+00:00 ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+2026-04-11T02:18:23,010272+00:00 ACPI: INT_SRC_OVR (bus 0 bus_irq 10 global_irq 10 high level)
+2026-04-11T02:18:23,010272+00:00 ACPI: INT_SRC_OVR (bus 0 bus_irq 11 global_irq 11 high level)
+2026-04-11T02:18:23,010275+00:00 ACPI: Using ACPI (MADT) for SMP configuration information
+2026-04-11T02:18:23,010275+00:00 ACPI: HPET id: 0x8086a201 base: 0xfed00000
+2026-04-11T02:18:23,010277+00:00 TSC deadline timer available
+2026-04-11T02:18:23,010279+00:00 CPU topo: Max. logical packages:   1
+2026-04-11T02:18:23,010280+00:00 CPU topo: Max. logical dies:       1
+2026-04-11T02:18:23,010280+00:00 CPU topo: Max. dies per package:   1
+2026-04-11T02:18:23,010282+00:00 CPU topo: Max. threads per core:   2
+2026-04-11T02:18:23,010283+00:00 CPU topo: Num. cores per package:     4
+2026-04-11T02:18:23,010283+00:00 CPU topo: Num. threads per package:   8
+2026-04-11T02:18:23,010283+00:00 CPU topo: Allowing 8 present CPUs plus 0 hotplug CPUs
+2026-04-11T02:18:23,010295+00:00 kvm-guest: APIC: eoi() replaced with kvm_guest_apic_eoi_write()
+2026-04-11T02:18:23,010310+00:00 PM: hibernation: Registered nosave memory: [mem 0x00000000-0x00000fff]
+2026-04-11T02:18:23,010311+00:00 PM: hibernation: Registered nosave memory: [mem 0x000a0000-0x000fffff]
+2026-04-11T02:18:23,010312+00:00 PM: hibernation: Registered nosave memory: [mem 0xbf8ef000-0xbfbfefff]
+2026-04-11T02:18:23,010313+00:00 PM: hibernation: Registered nosave memory: [mem 0xbff7c000-0xffffffff]
+2026-04-11T02:18:23,010314+00:00 [mem 0xc0000000-0xffffffff] available for PCI devices
+2026-04-11T02:18:23,010315+00:00 Booting paravirtualized kernel on KVM
+2026-04-11T02:18:23,010316+00:00 clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+2026-04-11T02:18:23,014045+00:00 setup_percpu: NR_CPUS:8192 nr_cpumask_bits:8 nr_cpu_ids:8 nr_node_ids:1
+2026-04-11T02:18:23,014494+00:00 percpu: Embedded 65 pages/cpu s229376 r8192 d28672 u524288
+2026-04-11T02:18:23,014497+00:00 pcpu-alloc: s229376 r8192 d28672 u524288 alloc=1*2097152
+2026-04-11T02:18:23,014498+00:00 pcpu-alloc: [0] 0 1 2 3 [0] 4 5 6 7 
+2026-04-11T02:18:23,015068+00:00 kvm-guest: PV spinlocks disabled, no host support
+2026-04-11T02:18:23,015069+00:00 Kernel command line: BOOT_IMAGE=(hd0,gpt1)/boot/vmlinuz-6.12.68-92.122.amzn2023.x86_64 root=UUID=417dd49c-6f90-4edd-8517-c87dc5543f08 ro console=tty0 console=ttyS0,115200n8 nvme_core.io_timeout=4294967295 rd.emergency=poweroff rd.shell=0 selinux=1 security=selinux quiet clocksource=tsc tsc=reliable
+2026-04-11T02:18:23,015159+00:00 random: crng init done
+2026-04-11T02:18:23,017830+00:00 Dentry cache hash table entries: 4194304 (order: 13, 33554432 bytes, linear)
+2026-04-11T02:18:23,019155+00:00 Inode-cache hash table entries: 2097152 (order: 12, 16777216 bytes, linear)
+2026-04-11T02:18:23,019228+00:00 Fallback order for Node 0: 0 
+2026-04-11T02:18:23,019230+00:00 Built 1 zonelists, mobility grouping on.  Total pages: 8248331
+2026-04-11T02:18:23,019231+00:00 Policy zone: Normal
+2026-04-11T02:18:23,019232+00:00 mem auto-init: stack:off, heap alloc:off, heap free:off
+2026-04-11T02:18:23,019234+00:00 software IO TLB: area num 8.
+2026-04-11T02:18:23,037313+00:00 SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=8, Nodes=1
+2026-04-11T02:18:23,037332+00:00 ftrace: allocating 46804 entries in 183 pages
+2026-04-11T02:18:23,044895+00:00 ftrace: allocated 183 pages with 6 groups
+2026-04-11T02:18:23,045418+00:00 Dynamic Preempt: none
+2026-04-11T02:18:23,045461+00:00 rcu: Preemptible hierarchical RCU implementation.
+2026-04-11T02:18:23,045462+00:00 rcu: 	RCU restricting CPUs from NR_CPUS=8192 to nr_cpu_ids=8.
+2026-04-11T02:18:23,045463+00:00 	Trampoline variant of Tasks RCU enabled.
+2026-04-11T02:18:23,045463+00:00 	Rude variant of Tasks RCU enabled.
+2026-04-11T02:18:23,045463+00:00 	Tracing variant of Tasks RCU enabled.
+2026-04-11T02:18:23,045464+00:00 rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+2026-04-11T02:18:23,045464+00:00 rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=8
+2026-04-11T02:18:23,045472+00:00 RCU Tasks: Setting shift to 3 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=8.
+2026-04-11T02:18:23,045473+00:00 RCU Tasks Rude: Setting shift to 3 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=8.
+2026-04-11T02:18:23,045474+00:00 RCU Tasks Trace: Setting shift to 3 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=8.
+2026-04-11T02:18:23,047919+00:00 NR_IRQS: 524544, nr_irqs: 488, preallocated irqs: 16
+2026-04-11T02:18:23,048124+00:00 rcu: srcu_init: Setting srcu_struct sizes based on contention.
+2026-04-11T02:18:23,048169+00:00 Console: colour dummy device 80x25
+2026-04-11T02:18:23,048171+00:00 printk: legacy console [tty0] enabled
+2026-04-11T02:18:23,048230+00:00 printk: legacy console [ttyS0] enabled
+2026-04-11T02:18:23,048254+00:00 ACPI: Core revision 20240827
+2026-04-11T02:18:23,048418+00:00 clocksource: hpet: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 30580167144 ns
+2026-04-11T02:18:23,048435+00:00 APIC: Switch to symmetric I/O mode setup
+2026-04-11T02:18:23,048831+00:00 x2apic enabled
+2026-04-11T02:18:23,049224+00:00 APIC: Switched APIC routing to: physical x2apic
+2026-04-11T02:18:23,049226+00:00 kvm-guest: APIC: send_IPI_mask() replaced with kvm_send_ipi_mask()
+2026-04-11T02:18:23,049229+00:00 kvm-guest: APIC: send_IPI_mask_allbutself() replaced with kvm_send_ipi_mask_allbutself()
+2026-04-11T02:18:23,049231+00:00 kvm-guest: setup PV IPIs
+2026-04-11T02:18:23,050763+00:00 clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x26eb3e3cc63, max_idle_ns: 440795236593 ns
+2026-04-11T02:18:23,050766+00:00 Calibrating delay loop (skipped) preset value.. 5400.00 BogoMIPS (lpj=27000000)
+2026-04-11T02:18:23,050880+00:00 x86/cpu: User Mode Instruction Prevention (UMIP) activated
+2026-04-11T02:18:23,051018+00:00 Last level iTLB entries: 4KB 0, 2MB 0, 4MB 0
+2026-04-11T02:18:23,051018+00:00 Last level dTLB entries: 4KB 0, 2MB 0, 4MB 0, 1GB 0
+2026-04-11T02:18:23,051022+00:00 process: using mwait in idle threads
+2026-04-11T02:18:23,051026+00:00 Spectre V1 : Mitigation: usercopy/swapgs barriers and __user pointer sanitization
+2026-04-11T02:18:23,051029+00:00 Spectre V2 : Mitigation: Enhanced / Automatic IBRS
+2026-04-11T02:18:23,051031+00:00 Spectre V2 : mitigation: Enabling conditional Indirect Branch Prediction Barrier
+2026-04-11T02:18:23,051032+00:00 Speculative Store Bypass: Mitigation: Speculative Store Bypass disabled via prctl
+2026-04-11T02:18:23,051063+00:00 x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+2026-04-11T02:18:23,051064+00:00 x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+2026-04-11T02:18:23,051065+00:00 x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+2026-04-11T02:18:23,051066+00:00 x86/fpu: Supporting XSAVE feature 0x020: 'AVX-512 opmask'
+2026-04-11T02:18:23,051066+00:00 x86/fpu: Supporting XSAVE feature 0x040: 'AVX-512 Hi256'
+2026-04-11T02:18:23,051067+00:00 x86/fpu: Supporting XSAVE feature 0x080: 'AVX-512 ZMM_Hi256'
+2026-04-11T02:18:23,051067+00:00 x86/fpu: Supporting XSAVE feature 0x200: 'Protection Keys User registers'
+2026-04-11T02:18:23,051068+00:00 x86/fpu: Supporting XSAVE feature 0x20000: 'AMX Tile config'
+2026-04-11T02:18:23,051069+00:00 x86/fpu: Supporting XSAVE feature 0x40000: 'AMX Tile data'
+2026-04-11T02:18:23,051069+00:00 x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+2026-04-11T02:18:23,051070+00:00 x86/fpu: xstate_offset[5]:  832, xstate_sizes[5]:   64
+2026-04-11T02:18:23,051071+00:00 x86/fpu: xstate_offset[6]:  896, xstate_sizes[6]:  512
+2026-04-11T02:18:23,051072+00:00 x86/fpu: xstate_offset[7]: 1408, xstate_sizes[7]: 1024
+2026-04-11T02:18:23,051072+00:00 x86/fpu: xstate_offset[9]: 2432, xstate_sizes[9]:    8
+2026-04-11T02:18:23,051073+00:00 x86/fpu: xstate_offset[17]: 2496, xstate_sizes[17]:   64
+2026-04-11T02:18:23,051074+00:00 x86/fpu: xstate_offset[18]: 2560, xstate_sizes[18]: 8192
+2026-04-11T02:18:23,051075+00:00 x86/fpu: Enabled xstate features 0x602e7, context size is 10752 bytes, using 'compacted' format.
+2026-04-11T02:18:23,060764+00:00 Freeing SMP alternatives memory: 36K
+2026-04-11T02:18:23,060764+00:00 pid_max: default: 32768 minimum: 301
+2026-04-11T02:18:23,060764+00:00 LSM: initializing lsm=lockdown,capability,landlock,yama,safesetid,selinux,bpf,ima
+2026-04-11T02:18:23,060764+00:00 landlock: Up and running.
+2026-04-11T02:18:23,060764+00:00 Yama: becoming mindful.
+2026-04-11T02:18:23,060764+00:00 SELinux:  Initializing.
+2026-04-11T02:18:23,060764+00:00 LSM support for eBPF active
+2026-04-11T02:18:23,060764+00:00 Mount-cache hash table entries: 65536 (order: 7, 524288 bytes, linear)
+2026-04-11T02:18:23,060764+00:00 Mountpoint-cache hash table entries: 65536 (order: 7, 524288 bytes, linear)
+2026-04-11T02:18:23,060764+00:00 smpboot: CPU0: Intel(R) Xeon(R) 6975P-C (family: 0x6, model: 0xad, stepping: 0x1)
+2026-04-11T02:18:23,060764+00:00 Performance Events:  AnyThread deprecated, Granite Rapids events, full-width counters, Intel PMU driver.
+2026-04-11T02:18:23,060764+00:00 ... version:                5
+2026-04-11T02:18:23,060764+00:00 ... bit width:              48
+2026-04-11T02:18:23,060764+00:00 ... generic registers:      8
+2026-04-11T02:18:23,060764+00:00 ... value mask:             0000ffffffffffff
+2026-04-11T02:18:23,060764+00:00 ... max period:             00007fffffffffff
+2026-04-11T02:18:23,060764+00:00 ... fixed-purpose events:   2
+2026-04-11T02:18:23,060764+00:00 ... event mask:             00000005000000ff
+2026-04-11T02:18:23,060764+00:00 signal: max sigframe size: 11952
+2026-04-11T02:18:23,060764+00:00 Estimated ratio of average max frequency by base frequency (times 1024): 1479
+2026-04-11T02:18:23,060764+00:00 rcu: Hierarchical SRCU implementation.
+2026-04-11T02:18:23,060764+00:00 rcu: 	Max phase no-delay instances is 1000.
+2026-04-11T02:18:23,060764+00:00 Timer migration: 1 hierarchy levels; 8 children per group; 1 crossnode level
+2026-04-11T02:18:23,060764+00:00 smp: Bringing up secondary CPUs ...
+2026-04-11T02:18:23,060764+00:00 smpboot: x86: Booting SMP configuration:
+2026-04-11T02:18:23,060764+00:00 .... node  #0, CPUs:      #1 #2 #3 #4 #5 #6 #7
+2026-04-11T02:18:23,060764+00:00 smp: Brought up 1 node, 8 CPUs
+2026-04-11T02:18:23,060764+00:00 smpboot: Total of 8 processors activated (43200.00 BogoMIPS)
+2026-04-11T02:18:23,072366+00:00 node 0 deferred pages initialised in 20ms
+2026-04-11T02:18:23,076855+00:00 Memory: 32276736K/32993324K available (16384K kernel code, 9440K rwdata, 11344K rodata, 3732K init, 6480K bss, 708236K reserved, 0K cma-reserved)
+2026-04-11T02:18:23,076855+00:00 devtmpfs: initialized
+2026-04-11T02:18:23,076855+00:00 x86/mm: Memory block size: 128MB
+2026-04-11T02:18:23,076855+00:00 ACPI: PM: Registering ACPI NVS region [mem 0xbfb7f000-0xbfbfefff] (524288 bytes)
+2026-04-11T02:18:23,076855+00:00 clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+2026-04-11T02:18:23,076855+00:00 futex hash table entries: 2048 (order: 5, 131072 bytes, linear)
+2026-04-11T02:18:23,076855+00:00 NET: Registered PF_NETLINK/PF_ROUTE protocol family
+2026-04-11T02:18:23,076855+00:00 DMA: preallocated 4096 KiB GFP_KERNEL pool for atomic allocations
+2026-04-11T02:18:23,076855+00:00 DMA: preallocated 4096 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+2026-04-11T02:18:23,076855+00:00 DMA: preallocated 4096 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
+2026-04-11T02:18:23,076855+00:00 audit: initializing netlink subsys (disabled)
+2026-04-11T02:18:23,076855+00:00 audit: type=2000 audit(1775873903.574:1): state=initialized audit_enabled=0 res=1
+2026-04-11T02:18:23,076855+00:00 thermal_sys: Registered thermal governor 'fair_share'
+2026-04-11T02:18:23,076855+00:00 thermal_sys: Registered thermal governor 'step_wise'
+2026-04-11T02:18:23,076855+00:00 thermal_sys: Registered thermal governor 'user_space'
+2026-04-11T02:18:23,076855+00:00 cpuidle: using governor ladder
+2026-04-11T02:18:23,076855+00:00 cpuidle: using governor menu
+2026-04-11T02:18:23,076855+00:00 acpiphp: ACPI Hot Plug PCI Controller Driver version: 0.5
+2026-04-11T02:18:23,076855+00:00 PCI: ECAM [mem 0x840100000-0x8423fffff] (base 0x840000000) for domain 0000 [bus 01-23]
+2026-04-11T02:18:23,076855+00:00 PCI: ECAM [mem 0x842400000-0x842bfffff] (base 0x840000000) for domain 0000 [bus 24-2b]
+2026-04-11T02:18:23,076855+00:00 PCI: Using configuration type 1 for base access
+2026-04-11T02:18:23,076855+00:00 kprobes: kprobe jump-optimization is enabled. All kprobes are optimized if possible.
+2026-04-11T02:18:23,076855+00:00 HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages
+2026-04-11T02:18:23,076855+00:00 HugeTLB: 16380 KiB vmemmap can be freed for a 1.00 GiB page
+2026-04-11T02:18:23,076855+00:00 HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+2026-04-11T02:18:23,076855+00:00 HugeTLB: 28 KiB vmemmap can be freed for a 2.00 MiB page
+2026-04-11T02:18:23,080776+00:00 cryptd: max_cpu_qlen set to 1000
+2026-04-11T02:18:23,080803+00:00 ACPI: Added _OSI(Module Device)
+2026-04-11T02:18:23,080803+00:00 ACPI: Added _OSI(Processor Device)
+2026-04-11T02:18:23,080803+00:00 ACPI: Added _OSI(Processor Aggregator Device)
+2026-04-11T02:18:23,081502+00:00 ACPI: 3 ACPI AML tables successfully acquired and loaded
+2026-04-11T02:18:23,100903+00:00 ACPI: Interpreter enabled
+2026-04-11T02:18:23,100910+00:00 ACPI: PM: (supports S0 S4 S5)
+2026-04-11T02:18:23,100911+00:00 ACPI: Using IOAPIC for interrupt routing
+2026-04-11T02:18:23,100922+00:00 PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+2026-04-11T02:18:23,100923+00:00 PCI: Using E820 reservations for host bridge windows
+2026-04-11T02:18:23,101033+00:00 ACPI: Enabled 2 GPEs in block 00 to 0F
+2026-04-11T02:18:23,102839+00:00 ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00])
+2026-04-11T02:18:23,102843+00:00 acpi PNP0A03:00: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI HPX-Type3]
+2026-04-11T02:18:23,102849+00:00 acpi PNP0A03:00: fail to add MMCONFIG information, can't access extended configuration space under this bridge
+2026-04-11T02:18:23,103015+00:00 acpiphp: Slot [3] registered
+2026-04-11T02:18:23,103030+00:00 acpiphp: Slot [4] registered
+2026-04-11T02:18:23,103041+00:00 acpiphp: Slot [5] registered
+2026-04-11T02:18:23,103051+00:00 acpiphp: Slot [6] registered
+2026-04-11T02:18:23,103061+00:00 acpiphp: Slot [7] registered
+2026-04-11T02:18:23,103071+00:00 acpiphp: Slot [8] registered
+2026-04-11T02:18:23,103080+00:00 acpiphp: Slot [9] registered
+2026-04-11T02:18:23,103091+00:00 acpiphp: Slot [10] registered
+2026-04-11T02:18:23,103100+00:00 acpiphp: Slot [11] registered
+2026-04-11T02:18:23,103110+00:00 acpiphp: Slot [12] registered
+2026-04-11T02:18:23,103120+00:00 acpiphp: Slot [13] registered
+2026-04-11T02:18:23,103129+00:00 acpiphp: Slot [14] registered
+2026-04-11T02:18:23,103139+00:00 acpiphp: Slot [15] registered
+2026-04-11T02:18:23,103148+00:00 acpiphp: Slot [16] registered
+2026-04-11T02:18:23,103158+00:00 acpiphp: Slot [17] registered
+2026-04-11T02:18:23,103168+00:00 acpiphp: Slot [18] registered
+2026-04-11T02:18:23,103177+00:00 acpiphp: Slot [19] registered
+2026-04-11T02:18:23,103187+00:00 acpiphp: Slot [20] registered
+2026-04-11T02:18:23,103197+00:00 acpiphp: Slot [21] registered
+2026-04-11T02:18:23,103206+00:00 acpiphp: Slot [22] registered
+2026-04-11T02:18:23,103216+00:00 acpiphp: Slot [23] registered
+2026-04-11T02:18:23,103226+00:00 acpiphp: Slot [24] registered
+2026-04-11T02:18:23,103236+00:00 acpiphp: Slot [25] registered
+2026-04-11T02:18:23,103245+00:00 acpiphp: Slot [26] registered
+2026-04-11T02:18:23,103255+00:00 acpiphp: Slot [27] registered
+2026-04-11T02:18:23,103265+00:00 acpiphp: Slot [28] registered
+2026-04-11T02:18:23,103274+00:00 acpiphp: Slot [29] registered
+2026-04-11T02:18:23,103284+00:00 acpiphp: Slot [30] registered
+2026-04-11T02:18:23,103293+00:00 acpiphp: Slot [31] registered
+2026-04-11T02:18:23,103301+00:00 PCI host bridge to bus 0000:00
+2026-04-11T02:18:23,103303+00:00 pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
+2026-04-11T02:18:23,103304+00:00 pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
+2026-04-11T02:18:23,103305+00:00 pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]
+2026-04-11T02:18:23,103306+00:00 pci_bus 0000:00: root bus resource [mem 0xc0000000-0xc3ffffff window]
+2026-04-11T02:18:23,103307+00:00 pci_bus 0000:00: root bus resource [mem 0x880000000-0x881ffffff window]
+2026-04-11T02:18:23,103308+00:00 pci_bus 0000:00: root bus resource [bus 00]
+2026-04-11T02:18:23,103340+00:00 pci 0000:00:00.0: [8086:1237] type 00 class 0x060000 conventional PCI endpoint
+2026-04-11T02:18:23,103689+00:00 pci 0000:00:01.0: [8086:7000] type 00 class 0x060100 conventional PCI endpoint
+2026-04-11T02:18:23,104526+00:00 pci 0000:00:01.3: [8086:7113] type 00 class 0x000000 conventional PCI endpoint
+2026-04-11T02:18:23,105179+00:00 pci 0000:00:01.3: quirk: [io  0xb000-0xb03f] claimed by PIIX4 ACPI
+2026-04-11T02:18:23,105238+00:00 pci 0000:00:01.3: PIIX4 devres E PIO at fff0-ffff
+2026-04-11T02:18:23,105251+00:00 pci 0000:00:01.3: PIIX4 devres F MMIO at ffc00000-ffffffff
+2026-04-11T02:18:23,105264+00:00 pci 0000:00:01.3: PIIX4 devres G PIO at fff0-ffff
+2026-04-11T02:18:23,105275+00:00 pci 0000:00:01.3: PIIX4 devres H MMIO at ffc00000-ffffffff
+2026-04-11T02:18:23,105288+00:00 pci 0000:00:01.3: PIIX4 devres I PIO at fff0-ffff
+2026-04-11T02:18:23,105301+00:00 pci 0000:00:01.3: PIIX4 devres J PIO at fff0-ffff
+2026-04-11T02:18:23,105501+00:00 pci 0000:00:03.0: [1d0f:1111] type 00 class 0x030000 conventional PCI endpoint
+2026-04-11T02:18:23,106015+00:00 pci 0000:00:03.0: BAR 0 [mem 0xc2000000-0xc23fffff pref]
+2026-04-11T02:18:23,107558+00:00 pci 0000:00:03.0: ROM [mem 0xc0000000-0xc000ffff pref]
+2026-04-11T02:18:23,107627+00:00 pci 0000:00:03.0: Video device with shadowed ROM at [mem 0x000c0000-0x000dffff]
+2026-04-11T02:18:23,107868+00:00 pci 0000:00:04.0: [1d0f:8061] type 00 class 0x010802 PCIe Endpoint
+2026-04-11T02:18:23,108779+00:00 pci 0000:00:04.0: BAR 0 [mem 0xc0010000-0xc0013fff]
+2026-04-11T02:18:23,111899+00:00 pci 0000:00:04.0: enabling Extended Tags
+2026-04-11T02:18:23,112448+00:00 pci_bus 0000:00: on NUMA node 0
+2026-04-11T02:18:23,112565+00:00 ACPI: PCI Root Bridge [PC01] (domain 0000 [bus 01-23])
+2026-04-11T02:18:23,112567+00:00 acpi PNP0A08:00: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI HPX-Type3]
+2026-04-11T02:18:23,112586+00:00 acpi PNP0A08:00: _OSC: platform does not support [SHPCHotplug AER LTR]
+2026-04-11T02:18:23,112607+00:00 acpi PNP0A08:00: _OSC: OS now controls [PCIeHotplug PME PCIeCapability]
+2026-04-11T02:18:23,112735+00:00 acpiphp: Slot [32] registered
+2026-04-11T02:18:23,112746+00:00 acpiphp: Slot [33] registered
+2026-04-11T02:18:23,112757+00:00 acpiphp: Slot [34] registered
+2026-04-11T02:18:23,112767+00:00 acpiphp: Slot [35] registered
+2026-04-11T02:18:23,112776+00:00 acpiphp: Slot [36] registered
+2026-04-11T02:18:23,112786+00:00 acpiphp: Slot [37] registered
+2026-04-11T02:18:23,112797+00:00 acpiphp: Slot [38] registered
+2026-04-11T02:18:23,112806+00:00 acpiphp: Slot [39] registered
+2026-04-11T02:18:23,112816+00:00 acpiphp: Slot [40] registered
+2026-04-11T02:18:23,112826+00:00 acpiphp: Slot [41] registered
+2026-04-11T02:18:23,112835+00:00 acpiphp: Slot [42] registered
+2026-04-11T02:18:23,112845+00:00 acpiphp: Slot [43] registered
+2026-04-11T02:18:23,112854+00:00 acpiphp: Slot [44] registered
+2026-04-11T02:18:23,112864+00:00 acpiphp: Slot [45] registered
+2026-04-11T02:18:23,112874+00:00 acpiphp: Slot [46] registered
+2026-04-11T02:18:23,112884+00:00 acpiphp: Slot [47] registered
+2026-04-11T02:18:23,112893+00:00 acpiphp: Slot [48] registered
+2026-04-11T02:18:23,112903+00:00 acpiphp: Slot [49] registered
+2026-04-11T02:18:23,112912+00:00 acpiphp: Slot [50] registered
+2026-04-11T02:18:23,112922+00:00 acpiphp: Slot [51] registered
+2026-04-11T02:18:23,112932+00:00 acpiphp: Slot [52] registered
+2026-04-11T02:18:23,112942+00:00 acpiphp: Slot [53] registered
+2026-04-11T02:18:23,112952+00:00 acpiphp: Slot [54] registered
+2026-04-11T02:18:23,112961+00:00 acpiphp: Slot [55] registered
+2026-04-11T02:18:23,112971+00:00 acpiphp: Slot [56] registered
+2026-04-11T02:18:23,112981+00:00 acpiphp: Slot [57] registered
+2026-04-11T02:18:23,112991+00:00 acpiphp: Slot [58] registered
+2026-04-11T02:18:23,113000+00:00 acpiphp: Slot [59] registered
+2026-04-11T02:18:23,113010+00:00 acpiphp: Slot [60] registered
+2026-04-11T02:18:23,113020+00:00 acpiphp: Slot [61] registered
+2026-04-11T02:18:23,113029+00:00 acpiphp: Slot [62] registered
+2026-04-11T02:18:23,113039+00:00 acpiphp: Slot [63] registered
+2026-04-11T02:18:23,113051+00:00 PCI host bridge to bus 0000:01
+2026-04-11T02:18:23,113056+00:00 pci_bus 0000:01: root bus resource [mem 0xc4000000-0xc82fffff window]
+2026-04-11T02:18:23,113058+00:00 pci_bus 0000:01: root bus resource [mem 0x882000000-0x8a1ffffff window]
+2026-04-11T02:18:23,113059+00:00 pci_bus 0000:01: root bus resource [bus 01-23]
+2026-04-11T02:18:23,113163+00:00 pci 0000:01:00.0: [1d0f:0200] type 01 class 0x060400 PCIe Root Port
+2026-04-11T02:18:23,113393+00:00 pci 0000:01:00.0: BAR 0 [mem 0xc4000000-0xc40003ff]
+2026-04-11T02:18:23,113786+00:00 pci 0000:01:00.0: PCI bridge to [bus 02-23]
+2026-04-11T02:18:23,113823+00:00 pci 0000:01:00.0:   bridge window [mem 0xc4100000-0xc82fffff]
+2026-04-11T02:18:23,113879+00:00 pci 0000:01:00.0:   bridge window [mem 0x882000000-0x8a1ffffff 64bit pref]
+2026-04-11T02:18:23,114641+00:00 pci 0000:02:00.0: [1d0f:0200] type 01 class 0x060400 PCIe Switch Upstream Port
+2026-04-11T02:18:23,114864+00:00 pci 0000:02:00.0: BAR 0 [mem 0xc4100000-0xc41003ff]
+2026-04-11T02:18:23,115250+00:00 pci 0000:02:00.0: PCI bridge to [bus 03-23]
+2026-04-11T02:18:23,115287+00:00 pci 0000:02:00.0:   bridge window [mem 0xc4200000-0xc82fffff]
+2026-04-11T02:18:23,115342+00:00 pci 0000:02:00.0:   bridge window [mem 0x882000000-0x8a1ffffff 64bit pref]
+2026-04-11T02:18:23,115731+00:00 pci 0000:01:00.0: PCI bridge to [bus 02-23]
+2026-04-11T02:18:23,115995+00:00 pci 0000:03:00.0: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,116218+00:00 pci 0000:03:00.0: BAR 0 [mem 0xc4200000-0xc42003ff]
+2026-04-11T02:18:23,116603+00:00 pci 0000:03:00.0: PCI bridge to [bus 04]
+2026-04-11T02:18:23,116640+00:00 pci 0000:03:00.0:   bridge window [mem 0xc4300000-0xc44fffff]
+2026-04-11T02:18:23,116695+00:00 pci 0000:03:00.0:   bridge window [mem 0x882000000-0x882ffffff 64bit pref]
+2026-04-11T02:18:23,117145+00:00 pci 0000:03:00.1: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,117368+00:00 pci 0000:03:00.1: BAR 0 [mem 0xc4200400-0xc42007ff]
+2026-04-11T02:18:23,117758+00:00 pci 0000:03:00.1: PCI bridge to [bus 05]
+2026-04-11T02:18:23,117796+00:00 pci 0000:03:00.1:   bridge window [mem 0xc4500000-0xc46fffff]
+2026-04-11T02:18:23,117851+00:00 pci 0000:03:00.1:   bridge window [mem 0x883000000-0x883ffffff 64bit pref]
+2026-04-11T02:18:23,118294+00:00 pci 0000:03:00.2: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,118516+00:00 pci 0000:03:00.2: BAR 0 [mem 0xc4200800-0xc4200bff]
+2026-04-11T02:18:23,118900+00:00 pci 0000:03:00.2: PCI bridge to [bus 06]
+2026-04-11T02:18:23,118937+00:00 pci 0000:03:00.2:   bridge window [mem 0xc4700000-0xc48fffff]
+2026-04-11T02:18:23,118992+00:00 pci 0000:03:00.2:   bridge window [mem 0x884000000-0x884ffffff 64bit pref]
+2026-04-11T02:18:23,119436+00:00 pci 0000:03:00.3: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,119657+00:00 pci 0000:03:00.3: BAR 0 [mem 0xc4200c00-0xc4200fff]
+2026-04-11T02:18:23,120042+00:00 pci 0000:03:00.3: PCI bridge to [bus 07]
+2026-04-11T02:18:23,120079+00:00 pci 0000:03:00.3:   bridge window [mem 0xc4900000-0xc4afffff]
+2026-04-11T02:18:23,120134+00:00 pci 0000:03:00.3:   bridge window [mem 0x885000000-0x885ffffff 64bit pref]
+2026-04-11T02:18:23,120575+00:00 pci 0000:03:00.4: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,120769+00:00 pci 0000:03:00.4: BAR 0 [mem 0xc4201000-0xc42013ff]
+2026-04-11T02:18:23,121154+00:00 pci 0000:03:00.4: PCI bridge to [bus 08]
+2026-04-11T02:18:23,121191+00:00 pci 0000:03:00.4:   bridge window [mem 0xc4b00000-0xc4cfffff]
+2026-04-11T02:18:23,121246+00:00 pci 0000:03:00.4:   bridge window [mem 0x886000000-0x886ffffff 64bit pref]
+2026-04-11T02:18:23,121706+00:00 pci 0000:03:00.5: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,121928+00:00 pci 0000:03:00.5: BAR 0 [mem 0xc4201400-0xc42017ff]
+2026-04-11T02:18:23,122312+00:00 pci 0000:03:00.5: PCI bridge to [bus 09]
+2026-04-11T02:18:23,122350+00:00 pci 0000:03:00.5:   bridge window [mem 0xc4d00000-0xc4efffff]
+2026-04-11T02:18:23,122405+00:00 pci 0000:03:00.5:   bridge window [mem 0x887000000-0x887ffffff 64bit pref]
+2026-04-11T02:18:23,122849+00:00 pci 0000:03:00.6: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,123070+00:00 pci 0000:03:00.6: BAR 0 [mem 0xc4201800-0xc4201bff]
+2026-04-11T02:18:23,123455+00:00 pci 0000:03:00.6: PCI bridge to [bus 0a]
+2026-04-11T02:18:23,123492+00:00 pci 0000:03:00.6:   bridge window [mem 0xc4f00000-0xc50fffff]
+2026-04-11T02:18:23,123547+00:00 pci 0000:03:00.6:   bridge window [mem 0x888000000-0x888ffffff 64bit pref]
+2026-04-11T02:18:23,123988+00:00 pci 0000:03:00.7: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,124210+00:00 pci 0000:03:00.7: BAR 0 [mem 0xc4201c00-0xc4201fff]
+2026-04-11T02:18:23,124594+00:00 pci 0000:03:00.7: PCI bridge to [bus 0b]
+2026-04-11T02:18:23,124631+00:00 pci 0000:03:00.7:   bridge window [mem 0xc5100000-0xc52fffff]
+2026-04-11T02:18:23,124686+00:00 pci 0000:03:00.7:   bridge window [mem 0x889000000-0x889ffffff 64bit pref]
+2026-04-11T02:18:23,125127+00:00 pci 0000:03:01.0: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,125348+00:00 pci 0000:03:01.0: BAR 0 [mem 0xc4202000-0xc42023ff]
+2026-04-11T02:18:23,125739+00:00 pci 0000:03:01.0: PCI bridge to [bus 0c]
+2026-04-11T02:18:23,125777+00:00 pci 0000:03:01.0:   bridge window [mem 0xc5300000-0xc54fffff]
+2026-04-11T02:18:23,125832+00:00 pci 0000:03:01.0:   bridge window [mem 0x88a000000-0x88affffff 64bit pref]
+2026-04-11T02:18:23,126274+00:00 pci 0000:03:01.1: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,126495+00:00 pci 0000:03:01.1: BAR 0 [mem 0xc4202400-0xc42027ff]
+2026-04-11T02:18:23,126880+00:00 pci 0000:03:01.1: PCI bridge to [bus 0d]
+2026-04-11T02:18:23,126917+00:00 pci 0000:03:01.1:   bridge window [mem 0xc5500000-0xc56fffff]
+2026-04-11T02:18:23,126972+00:00 pci 0000:03:01.1:   bridge window [mem 0x88b000000-0x88bffffff 64bit pref]
+2026-04-11T02:18:23,127414+00:00 pci 0000:03:01.2: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,127635+00:00 pci 0000:03:01.2: BAR 0 [mem 0xc4202800-0xc4202bff]
+2026-04-11T02:18:23,128020+00:00 pci 0000:03:01.2: PCI bridge to [bus 0e]
+2026-04-11T02:18:23,128057+00:00 pci 0000:03:01.2:   bridge window [mem 0xc5700000-0xc58fffff]
+2026-04-11T02:18:23,128112+00:00 pci 0000:03:01.2:   bridge window [mem 0x88c000000-0x88cffffff 64bit pref]
+2026-04-11T02:18:23,128556+00:00 pci 0000:03:01.3: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,128777+00:00 pci 0000:03:01.3: BAR 0 [mem 0xc4202c00-0xc4202fff]
+2026-04-11T02:18:23,129162+00:00 pci 0000:03:01.3: PCI bridge to [bus 0f]
+2026-04-11T02:18:23,129199+00:00 pci 0000:03:01.3:   bridge window [mem 0xc5900000-0xc5afffff]
+2026-04-11T02:18:23,129254+00:00 pci 0000:03:01.3:   bridge window [mem 0x88d000000-0x88dffffff 64bit pref]
+2026-04-11T02:18:23,129698+00:00 pci 0000:03:01.4: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,129919+00:00 pci 0000:03:01.4: BAR 0 [mem 0xc4203000-0xc42033ff]
+2026-04-11T02:18:23,130304+00:00 pci 0000:03:01.4: PCI bridge to [bus 10]
+2026-04-11T02:18:23,130341+00:00 pci 0000:03:01.4:   bridge window [mem 0xc5b00000-0xc5cfffff]
+2026-04-11T02:18:23,130396+00:00 pci 0000:03:01.4:   bridge window [mem 0x88e000000-0x88effffff 64bit pref]
+2026-04-11T02:18:23,130842+00:00 pci 0000:03:01.5: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,131063+00:00 pci 0000:03:01.5: BAR 0 [mem 0xc4203400-0xc42037ff]
+2026-04-11T02:18:23,131420+00:00 pci 0000:03:01.5: PCI bridge to [bus 11]
+2026-04-11T02:18:23,131457+00:00 pci 0000:03:01.5:   bridge window [mem 0xc5d00000-0xc5efffff]
+2026-04-11T02:18:23,131512+00:00 pci 0000:03:01.5:   bridge window [mem 0x88f000000-0x88fffffff 64bit pref]
+2026-04-11T02:18:23,131954+00:00 pci 0000:03:01.6: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,132157+00:00 pci 0000:03:01.6: BAR 0 [mem 0xc4203800-0xc4203bff]
+2026-04-11T02:18:23,132504+00:00 pci 0000:03:01.6: PCI bridge to [bus 12]
+2026-04-11T02:18:23,132541+00:00 pci 0000:03:01.6:   bridge window [mem 0xc5f00000-0xc60fffff]
+2026-04-11T02:18:23,132596+00:00 pci 0000:03:01.6:   bridge window [mem 0x890000000-0x890ffffff 64bit pref]
+2026-04-11T02:18:23,133037+00:00 pci 0000:03:01.7: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,133240+00:00 pci 0000:03:01.7: BAR 0 [mem 0xc4203c00-0xc4203fff]
+2026-04-11T02:18:23,133590+00:00 pci 0000:03:01.7: PCI bridge to [bus 13]
+2026-04-11T02:18:23,133627+00:00 pci 0000:03:01.7:   bridge window [mem 0xc6100000-0xc62fffff]
+2026-04-11T02:18:23,133683+00:00 pci 0000:03:01.7:   bridge window [mem 0x891000000-0x891ffffff 64bit pref]
+2026-04-11T02:18:23,134125+00:00 pci 0000:03:02.0: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,134327+00:00 pci 0000:03:02.0: BAR 0 [mem 0xc4204000-0xc42043ff]
+2026-04-11T02:18:23,134675+00:00 pci 0000:03:02.0: PCI bridge to [bus 14]
+2026-04-11T02:18:23,134712+00:00 pci 0000:03:02.0:   bridge window [mem 0xc6300000-0xc64fffff]
+2026-04-11T02:18:23,134767+00:00 pci 0000:03:02.0:   bridge window [mem 0x892000000-0x892ffffff 64bit pref]
+2026-04-11T02:18:23,135208+00:00 pci 0000:03:02.1: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,135411+00:00 pci 0000:03:02.1: BAR 0 [mem 0xc4204400-0xc42047ff]
+2026-04-11T02:18:23,135761+00:00 pci 0000:03:02.1: PCI bridge to [bus 15]
+2026-04-11T02:18:23,135798+00:00 pci 0000:03:02.1:   bridge window [mem 0xc6500000-0xc66fffff]
+2026-04-11T02:18:23,135853+00:00 pci 0000:03:02.1:   bridge window [mem 0x893000000-0x893ffffff 64bit pref]
+2026-04-11T02:18:23,136293+00:00 pci 0000:03:02.2: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,136495+00:00 pci 0000:03:02.2: BAR 0 [mem 0xc4204800-0xc4204bff]
+2026-04-11T02:18:23,136842+00:00 pci 0000:03:02.2: PCI bridge to [bus 16]
+2026-04-11T02:18:23,136879+00:00 pci 0000:03:02.2:   bridge window [mem 0xc6700000-0xc68fffff]
+2026-04-11T02:18:23,136934+00:00 pci 0000:03:02.2:   bridge window [mem 0x894000000-0x894ffffff 64bit pref]
+2026-04-11T02:18:23,137380+00:00 pci 0000:03:02.3: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,137582+00:00 pci 0000:03:02.3: BAR 0 [mem 0xc4204c00-0xc4204fff]
+2026-04-11T02:18:23,137929+00:00 pci 0000:03:02.3: PCI bridge to [bus 17]
+2026-04-11T02:18:23,137966+00:00 pci 0000:03:02.3:   bridge window [mem 0xc6900000-0xc6afffff]
+2026-04-11T02:18:23,138021+00:00 pci 0000:03:02.3:   bridge window [mem 0x895000000-0x895ffffff 64bit pref]
+2026-04-11T02:18:23,138461+00:00 pci 0000:03:02.4: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,138664+00:00 pci 0000:03:02.4: BAR 0 [mem 0xc4205000-0xc42053ff]
+2026-04-11T02:18:23,139011+00:00 pci 0000:03:02.4: PCI bridge to [bus 18]
+2026-04-11T02:18:23,139048+00:00 pci 0000:03:02.4:   bridge window [mem 0xc6b00000-0xc6cfffff]
+2026-04-11T02:18:23,139103+00:00 pci 0000:03:02.4:   bridge window [mem 0x896000000-0x896ffffff 64bit pref]
+2026-04-11T02:18:23,139544+00:00 pci 0000:03:02.5: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,139746+00:00 pci 0000:03:02.5: BAR 0 [mem 0xc4205400-0xc42057ff]
+2026-04-11T02:18:23,140094+00:00 pci 0000:03:02.5: PCI bridge to [bus 19]
+2026-04-11T02:18:23,140131+00:00 pci 0000:03:02.5:   bridge window [mem 0xc6d00000-0xc6efffff]
+2026-04-11T02:18:23,140186+00:00 pci 0000:03:02.5:   bridge window [mem 0x897000000-0x897ffffff 64bit pref]
+2026-04-11T02:18:23,140627+00:00 pci 0000:03:02.6: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,140767+00:00 pci 0000:03:02.6: BAR 0 [mem 0xc4205800-0xc4205bff]
+2026-04-11T02:18:23,141114+00:00 pci 0000:03:02.6: PCI bridge to [bus 1a]
+2026-04-11T02:18:23,141151+00:00 pci 0000:03:02.6:   bridge window [mem 0xc6f00000-0xc70fffff]
+2026-04-11T02:18:23,141206+00:00 pci 0000:03:02.6:   bridge window [mem 0x898000000-0x898ffffff 64bit pref]
+2026-04-11T02:18:23,141682+00:00 pci 0000:03:02.7: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,141885+00:00 pci 0000:03:02.7: BAR 0 [mem 0xc4205c00-0xc4205fff]
+2026-04-11T02:18:23,142232+00:00 pci 0000:03:02.7: PCI bridge to [bus 1b]
+2026-04-11T02:18:23,142269+00:00 pci 0000:03:02.7:   bridge window [mem 0xc7100000-0xc72fffff]
+2026-04-11T02:18:23,142325+00:00 pci 0000:03:02.7:   bridge window [mem 0x899000000-0x899ffffff 64bit pref]
+2026-04-11T02:18:23,142766+00:00 pci 0000:03:03.0: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,142969+00:00 pci 0000:03:03.0: BAR 0 [mem 0xc4206000-0xc42063ff]
+2026-04-11T02:18:23,143316+00:00 pci 0000:03:03.0: PCI bridge to [bus 1c]
+2026-04-11T02:18:23,143352+00:00 pci 0000:03:03.0:   bridge window [mem 0xc7300000-0xc74fffff]
+2026-04-11T02:18:23,143408+00:00 pci 0000:03:03.0:   bridge window [mem 0x89a000000-0x89affffff 64bit pref]
+2026-04-11T02:18:23,143848+00:00 pci 0000:03:03.1: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,144051+00:00 pci 0000:03:03.1: BAR 0 [mem 0xc4206400-0xc42067ff]
+2026-04-11T02:18:23,144397+00:00 pci 0000:03:03.1: PCI bridge to [bus 1d]
+2026-04-11T02:18:23,144435+00:00 pci 0000:03:03.1:   bridge window [mem 0xc7500000-0xc76fffff]
+2026-04-11T02:18:23,144489+00:00 pci 0000:03:03.1:   bridge window [mem 0x89b000000-0x89bffffff 64bit pref]
+2026-04-11T02:18:23,144929+00:00 pci 0000:03:03.2: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,145132+00:00 pci 0000:03:03.2: BAR 0 [mem 0xc4206800-0xc4206bff]
+2026-04-11T02:18:23,145484+00:00 pci 0000:03:03.2: PCI bridge to [bus 1e]
+2026-04-11T02:18:23,145521+00:00 pci 0000:03:03.2:   bridge window [mem 0xc7700000-0xc78fffff]
+2026-04-11T02:18:23,145576+00:00 pci 0000:03:03.2:   bridge window [mem 0x89c000000-0x89cffffff 64bit pref]
+2026-04-11T02:18:23,146017+00:00 pci 0000:03:03.3: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,146219+00:00 pci 0000:03:03.3: BAR 0 [mem 0xc4206c00-0xc4206fff]
+2026-04-11T02:18:23,146566+00:00 pci 0000:03:03.3: PCI bridge to [bus 1f]
+2026-04-11T02:18:23,146603+00:00 pci 0000:03:03.3:   bridge window [mem 0xc7900000-0xc7afffff]
+2026-04-11T02:18:23,146658+00:00 pci 0000:03:03.3:   bridge window [mem 0x89d000000-0x89dffffff 64bit pref]
+2026-04-11T02:18:23,147098+00:00 pci 0000:03:03.4: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,147300+00:00 pci 0000:03:03.4: BAR 0 [mem 0xc4207000-0xc42073ff]
+2026-04-11T02:18:23,147647+00:00 pci 0000:03:03.4: PCI bridge to [bus 20]
+2026-04-11T02:18:23,147684+00:00 pci 0000:03:03.4:   bridge window [mem 0xc7b00000-0xc7cfffff]
+2026-04-11T02:18:23,147739+00:00 pci 0000:03:03.4:   bridge window [mem 0x89e000000-0x89effffff 64bit pref]
+2026-04-11T02:18:23,148180+00:00 pci 0000:03:03.5: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,148382+00:00 pci 0000:03:03.5: BAR 0 [mem 0xc4207400-0xc42077ff]
+2026-04-11T02:18:23,148729+00:00 pci 0000:03:03.5: PCI bridge to [bus 21]
+2026-04-11T02:18:23,148766+00:00 pci 0000:03:03.5:   bridge window [mem 0xc7d00000-0xc7efffff]
+2026-04-11T02:18:23,148821+00:00 pci 0000:03:03.5:   bridge window [mem 0x89f000000-0x89fffffff 64bit pref]
+2026-04-11T02:18:23,149261+00:00 pci 0000:03:03.6: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,149466+00:00 pci 0000:03:03.6: BAR 0 [mem 0xc4207800-0xc4207bff]
+2026-04-11T02:18:23,149813+00:00 pci 0000:03:03.6: PCI bridge to [bus 22]
+2026-04-11T02:18:23,149850+00:00 pci 0000:03:03.6:   bridge window [mem 0xc7f00000-0xc80fffff]
+2026-04-11T02:18:23,149905+00:00 pci 0000:03:03.6:   bridge window [mem 0x8a0000000-0x8a0ffffff 64bit pref]
+2026-04-11T02:18:23,150345+00:00 pci 0000:03:03.7: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,150548+00:00 pci 0000:03:03.7: BAR 0 [mem 0xc4207c00-0xc4207fff]
+2026-04-11T02:18:23,150773+00:00 pci 0000:03:03.7: PCI bridge to [bus 23]
+2026-04-11T02:18:23,150810+00:00 pci 0000:03:03.7:   bridge window [mem 0xc8100000-0xc82fffff]
+2026-04-11T02:18:23,150865+00:00 pci 0000:03:03.7:   bridge window [mem 0x8a1000000-0x8a1ffffff 64bit pref]
+2026-04-11T02:18:23,151392+00:00 pci 0000:02:00.0: PCI bridge to [bus 03-23]
+2026-04-11T02:18:23,151579+00:00 pci 0000:03:00.0: PCI bridge to [bus 04]
+2026-04-11T02:18:23,151774+00:00 pci 0000:03:00.1: PCI bridge to [bus 05]
+2026-04-11T02:18:23,151971+00:00 pci 0000:03:00.2: PCI bridge to [bus 06]
+2026-04-11T02:18:23,152165+00:00 pci 0000:03:00.3: PCI bridge to [bus 07]
+2026-04-11T02:18:23,152361+00:00 pci 0000:03:00.4: PCI bridge to [bus 08]
+2026-04-11T02:18:23,152556+00:00 pci 0000:03:00.5: PCI bridge to [bus 09]
+2026-04-11T02:18:23,152754+00:00 pci 0000:03:00.6: PCI bridge to [bus 0a]
+2026-04-11T02:18:23,152948+00:00 pci 0000:03:00.7: PCI bridge to [bus 0b]
+2026-04-11T02:18:23,153144+00:00 pci 0000:03:01.0: PCI bridge to [bus 0c]
+2026-04-11T02:18:23,153342+00:00 pci 0000:03:01.1: PCI bridge to [bus 0d]
+2026-04-11T02:18:23,153537+00:00 pci 0000:03:01.2: PCI bridge to [bus 0e]
+2026-04-11T02:18:23,153731+00:00 pci 0000:03:01.3: PCI bridge to [bus 0f]
+2026-04-11T02:18:23,153926+00:00 pci 0000:03:01.4: PCI bridge to [bus 10]
+2026-04-11T02:18:23,154121+00:00 pci 0000:03:01.5: PCI bridge to [bus 11]
+2026-04-11T02:18:23,154316+00:00 pci 0000:03:01.6: PCI bridge to [bus 12]
+2026-04-11T02:18:23,154511+00:00 pci 0000:03:01.7: PCI bridge to [bus 13]
+2026-04-11T02:18:23,154706+00:00 pci 0000:03:02.0: PCI bridge to [bus 14]
+2026-04-11T02:18:23,154900+00:00 pci 0000:03:02.1: PCI bridge to [bus 15]
+2026-04-11T02:18:23,155095+00:00 pci 0000:03:02.2: PCI bridge to [bus 16]
+2026-04-11T02:18:23,155292+00:00 pci 0000:03:02.3: PCI bridge to [bus 17]
+2026-04-11T02:18:23,155487+00:00 pci 0000:03:02.4: PCI bridge to [bus 18]
+2026-04-11T02:18:23,155682+00:00 pci 0000:03:02.5: PCI bridge to [bus 19]
+2026-04-11T02:18:23,155877+00:00 pci 0000:03:02.6: PCI bridge to [bus 1a]
+2026-04-11T02:18:23,156071+00:00 pci 0000:03:02.7: PCI bridge to [bus 1b]
+2026-04-11T02:18:23,156267+00:00 pci 0000:03:03.0: PCI bridge to [bus 1c]
+2026-04-11T02:18:23,156461+00:00 pci 0000:03:03.1: PCI bridge to [bus 1d]
+2026-04-11T02:18:23,156657+00:00 pci 0000:03:03.2: PCI bridge to [bus 1e]
+2026-04-11T02:18:23,156852+00:00 pci 0000:03:03.3: PCI bridge to [bus 1f]
+2026-04-11T02:18:23,157047+00:00 pci 0000:03:03.4: PCI bridge to [bus 20]
+2026-04-11T02:18:23,157245+00:00 pci 0000:03:03.5: PCI bridge to [bus 21]
+2026-04-11T02:18:23,157440+00:00 pci 0000:03:03.6: PCI bridge to [bus 22]
+2026-04-11T02:18:23,157635+00:00 pci 0000:03:03.7: PCI bridge to [bus 23]
+2026-04-11T02:18:23,158749+00:00 pci_bus 0000:01: on NUMA node 0
+2026-04-11T02:18:23,158803+00:00 ACPI: PCI Root Bridge [PC02] (domain 0000 [bus 24-2b])
+2026-04-11T02:18:23,158806+00:00 acpi PNP0A08:01: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI HPX-Type3]
+2026-04-11T02:18:23,158827+00:00 acpi PNP0A08:01: _OSC: platform does not support [SHPCHotplug AER LTR]
+2026-04-11T02:18:23,158848+00:00 acpi PNP0A08:01: _OSC: OS now controls [PCIeHotplug PME PCIeCapability]
+2026-04-11T02:18:23,158977+00:00 acpiphp: Slot [64] registered
+2026-04-11T02:18:23,158988+00:00 acpiphp: Slot [65] registered
+2026-04-11T02:18:23,158998+00:00 acpiphp: Slot [66] registered
+2026-04-11T02:18:23,159008+00:00 acpiphp: Slot [67] registered
+2026-04-11T02:18:23,159018+00:00 acpiphp: Slot [68] registered
+2026-04-11T02:18:23,159028+00:00 acpiphp: Slot [69] registered
+2026-04-11T02:18:23,159037+00:00 acpiphp: Slot [70] registered
+2026-04-11T02:18:23,159047+00:00 acpiphp: Slot [71] registered
+2026-04-11T02:18:23,159056+00:00 acpiphp: Slot [72] registered
+2026-04-11T02:18:23,159066+00:00 acpiphp: Slot [73] registered
+2026-04-11T02:18:23,159075+00:00 acpiphp: Slot [74] registered
+2026-04-11T02:18:23,159086+00:00 acpiphp: Slot [75] registered
+2026-04-11T02:18:23,159095+00:00 acpiphp: Slot [76] registered
+2026-04-11T02:18:23,159105+00:00 acpiphp: Slot [77] registered
+2026-04-11T02:18:23,159116+00:00 acpiphp: Slot [78] registered
+2026-04-11T02:18:23,159125+00:00 acpiphp: Slot [79] registered
+2026-04-11T02:18:23,159135+00:00 acpiphp: Slot [80] registered
+2026-04-11T02:18:23,159144+00:00 acpiphp: Slot [81] registered
+2026-04-11T02:18:23,159154+00:00 acpiphp: Slot [82] registered
+2026-04-11T02:18:23,159164+00:00 acpiphp: Slot [83] registered
+2026-04-11T02:18:23,159174+00:00 acpiphp: Slot [84] registered
+2026-04-11T02:18:23,159184+00:00 acpiphp: Slot [85] registered
+2026-04-11T02:18:23,159193+00:00 acpiphp: Slot [86] registered
+2026-04-11T02:18:23,159203+00:00 acpiphp: Slot [87] registered
+2026-04-11T02:18:23,159212+00:00 acpiphp: Slot [88] registered
+2026-04-11T02:18:23,159222+00:00 acpiphp: Slot [89] registered
+2026-04-11T02:18:23,159232+00:00 acpiphp: Slot [90] registered
+2026-04-11T02:18:23,159242+00:00 acpiphp: Slot [91] registered
+2026-04-11T02:18:23,159251+00:00 acpiphp: Slot [92] registered
+2026-04-11T02:18:23,159261+00:00 acpiphp: Slot [93] registered
+2026-04-11T02:18:23,159272+00:00 acpiphp: Slot [94] registered
+2026-04-11T02:18:23,159281+00:00 acpiphp: Slot [95] registered
+2026-04-11T02:18:23,159294+00:00 PCI host bridge to bus 0000:24
+2026-04-11T02:18:23,159299+00:00 pci_bus 0000:24: root bus resource [mem 0xc8400000-0xc90fffff window]
+2026-04-11T02:18:23,159300+00:00 pci_bus 0000:24: root bus resource [mem 0x8a2000000-0x8a6ffffff window]
+2026-04-11T02:18:23,159301+00:00 pci_bus 0000:24: root bus resource [bus 24-2b]
+2026-04-11T02:18:23,159399+00:00 pci 0000:24:00.0: [1d0f:0200] type 01 class 0x060400 PCIe Root Port
+2026-04-11T02:18:23,159605+00:00 pci 0000:24:00.0: BAR 0 [mem 0xc8400000-0xc84003ff]
+2026-04-11T02:18:23,159953+00:00 pci 0000:24:00.0: PCI bridge to [bus 25-2b]
+2026-04-11T02:18:23,159990+00:00 pci 0000:24:00.0:   bridge window [mem 0xc8500000-0xc90fffff]
+2026-04-11T02:18:23,160045+00:00 pci 0000:24:00.0:   bridge window [mem 0x8a2000000-0x8a6ffffff 64bit pref]
+2026-04-11T02:18:23,160805+00:00 pci 0000:25:00.0: [1d0f:0200] type 01 class 0x060400 PCIe Switch Upstream Port
+2026-04-11T02:18:23,161008+00:00 pci 0000:25:00.0: BAR 0 [mem 0xc8500000-0xc85003ff]
+2026-04-11T02:18:23,161359+00:00 pci 0000:25:00.0: PCI bridge to [bus 26-2b]
+2026-04-11T02:18:23,161396+00:00 pci 0000:25:00.0:   bridge window [mem 0xc8600000-0xc90fffff]
+2026-04-11T02:18:23,161451+00:00 pci 0000:25:00.0:   bridge window [mem 0x8a2000000-0x8a6ffffff 64bit pref]
+2026-04-11T02:18:23,161836+00:00 pci 0000:24:00.0: PCI bridge to [bus 25-2b]
+2026-04-11T02:18:23,162101+00:00 pci 0000:26:00.0: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,162304+00:00 pci 0000:26:00.0: BAR 0 [mem 0xc8600000-0xc86003ff]
+2026-04-11T02:18:23,162651+00:00 pci 0000:26:00.0: PCI bridge to [bus 27]
+2026-04-11T02:18:23,162688+00:00 pci 0000:26:00.0:   bridge window [mem 0xc8700000-0xc88fffff]
+2026-04-11T02:18:23,162743+00:00 pci 0000:26:00.0:   bridge window [mem 0x8a2000000-0x8a2ffffff 64bit pref]
+2026-04-11T02:18:23,163194+00:00 pci 0000:26:00.1: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,163397+00:00 pci 0000:26:00.1: BAR 0 [mem 0xc8600400-0xc86007ff]
+2026-04-11T02:18:23,163744+00:00 pci 0000:26:00.1: PCI bridge to [bus 28]
+2026-04-11T02:18:23,163781+00:00 pci 0000:26:00.1:   bridge window [mem 0xc8900000-0xc8afffff]
+2026-04-11T02:18:23,163836+00:00 pci 0000:26:00.1:   bridge window [mem 0x8a3000000-0x8a3ffffff 64bit pref]
+2026-04-11T02:18:23,164279+00:00 pci 0000:26:00.2: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,164482+00:00 pci 0000:26:00.2: BAR 0 [mem 0xc8600800-0xc8600bff]
+2026-04-11T02:18:23,164830+00:00 pci 0000:26:00.2: PCI bridge to [bus 29]
+2026-04-11T02:18:23,164867+00:00 pci 0000:26:00.2:   bridge window [mem 0xc8b00000-0xc8cfffff]
+2026-04-11T02:18:23,164922+00:00 pci 0000:26:00.2:   bridge window [mem 0x8a4000000-0x8a4ffffff 64bit pref]
+2026-04-11T02:18:23,165389+00:00 pci 0000:26:00.3: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,165593+00:00 pci 0000:26:00.3: BAR 0 [mem 0xc8600c00-0xc8600fff]
+2026-04-11T02:18:23,165939+00:00 pci 0000:26:00.3: PCI bridge to [bus 2a]
+2026-04-11T02:18:23,165977+00:00 pci 0000:26:00.3:   bridge window [mem 0xc8d00000-0xc8efffff]
+2026-04-11T02:18:23,166032+00:00 pci 0000:26:00.3:   bridge window [mem 0x8a5000000-0x8a5ffffff 64bit pref]
+2026-04-11T02:18:23,166474+00:00 pci 0000:26:00.4: [1d0f:0200] type 01 class 0x060400 PCIe Switch Downstream Port
+2026-04-11T02:18:23,166676+00:00 pci 0000:26:00.4: BAR 0 [mem 0xc8601000-0xc86013ff]
+2026-04-11T02:18:23,167023+00:00 pci 0000:26:00.4: PCI bridge to [bus 2b]
+2026-04-11T02:18:23,167060+00:00 pci 0000:26:00.4:   bridge window [mem 0xc8f00000-0xc90fffff]
+2026-04-11T02:18:23,167115+00:00 pci 0000:26:00.4:   bridge window [mem 0x8a6000000-0x8a6ffffff 64bit pref]
+2026-04-11T02:18:23,167677+00:00 pci 0000:25:00.0: PCI bridge to [bus 26-2b]
+2026-04-11T02:18:23,167971+00:00 pci 0000:27:00.0: [1d0f:ec20] type 00 class 0x020000 PCIe Endpoint
+2026-04-11T02:18:23,168857+00:00 pci 0000:27:00.0: BAR 0 [mem 0xc8700000-0xc8701fff]
+2026-04-11T02:18:23,169570+00:00 pci 0000:27:00.0: BAR 1 [mem 0xc8702000-0xc8703fff]
+2026-04-11T02:18:23,170275+00:00 pci 0000:27:00.0: BAR 2 [mem 0x8a2000000-0x8a21fffff 64bit pref]
+2026-04-11T02:18:23,172130+00:00 pci 0000:27:00.0: enabling Extended Tags
+2026-04-11T02:18:23,172548+00:00 pci 0000:26:00.0: PCI bridge to [bus 27]
+2026-04-11T02:18:23,172751+00:00 pci 0000:26:00.1: PCI bridge to [bus 28]
+2026-04-11T02:18:23,172949+00:00 pci 0000:26:00.2: PCI bridge to [bus 29]
+2026-04-11T02:18:23,173150+00:00 pci 0000:26:00.3: PCI bridge to [bus 2a]
+2026-04-11T02:18:23,173347+00:00 pci 0000:26:00.4: PCI bridge to [bus 2b]
+2026-04-11T02:18:23,173647+00:00 pci_bus 0000:24: on NUMA node 0
+2026-04-11T02:18:23,173780+00:00 ACPI: PCI: Interrupt link LNKA configured for IRQ 10
+2026-04-11T02:18:23,173845+00:00 ACPI: PCI: Interrupt link LNKB configured for IRQ 10
+2026-04-11T02:18:23,173907+00:00 ACPI: PCI: Interrupt link LNKC configured for IRQ 11
+2026-04-11T02:18:23,173970+00:00 ACPI: PCI: Interrupt link LNKD configured for IRQ 11
+2026-04-11T02:18:23,174002+00:00 ACPI: PCI: Interrupt link LNKS configured for IRQ 9
+2026-04-11T02:18:23,174340+00:00 iommu: Default domain type: Translated
+2026-04-11T02:18:23,174340+00:00 iommu: DMA domain TLB invalidation policy: lazy mode
+2026-04-11T02:18:23,174340+00:00 pps_core: LinuxPPS API ver. 1 registered
+2026-04-11T02:18:23,174340+00:00 pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+2026-04-11T02:18:23,174340+00:00 PTP clock support registered
+2026-04-11T02:18:23,174340+00:00 EDAC MC: Ver: 3.0.0
+2026-04-11T02:18:23,174340+00:00 efivars: Registered efivars operations
+2026-04-11T02:18:23,174340+00:00 NetLabel: Initializing
+2026-04-11T02:18:23,174340+00:00 NetLabel:  domain hash size = 128
+2026-04-11T02:18:23,174340+00:00 NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+2026-04-11T02:18:23,174340+00:00 NetLabel:  unlabeled traffic allowed by default
+2026-04-11T02:18:23,174340+00:00 PCI: Using ACPI for IRQ routing
+2026-04-11T02:18:23,174340+00:00 PCI: pci_cache_line_size set to 64 bytes
+2026-04-11T02:18:23,174340+00:00 e820: reserve RAM buffer [mem 0xbf8ef000-0xbfffffff]
+2026-04-11T02:18:23,174340+00:00 e820: reserve RAM buffer [mem 0xbff7c000-0xbfffffff]
+2026-04-11T02:18:23,174340+00:00 e820: reserve RAM buffer [mem 0x81e000000-0x81fffffff]
+2026-04-11T02:18:23,174340+00:00 hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0, 0, 0, 0, 0, 0
+2026-04-11T02:18:23,174340+00:00 hpet0: 8 comparators, 32-bit 62.500000 MHz counter
+2026-04-11T02:18:23,174911+00:00 clocksource: Switched to clocksource kvm-clock
+2026-04-11T02:18:23,174911+00:00 VFS: Disk quotas dquot_6.6.0
+2026-04-11T02:18:23,174911+00:00 VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+2026-04-11T02:18:23,174913+00:00 pnp: PnP ACPI init
+2026-04-11T02:18:23,174913+00:00 pnp: PnP ACPI: found 5 devices
+2026-04-11T02:18:23,178791+00:00 clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
+2026-04-11T02:18:23,178815+00:00 NET: Registered PF_INET protocol family
+2026-04-11T02:18:23,179025+00:00 IP idents hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+2026-04-11T02:18:23,187530+00:00 tcp_listen_portaddr_hash hash table entries: 16384 (order: 6, 262144 bytes, linear)
+2026-04-11T02:18:23,187552+00:00 Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+2026-04-11T02:18:23,187556+00:00 TCP established hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+2026-04-11T02:18:23,187727+00:00 TCP bind hash table entries: 65536 (order: 9, 2097152 bytes, linear)
+2026-04-11T02:18:23,187880+00:00 TCP: Hash tables configured (established 262144 bind 65536)
+2026-04-11T02:18:23,187985+00:00 MPTCP token hash table entries: 32768 (order: 8, 786432 bytes, linear)
+2026-04-11T02:18:23,188010+00:00 UDP hash table entries: 16384 (order: 7, 524288 bytes, linear)
+2026-04-11T02:18:23,188059+00:00 UDP-Lite hash table entries: 16384 (order: 7, 524288 bytes, linear)
+2026-04-11T02:18:23,188129+00:00 NET: Registered PF_UNIX/PF_LOCAL protocol family
+2026-04-11T02:18:23,188134+00:00 NET: Registered PF_XDP protocol family
+2026-04-11T02:18:23,188145+00:00 pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 window]
+2026-04-11T02:18:23,188147+00:00 pci_bus 0000:00: resource 5 [io  0x0d00-0xffff window]
+2026-04-11T02:18:23,188148+00:00 pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff window]
+2026-04-11T02:18:23,188149+00:00 pci_bus 0000:00: resource 7 [mem 0xc0000000-0xc3ffffff window]
+2026-04-11T02:18:23,188150+00:00 pci_bus 0000:00: resource 8 [mem 0x880000000-0x881ffffff window]
+2026-04-11T02:18:23,188182+00:00 pci 0000:03:00.0: PCI bridge to [bus 04]
+2026-04-11T02:18:23,188211+00:00 pci 0000:03:00.0:   bridge window [mem 0xc4300000-0xc44fffff]
+2026-04-11T02:18:23,188226+00:00 pci 0000:03:00.0:   bridge window [mem 0x882000000-0x882ffffff 64bit pref]
+2026-04-11T02:18:23,188252+00:00 pci 0000:03:00.1: PCI bridge to [bus 05]
+2026-04-11T02:18:23,188272+00:00 pci 0000:03:00.1:   bridge window [mem 0xc4500000-0xc46fffff]
+2026-04-11T02:18:23,188286+00:00 pci 0000:03:00.1:   bridge window [mem 0x883000000-0x883ffffff 64bit pref]
+2026-04-11T02:18:23,188311+00:00 pci 0000:03:00.2: PCI bridge to [bus 06]
+2026-04-11T02:18:23,188330+00:00 pci 0000:03:00.2:   bridge window [mem 0xc4700000-0xc48fffff]
+2026-04-11T02:18:23,188344+00:00 pci 0000:03:00.2:   bridge window [mem 0x884000000-0x884ffffff 64bit pref]
+2026-04-11T02:18:23,188370+00:00 pci 0000:03:00.3: PCI bridge to [bus 07]
+2026-04-11T02:18:23,188389+00:00 pci 0000:03:00.3:   bridge window [mem 0xc4900000-0xc4afffff]
+2026-04-11T02:18:23,188403+00:00 pci 0000:03:00.3:   bridge window [mem 0x885000000-0x885ffffff 64bit pref]
+2026-04-11T02:18:23,188428+00:00 pci 0000:03:00.4: PCI bridge to [bus 08]
+2026-04-11T02:18:23,188447+00:00 pci 0000:03:00.4:   bridge window [mem 0xc4b00000-0xc4cfffff]
+2026-04-11T02:18:23,188461+00:00 pci 0000:03:00.4:   bridge window [mem 0x886000000-0x886ffffff 64bit pref]
+2026-04-11T02:18:23,188487+00:00 pci 0000:03:00.5: PCI bridge to [bus 09]
+2026-04-11T02:18:23,188506+00:00 pci 0000:03:00.5:   bridge window [mem 0xc4d00000-0xc4efffff]
+2026-04-11T02:18:23,188520+00:00 pci 0000:03:00.5:   bridge window [mem 0x887000000-0x887ffffff 64bit pref]
+2026-04-11T02:18:23,188546+00:00 pci 0000:03:00.6: PCI bridge to [bus 0a]
+2026-04-11T02:18:23,188565+00:00 pci 0000:03:00.6:   bridge window [mem 0xc4f00000-0xc50fffff]
+2026-04-11T02:18:23,188578+00:00 pci 0000:03:00.6:   bridge window [mem 0x888000000-0x888ffffff 64bit pref]
+2026-04-11T02:18:23,188604+00:00 pci 0000:03:00.7: PCI bridge to [bus 0b]
+2026-04-11T02:18:23,188623+00:00 pci 0000:03:00.7:   bridge window [mem 0xc5100000-0xc52fffff]
+2026-04-11T02:18:23,188637+00:00 pci 0000:03:00.7:   bridge window [mem 0x889000000-0x889ffffff 64bit pref]
+2026-04-11T02:18:23,188663+00:00 pci 0000:03:01.0: PCI bridge to [bus 0c]
+2026-04-11T02:18:23,188682+00:00 pci 0000:03:01.0:   bridge window [mem 0xc5300000-0xc54fffff]
+2026-04-11T02:18:23,188695+00:00 pci 0000:03:01.0:   bridge window [mem 0x88a000000-0x88affffff 64bit pref]
+2026-04-11T02:18:23,188721+00:00 pci 0000:03:01.1: PCI bridge to [bus 0d]
+2026-04-11T02:18:23,188740+00:00 pci 0000:03:01.1:   bridge window [mem 0xc5500000-0xc56fffff]
+2026-04-11T02:18:23,188754+00:00 pci 0000:03:01.1:   bridge window [mem 0x88b000000-0x88bffffff 64bit pref]
+2026-04-11T02:18:23,188779+00:00 pci 0000:03:01.2: PCI bridge to [bus 0e]
+2026-04-11T02:18:23,188798+00:00 pci 0000:03:01.2:   bridge window [mem 0xc5700000-0xc58fffff]
+2026-04-11T02:18:23,188812+00:00 pci 0000:03:01.2:   bridge window [mem 0x88c000000-0x88cffffff 64bit pref]
+2026-04-11T02:18:23,188838+00:00 pci 0000:03:01.3: PCI bridge to [bus 0f]
+2026-04-11T02:18:23,188857+00:00 pci 0000:03:01.3:   bridge window [mem 0xc5900000-0xc5afffff]
+2026-04-11T02:18:23,188870+00:00 pci 0000:03:01.3:   bridge window [mem 0x88d000000-0x88dffffff 64bit pref]
+2026-04-11T02:18:23,188896+00:00 pci 0000:03:01.4: PCI bridge to [bus 10]
+2026-04-11T02:18:23,188916+00:00 pci 0000:03:01.4:   bridge window [mem 0xc5b00000-0xc5cfffff]
+2026-04-11T02:18:23,188929+00:00 pci 0000:03:01.4:   bridge window [mem 0x88e000000-0x88effffff 64bit pref]
+2026-04-11T02:18:23,188955+00:00 pci 0000:03:01.5: PCI bridge to [bus 11]
+2026-04-11T02:18:23,188974+00:00 pci 0000:03:01.5:   bridge window [mem 0xc5d00000-0xc5efffff]
+2026-04-11T02:18:23,188988+00:00 pci 0000:03:01.5:   bridge window [mem 0x88f000000-0x88fffffff 64bit pref]
+2026-04-11T02:18:23,189014+00:00 pci 0000:03:01.6: PCI bridge to [bus 12]
+2026-04-11T02:18:23,189033+00:00 pci 0000:03:01.6:   bridge window [mem 0xc5f00000-0xc60fffff]
+2026-04-11T02:18:23,189046+00:00 pci 0000:03:01.6:   bridge window [mem 0x890000000-0x890ffffff 64bit pref]
+2026-04-11T02:18:23,189072+00:00 pci 0000:03:01.7: PCI bridge to [bus 13]
+2026-04-11T02:18:23,189091+00:00 pci 0000:03:01.7:   bridge window [mem 0xc6100000-0xc62fffff]
+2026-04-11T02:18:23,189104+00:00 pci 0000:03:01.7:   bridge window [mem 0x891000000-0x891ffffff 64bit pref]
+2026-04-11T02:18:23,189130+00:00 pci 0000:03:02.0: PCI bridge to [bus 14]
+2026-04-11T02:18:23,189149+00:00 pci 0000:03:02.0:   bridge window [mem 0xc6300000-0xc64fffff]
+2026-04-11T02:18:23,189163+00:00 pci 0000:03:02.0:   bridge window [mem 0x892000000-0x892ffffff 64bit pref]
+2026-04-11T02:18:23,189189+00:00 pci 0000:03:02.1: PCI bridge to [bus 15]
+2026-04-11T02:18:23,189208+00:00 pci 0000:03:02.1:   bridge window [mem 0xc6500000-0xc66fffff]
+2026-04-11T02:18:23,189221+00:00 pci 0000:03:02.1:   bridge window [mem 0x893000000-0x893ffffff 64bit pref]
+2026-04-11T02:18:23,189247+00:00 pci 0000:03:02.2: PCI bridge to [bus 16]
+2026-04-11T02:18:23,189266+00:00 pci 0000:03:02.2:   bridge window [mem 0xc6700000-0xc68fffff]
+2026-04-11T02:18:23,189280+00:00 pci 0000:03:02.2:   bridge window [mem 0x894000000-0x894ffffff 64bit pref]
+2026-04-11T02:18:23,189305+00:00 pci 0000:03:02.3: PCI bridge to [bus 17]
+2026-04-11T02:18:23,189325+00:00 pci 0000:03:02.3:   bridge window [mem 0xc6900000-0xc6afffff]
+2026-04-11T02:18:23,189338+00:00 pci 0000:03:02.3:   bridge window [mem 0x895000000-0x895ffffff 64bit pref]
+2026-04-11T02:18:23,189363+00:00 pci 0000:03:02.4: PCI bridge to [bus 18]
+2026-04-11T02:18:23,189382+00:00 pci 0000:03:02.4:   bridge window [mem 0xc6b00000-0xc6cfffff]
+2026-04-11T02:18:23,189396+00:00 pci 0000:03:02.4:   bridge window [mem 0x896000000-0x896ffffff 64bit pref]
+2026-04-11T02:18:23,189422+00:00 pci 0000:03:02.5: PCI bridge to [bus 19]
+2026-04-11T02:18:23,189441+00:00 pci 0000:03:02.5:   bridge window [mem 0xc6d00000-0xc6efffff]
+2026-04-11T02:18:23,189454+00:00 pci 0000:03:02.5:   bridge window [mem 0x897000000-0x897ffffff 64bit pref]
+2026-04-11T02:18:23,189480+00:00 pci 0000:03:02.6: PCI bridge to [bus 1a]
+2026-04-11T02:18:23,189499+00:00 pci 0000:03:02.6:   bridge window [mem 0xc6f00000-0xc70fffff]
+2026-04-11T02:18:23,189513+00:00 pci 0000:03:02.6:   bridge window [mem 0x898000000-0x898ffffff 64bit pref]
+2026-04-11T02:18:23,189539+00:00 pci 0000:03:02.7: PCI bridge to [bus 1b]
+2026-04-11T02:18:23,189558+00:00 pci 0000:03:02.7:   bridge window [mem 0xc7100000-0xc72fffff]
+2026-04-11T02:18:23,189571+00:00 pci 0000:03:02.7:   bridge window [mem 0x899000000-0x899ffffff 64bit pref]
+2026-04-11T02:18:23,189597+00:00 pci 0000:03:03.0: PCI bridge to [bus 1c]
+2026-04-11T02:18:23,189616+00:00 pci 0000:03:03.0:   bridge window [mem 0xc7300000-0xc74fffff]
+2026-04-11T02:18:23,189630+00:00 pci 0000:03:03.0:   bridge window [mem 0x89a000000-0x89affffff 64bit pref]
+2026-04-11T02:18:23,189655+00:00 pci 0000:03:03.1: PCI bridge to [bus 1d]
+2026-04-11T02:18:23,189674+00:00 pci 0000:03:03.1:   bridge window [mem 0xc7500000-0xc76fffff]
+2026-04-11T02:18:23,189687+00:00 pci 0000:03:03.1:   bridge window [mem 0x89b000000-0x89bffffff 64bit pref]
+2026-04-11T02:18:23,189713+00:00 pci 0000:03:03.2: PCI bridge to [bus 1e]
+2026-04-11T02:18:23,189732+00:00 pci 0000:03:03.2:   bridge window [mem 0xc7700000-0xc78fffff]
+2026-04-11T02:18:23,189746+00:00 pci 0000:03:03.2:   bridge window [mem 0x89c000000-0x89cffffff 64bit pref]
+2026-04-11T02:18:23,189771+00:00 pci 0000:03:03.3: PCI bridge to [bus 1f]
+2026-04-11T02:18:23,189791+00:00 pci 0000:03:03.3:   bridge window [mem 0xc7900000-0xc7afffff]
+2026-04-11T02:18:23,189804+00:00 pci 0000:03:03.3:   bridge window [mem 0x89d000000-0x89dffffff 64bit pref]
+2026-04-11T02:18:23,189830+00:00 pci 0000:03:03.4: PCI bridge to [bus 20]
+2026-04-11T02:18:23,189849+00:00 pci 0000:03:03.4:   bridge window [mem 0xc7b00000-0xc7cfffff]
+2026-04-11T02:18:23,189862+00:00 pci 0000:03:03.4:   bridge window [mem 0x89e000000-0x89effffff 64bit pref]
+2026-04-11T02:18:23,189888+00:00 pci 0000:03:03.5: PCI bridge to [bus 21]
+2026-04-11T02:18:23,189907+00:00 pci 0000:03:03.5:   bridge window [mem 0xc7d00000-0xc7efffff]
+2026-04-11T02:18:23,189921+00:00 pci 0000:03:03.5:   bridge window [mem 0x89f000000-0x89fffffff 64bit pref]
+2026-04-11T02:18:23,189946+00:00 pci 0000:03:03.6: PCI bridge to [bus 22]
+2026-04-11T02:18:23,189965+00:00 pci 0000:03:03.6:   bridge window [mem 0xc7f00000-0xc80fffff]
+2026-04-11T02:18:23,189979+00:00 pci 0000:03:03.6:   bridge window [mem 0x8a0000000-0x8a0ffffff 64bit pref]
+2026-04-11T02:18:23,190005+00:00 pci 0000:03:03.7: PCI bridge to [bus 23]
+2026-04-11T02:18:23,190024+00:00 pci 0000:03:03.7:   bridge window [mem 0xc8100000-0xc82fffff]
+2026-04-11T02:18:23,190037+00:00 pci 0000:03:03.7:   bridge window [mem 0x8a1000000-0x8a1ffffff 64bit pref]
+2026-04-11T02:18:23,190063+00:00 pci 0000:02:00.0: PCI bridge to [bus 03-23]
+2026-04-11T02:18:23,190082+00:00 pci 0000:02:00.0:   bridge window [mem 0xc4200000-0xc82fffff]
+2026-04-11T02:18:23,190096+00:00 pci 0000:02:00.0:   bridge window [mem 0x882000000-0x8a1ffffff 64bit pref]
+2026-04-11T02:18:23,190121+00:00 pci 0000:01:00.0: PCI bridge to [bus 02-23]
+2026-04-11T02:18:23,190141+00:00 pci 0000:01:00.0:   bridge window [mem 0xc4100000-0xc82fffff]
+2026-04-11T02:18:23,190154+00:00 pci 0000:01:00.0:   bridge window [mem 0x882000000-0x8a1ffffff 64bit pref]
+2026-04-11T02:18:23,190180+00:00 pci_bus 0000:01: resource 4 [mem 0xc4000000-0xc82fffff window]
+2026-04-11T02:18:23,190181+00:00 pci_bus 0000:01: resource 5 [mem 0x882000000-0x8a1ffffff window]
+2026-04-11T02:18:23,190182+00:00 pci_bus 0000:02: resource 1 [mem 0xc4100000-0xc82fffff]
+2026-04-11T02:18:23,190183+00:00 pci_bus 0000:02: resource 2 [mem 0x882000000-0x8a1ffffff 64bit pref]
+2026-04-11T02:18:23,190184+00:00 pci_bus 0000:03: resource 1 [mem 0xc4200000-0xc82fffff]
+2026-04-11T02:18:23,190184+00:00 pci_bus 0000:03: resource 2 [mem 0x882000000-0x8a1ffffff 64bit pref]
+2026-04-11T02:18:23,190185+00:00 pci_bus 0000:04: resource 1 [mem 0xc4300000-0xc44fffff]
+2026-04-11T02:18:23,190186+00:00 pci_bus 0000:04: resource 2 [mem 0x882000000-0x882ffffff 64bit pref]
+2026-04-11T02:18:23,190187+00:00 pci_bus 0000:05: resource 1 [mem 0xc4500000-0xc46fffff]
+2026-04-11T02:18:23,190188+00:00 pci_bus 0000:05: resource 2 [mem 0x883000000-0x883ffffff 64bit pref]
+2026-04-11T02:18:23,190188+00:00 pci_bus 0000:06: resource 1 [mem 0xc4700000-0xc48fffff]
+2026-04-11T02:18:23,190189+00:00 pci_bus 0000:06: resource 2 [mem 0x884000000-0x884ffffff 64bit pref]
+2026-04-11T02:18:23,190190+00:00 pci_bus 0000:07: resource 1 [mem 0xc4900000-0xc4afffff]
+2026-04-11T02:18:23,190190+00:00 pci_bus 0000:07: resource 2 [mem 0x885000000-0x885ffffff 64bit pref]
+2026-04-11T02:18:23,190191+00:00 pci_bus 0000:08: resource 1 [mem 0xc4b00000-0xc4cfffff]
+2026-04-11T02:18:23,190192+00:00 pci_bus 0000:08: resource 2 [mem 0x886000000-0x886ffffff 64bit pref]
+2026-04-11T02:18:23,190193+00:00 pci_bus 0000:09: resource 1 [mem 0xc4d00000-0xc4efffff]
+2026-04-11T02:18:23,190193+00:00 pci_bus 0000:09: resource 2 [mem 0x887000000-0x887ffffff 64bit pref]
+2026-04-11T02:18:23,190194+00:00 pci_bus 0000:0a: resource 1 [mem 0xc4f00000-0xc50fffff]
+2026-04-11T02:18:23,190195+00:00 pci_bus 0000:0a: resource 2 [mem 0x888000000-0x888ffffff 64bit pref]
+2026-04-11T02:18:23,190196+00:00 pci_bus 0000:0b: resource 1 [mem 0xc5100000-0xc52fffff]
+2026-04-11T02:18:23,190196+00:00 pci_bus 0000:0b: resource 2 [mem 0x889000000-0x889ffffff 64bit pref]
+2026-04-11T02:18:23,190197+00:00 pci_bus 0000:0c: resource 1 [mem 0xc5300000-0xc54fffff]
+2026-04-11T02:18:23,190198+00:00 pci_bus 0000:0c: resource 2 [mem 0x88a000000-0x88affffff 64bit pref]
+2026-04-11T02:18:23,190199+00:00 pci_bus 0000:0d: resource 1 [mem 0xc5500000-0xc56fffff]
+2026-04-11T02:18:23,190199+00:00 pci_bus 0000:0d: resource 2 [mem 0x88b000000-0x88bffffff 64bit pref]
+2026-04-11T02:18:23,190201+00:00 pci_bus 0000:0e: resource 1 [mem 0xc5700000-0xc58fffff]
+2026-04-11T02:18:23,190201+00:00 pci_bus 0000:0e: resource 2 [mem 0x88c000000-0x88cffffff 64bit pref]
+2026-04-11T02:18:23,190202+00:00 pci_bus 0000:0f: resource 1 [mem 0xc5900000-0xc5afffff]
+2026-04-11T02:18:23,190203+00:00 pci_bus 0000:0f: resource 2 [mem 0x88d000000-0x88dffffff 64bit pref]
+2026-04-11T02:18:23,190203+00:00 pci_bus 0000:10: resource 1 [mem 0xc5b00000-0xc5cfffff]
+2026-04-11T02:18:23,190204+00:00 pci_bus 0000:10: resource 2 [mem 0x88e000000-0x88effffff 64bit pref]
+2026-04-11T02:18:23,190205+00:00 pci_bus 0000:11: resource 1 [mem 0xc5d00000-0xc5efffff]
+2026-04-11T02:18:23,190206+00:00 pci_bus 0000:11: resource 2 [mem 0x88f000000-0x88fffffff 64bit pref]
+2026-04-11T02:18:23,190206+00:00 pci_bus 0000:12: resource 1 [mem 0xc5f00000-0xc60fffff]
+2026-04-11T02:18:23,190207+00:00 pci_bus 0000:12: resource 2 [mem 0x890000000-0x890ffffff 64bit pref]
+2026-04-11T02:18:23,190208+00:00 pci_bus 0000:13: resource 1 [mem 0xc6100000-0xc62fffff]
+2026-04-11T02:18:23,190208+00:00 pci_bus 0000:13: resource 2 [mem 0x891000000-0x891ffffff 64bit pref]
+2026-04-11T02:18:23,190209+00:00 pci_bus 0000:14: resource 1 [mem 0xc6300000-0xc64fffff]
+2026-04-11T02:18:23,190210+00:00 pci_bus 0000:14: resource 2 [mem 0x892000000-0x892ffffff 64bit pref]
+2026-04-11T02:18:23,190211+00:00 pci_bus 0000:15: resource 1 [mem 0xc6500000-0xc66fffff]
+2026-04-11T02:18:23,190211+00:00 pci_bus 0000:15: resource 2 [mem 0x893000000-0x893ffffff 64bit pref]
+2026-04-11T02:18:23,190212+00:00 pci_bus 0000:16: resource 1 [mem 0xc6700000-0xc68fffff]
+2026-04-11T02:18:23,190213+00:00 pci_bus 0000:16: resource 2 [mem 0x894000000-0x894ffffff 64bit pref]
+2026-04-11T02:18:23,190214+00:00 pci_bus 0000:17: resource 1 [mem 0xc6900000-0xc6afffff]
+2026-04-11T02:18:23,190214+00:00 pci_bus 0000:17: resource 2 [mem 0x895000000-0x895ffffff 64bit pref]
+2026-04-11T02:18:23,190215+00:00 pci_bus 0000:18: resource 1 [mem 0xc6b00000-0xc6cfffff]
+2026-04-11T02:18:23,190216+00:00 pci_bus 0000:18: resource 2 [mem 0x896000000-0x896ffffff 64bit pref]
+2026-04-11T02:18:23,190217+00:00 pci_bus 0000:19: resource 1 [mem 0xc6d00000-0xc6efffff]
+2026-04-11T02:18:23,190217+00:00 pci_bus 0000:19: resource 2 [mem 0x897000000-0x897ffffff 64bit pref]
+2026-04-11T02:18:23,190218+00:00 pci_bus 0000:1a: resource 1 [mem 0xc6f00000-0xc70fffff]
+2026-04-11T02:18:23,190219+00:00 pci_bus 0000:1a: resource 2 [mem 0x898000000-0x898ffffff 64bit pref]
+2026-04-11T02:18:23,190220+00:00 pci_bus 0000:1b: resource 1 [mem 0xc7100000-0xc72fffff]
+2026-04-11T02:18:23,190220+00:00 pci_bus 0000:1b: resource 2 [mem 0x899000000-0x899ffffff 64bit pref]
+2026-04-11T02:18:23,190221+00:00 pci_bus 0000:1c: resource 1 [mem 0xc7300000-0xc74fffff]
+2026-04-11T02:18:23,190222+00:00 pci_bus 0000:1c: resource 2 [mem 0x89a000000-0x89affffff 64bit pref]
+2026-04-11T02:18:23,190223+00:00 pci_bus 0000:1d: resource 1 [mem 0xc7500000-0xc76fffff]
+2026-04-11T02:18:23,190223+00:00 pci_bus 0000:1d: resource 2 [mem 0x89b000000-0x89bffffff 64bit pref]
+2026-04-11T02:18:23,190224+00:00 pci_bus 0000:1e: resource 1 [mem 0xc7700000-0xc78fffff]
+2026-04-11T02:18:23,190225+00:00 pci_bus 0000:1e: resource 2 [mem 0x89c000000-0x89cffffff 64bit pref]
+2026-04-11T02:18:23,190225+00:00 pci_bus 0000:1f: resource 1 [mem 0xc7900000-0xc7afffff]
+2026-04-11T02:18:23,190226+00:00 pci_bus 0000:1f: resource 2 [mem 0x89d000000-0x89dffffff 64bit pref]
+2026-04-11T02:18:23,190227+00:00 pci_bus 0000:20: resource 1 [mem 0xc7b00000-0xc7cfffff]
+2026-04-11T02:18:23,190228+00:00 pci_bus 0000:20: resource 2 [mem 0x89e000000-0x89effffff 64bit pref]
+2026-04-11T02:18:23,190229+00:00 pci_bus 0000:21: resource 1 [mem 0xc7d00000-0xc7efffff]
+2026-04-11T02:18:23,190229+00:00 pci_bus 0000:21: resource 2 [mem 0x89f000000-0x89fffffff 64bit pref]
+2026-04-11T02:18:23,190230+00:00 pci_bus 0000:22: resource 1 [mem 0xc7f00000-0xc80fffff]
+2026-04-11T02:18:23,190231+00:00 pci_bus 0000:22: resource 2 [mem 0x8a0000000-0x8a0ffffff 64bit pref]
+2026-04-11T02:18:23,190232+00:00 pci_bus 0000:23: resource 1 [mem 0xc8100000-0xc82fffff]
+2026-04-11T02:18:23,190232+00:00 pci_bus 0000:23: resource 2 [mem 0x8a1000000-0x8a1ffffff 64bit pref]
+2026-04-11T02:18:23,190244+00:00 pci 0000:26:00.0: PCI bridge to [bus 27]
+2026-04-11T02:18:23,190264+00:00 pci 0000:26:00.0:   bridge window [mem 0xc8700000-0xc88fffff]
+2026-04-11T02:18:23,190278+00:00 pci 0000:26:00.0:   bridge window [mem 0x8a2000000-0x8a2ffffff 64bit pref]
+2026-04-11T02:18:23,190303+00:00 pci 0000:26:00.1: PCI bridge to [bus 28]
+2026-04-11T02:18:23,190323+00:00 pci 0000:26:00.1:   bridge window [mem 0xc8900000-0xc8afffff]
+2026-04-11T02:18:23,190336+00:00 pci 0000:26:00.1:   bridge window [mem 0x8a3000000-0x8a3ffffff 64bit pref]
+2026-04-11T02:18:23,190362+00:00 pci 0000:26:00.2: PCI bridge to [bus 29]
+2026-04-11T02:18:23,190381+00:00 pci 0000:26:00.2:   bridge window [mem 0xc8b00000-0xc8cfffff]
+2026-04-11T02:18:23,190394+00:00 pci 0000:26:00.2:   bridge window [mem 0x8a4000000-0x8a4ffffff 64bit pref]
+2026-04-11T02:18:23,190420+00:00 pci 0000:26:00.3: PCI bridge to [bus 2a]
+2026-04-11T02:18:23,190439+00:00 pci 0000:26:00.3:   bridge window [mem 0xc8d00000-0xc8efffff]
+2026-04-11T02:18:23,190453+00:00 pci 0000:26:00.3:   bridge window [mem 0x8a5000000-0x8a5ffffff 64bit pref]
+2026-04-11T02:18:23,190478+00:00 pci 0000:26:00.4: PCI bridge to [bus 2b]
+2026-04-11T02:18:23,190498+00:00 pci 0000:26:00.4:   bridge window [mem 0xc8f00000-0xc90fffff]
+2026-04-11T02:18:23,190511+00:00 pci 0000:26:00.4:   bridge window [mem 0x8a6000000-0x8a6ffffff 64bit pref]
+2026-04-11T02:18:23,190537+00:00 pci 0000:25:00.0: PCI bridge to [bus 26-2b]
+2026-04-11T02:18:23,190556+00:00 pci 0000:25:00.0:   bridge window [mem 0xc8600000-0xc90fffff]
+2026-04-11T02:18:23,190570+00:00 pci 0000:25:00.0:   bridge window [mem 0x8a2000000-0x8a6ffffff 64bit pref]
+2026-04-11T02:18:23,190595+00:00 pci 0000:24:00.0: PCI bridge to [bus 25-2b]
+2026-04-11T02:18:23,190614+00:00 pci 0000:24:00.0:   bridge window [mem 0xc8500000-0xc90fffff]
+2026-04-11T02:18:23,190628+00:00 pci 0000:24:00.0:   bridge window [mem 0x8a2000000-0x8a6ffffff 64bit pref]
+2026-04-11T02:18:23,190653+00:00 pci_bus 0000:24: resource 4 [mem 0xc8400000-0xc90fffff window]
+2026-04-11T02:18:23,190654+00:00 pci_bus 0000:24: resource 5 [mem 0x8a2000000-0x8a6ffffff window]
+2026-04-11T02:18:23,190655+00:00 pci_bus 0000:25: resource 1 [mem 0xc8500000-0xc90fffff]
+2026-04-11T02:18:23,190656+00:00 pci_bus 0000:25: resource 2 [mem 0x8a2000000-0x8a6ffffff 64bit pref]
+2026-04-11T02:18:23,190657+00:00 pci_bus 0000:26: resource 1 [mem 0xc8600000-0xc90fffff]
+2026-04-11T02:18:23,190657+00:00 pci_bus 0000:26: resource 2 [mem 0x8a2000000-0x8a6ffffff 64bit pref]
+2026-04-11T02:18:23,190658+00:00 pci_bus 0000:27: resource 1 [mem 0xc8700000-0xc88fffff]
+2026-04-11T02:18:23,190659+00:00 pci_bus 0000:27: resource 2 [mem 0x8a2000000-0x8a2ffffff 64bit pref]
+2026-04-11T02:18:23,190660+00:00 pci_bus 0000:28: resource 1 [mem 0xc8900000-0xc8afffff]
+2026-04-11T02:18:23,190660+00:00 pci_bus 0000:28: resource 2 [mem 0x8a3000000-0x8a3ffffff 64bit pref]
+2026-04-11T02:18:23,190661+00:00 pci_bus 0000:29: resource 1 [mem 0xc8b00000-0xc8cfffff]
+2026-04-11T02:18:23,190662+00:00 pci_bus 0000:29: resource 2 [mem 0x8a4000000-0x8a4ffffff 64bit pref]
+2026-04-11T02:18:23,190663+00:00 pci_bus 0000:2a: resource 1 [mem 0xc8d00000-0xc8efffff]
+2026-04-11T02:18:23,190663+00:00 pci_bus 0000:2a: resource 2 [mem 0x8a5000000-0x8a5ffffff 64bit pref]
+2026-04-11T02:18:23,190664+00:00 pci_bus 0000:2b: resource 1 [mem 0xc8f00000-0xc90fffff]
+2026-04-11T02:18:23,190665+00:00 pci_bus 0000:2b: resource 2 [mem 0x8a6000000-0x8a6ffffff 64bit pref]
+2026-04-11T02:18:23,190693+00:00 pci 0000:00:00.0: Limiting direct PCI/PCI transfers
+2026-04-11T02:18:23,191050+00:00 PCI: CLS 0 bytes, default 64
+2026-04-11T02:18:23,191092+00:00 PCI-DMA: Using software bounce buffering for IO (SWIOTLB)
+2026-04-11T02:18:23,191093+00:00 software IO TLB: mapped [mem 0x00000000b7fbf000-0x00000000bbfbf000] (64MB)
+2026-04-11T02:18:23,191136+00:00 Trying to unpack rootfs image as initramfs...
+2026-04-11T02:18:23,191136+00:00 clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x26eb3e3cc63, max_idle_ns: 440795236593 ns
+2026-04-11T02:18:23,191173+00:00 clocksource: Switched to clocksource tsc
+2026-04-11T02:18:23,210794+00:00 Initialise system trusted keyrings
+2026-04-11T02:18:23,210799+00:00 Key type blacklist registered
+2026-04-11T02:18:23,210926+00:00 workingset: timestamp_bits=36 max_order=23 bucket_order=0
+2026-04-11T02:18:23,210937+00:00 zbud: loaded
+2026-04-11T02:18:23,211069+00:00 SGI XFS with ACLs, security attributes, quota, no debug enabled
+2026-04-11T02:18:23,211481+00:00 integrity: Platform Keyring initialized
+2026-04-11T02:18:23,218991+00:00 Key type asymmetric registered
+2026-04-11T02:18:23,218992+00:00 Asymmetric key parser 'x509' registered
+2026-04-11T02:18:23,219003+00:00 Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+2026-04-11T02:18:23,219076+00:00 io scheduler mq-deadline registered
+2026-04-11T02:18:23,219078+00:00 io scheduler kyber registered
+2026-04-11T02:18:23,219092+00:00 io scheduler bfq registered
+2026-04-11T02:18:23,220560+00:00 pcieport 0000:01:00.0: PME: Signaling with IRQ 24
+2026-04-11T02:18:23,220733+00:00 pcieport 0000:01:00.0: pciehp: Slot #0 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,221391+00:00 pcieport 0000:03:00.0: pciehp: Slot #2 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,221947+00:00 pcieport 0000:03:00.1: pciehp: Slot #3 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,222473+00:00 pcieport 0000:03:00.2: pciehp: Slot #4 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,223004+00:00 pcieport 0000:03:00.3: pciehp: Slot #5 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,223516+00:00 pcieport 0000:03:00.4: pciehp: Slot #6 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,224035+00:00 pcieport 0000:03:00.5: pciehp: Slot #7 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,224550+00:00 pcieport 0000:03:00.6: pciehp: Slot #8 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,225071+00:00 pcieport 0000:03:00.7: pciehp: Slot #9 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,225587+00:00 pcieport 0000:03:01.0: pciehp: Slot #10 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,226103+00:00 pcieport 0000:03:01.1: pciehp: Slot #11 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,226617+00:00 pcieport 0000:03:01.2: pciehp: Slot #12 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,227137+00:00 pcieport 0000:03:01.3: pciehp: Slot #13 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,227657+00:00 pcieport 0000:03:01.4: pciehp: Slot #14 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,228178+00:00 pcieport 0000:03:01.5: pciehp: Slot #15 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,228694+00:00 pcieport 0000:03:01.6: pciehp: Slot #16 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,229219+00:00 pcieport 0000:03:01.7: pciehp: Slot #17 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,229737+00:00 pcieport 0000:03:02.0: pciehp: Slot #18 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,230256+00:00 pcieport 0000:03:02.1: pciehp: Slot #19 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,230773+00:00 pcieport 0000:03:02.2: pciehp: Slot #20 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,231297+00:00 pcieport 0000:03:02.3: pciehp: Slot #21 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,231815+00:00 pcieport 0000:03:02.4: pciehp: Slot #22 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,232339+00:00 pcieport 0000:03:02.5: pciehp: Slot #23 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,232874+00:00 pcieport 0000:03:02.6: pciehp: Slot #24 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,233397+00:00 pcieport 0000:03:02.7: pciehp: Slot #25 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,233915+00:00 pcieport 0000:03:03.0: pciehp: Slot #26 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,234436+00:00 pcieport 0000:03:03.1: pciehp: Slot #27 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,234974+00:00 pcieport 0000:03:03.2: pciehp: Slot #28 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,235501+00:00 pcieport 0000:03:03.3: pciehp: Slot #29 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,236026+00:00 pcieport 0000:03:03.4: pciehp: Slot #30 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,236553+00:00 pcieport 0000:03:03.5: pciehp: Slot #31 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,237075+00:00 pcieport 0000:03:03.6: pciehp: Slot #32 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,237607+00:00 pcieport 0000:03:03.7: pciehp: Slot #33 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,238222+00:00 pcieport 0000:24:00.0: PME: Signaling with IRQ 57
+2026-04-11T02:18:23,238322+00:00 pcieport 0000:24:00.0: pciehp: Slot #1 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,238955+00:00 pcieport 0000:26:00.0: pciehp: Slot #34 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,239475+00:00 pcieport 0000:26:00.1: pciehp: Slot #35 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,239997+00:00 pcieport 0000:26:00.2: pciehp: Slot #36 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,240519+00:00 pcieport 0000:26:00.3: pciehp: Slot #37 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,241051+00:00 pcieport 0000:26:00.4: pciehp: Slot #38 AttnBtn+ PwrCtrl+ MRL- AttnInd+ PwrInd+ HotPlug+ Surprise- Interlock- NoCompl+ IbPresDis- LLActRep+
+2026-04-11T02:18:23,241447+00:00 shpchp: Standard Hot Plug PCI Controller Driver version: 0.4
+2026-04-11T02:18:23,242189+00:00 Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+2026-04-11T02:18:23,242367+00:00 00:04: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+2026-04-11T02:18:23,243673+00:00 rtc_cmos 00:00: RTC can wake from S4
+2026-04-11T02:18:23,243732+00:00 nvme nvme0: pci function 0000:00:04.0
+2026-04-11T02:18:23,244588+00:00 rtc_cmos 00:00: registered as rtc0
+2026-04-11T02:18:23,244721+00:00 rtc_cmos 00:00: setting system clock to 2026-04-11T02:18:22 UTC (1775873902)
+2026-04-11T02:18:23,244776+00:00 rtc_cmos 00:00: alarms up to one day, 114 bytes nvram
+2026-04-11T02:18:23,244858+00:00 vmclock AMZNC10C:00: vmclock0: registered miscdev
+2026-04-11T02:18:23,244890+00:00 intel_pstate: P-states controlled by the platform
+2026-04-11T02:18:23,244926+00:00 pstore: Using crash dump compression: deflate
+2026-04-11T02:18:23,244928+00:00 pstore: Registered efi_pstore as persistent store backend
+2026-04-11T02:18:23,244939+00:00 hid: raw HID events driver (C) Jiri Kosina
+2026-04-11T02:18:23,245071+00:00 NET: Registered PF_INET6 protocol family
+2026-04-11T02:18:23,245993+00:00 Freeing initrd memory: 20400K
+2026-04-11T02:18:23,250165+00:00 Segment Routing with IPv6
+2026-04-11T02:18:23,250175+00:00 In-situ OAM (IOAM) with IPv6
+2026-04-11T02:18:23,250195+00:00 NET: Registered PF_PACKET protocol family
+2026-04-11T02:18:23,260552+00:00 IPI shorthand broadcast: enabled
+2026-04-11T02:18:23,260682+00:00 AES CTR mode by8 optimization enabled
+2026-04-11T02:18:23,260926+00:00 nvme nvme0: 2/0/0 default/read/poll queues
+2026-04-11T02:18:23,262433+00:00 sched_clock: Marking stable (257794121, 2635676)->(283404345, -22974548)
+2026-04-11T02:18:23,262567+00:00 registered taskstats version 1
+2026-04-11T02:18:23,262631+00:00 Loading compiled-in X.509 certificates
+2026-04-11T02:18:23,267509+00:00  nvme0n1: p1 p127 p128
+2026-04-11T02:18:23,267951+00:00 Loaded X.509 cert 'Amazon.com: Amazon Linux Kernel Signing Key: 0074aea67b9fd1ba4092d3f4c684859e8503c34b'
+2026-04-11T02:18:23,268924+00:00 Demotion targets for Node 0: null
+2026-04-11T02:18:23,268991+00:00 Key type .fscrypt registered
+2026-04-11T02:18:23,268992+00:00 Key type fscrypt-provisioning registered
+2026-04-11T02:18:23,269240+00:00 ima: No TPM chip found, activating TPM-bypass!
+2026-04-11T02:18:23,269258+00:00 ima: Allocated hash algorithm: sha256
+2026-04-11T02:18:23,269265+00:00 ima: No architecture policies found
+2026-04-11T02:18:23,276030+00:00 clk: Disabling unused clocks
+2026-04-11T02:18:23,279252+00:00 Freeing unused decrypted memory: 2028K
+2026-04-11T02:18:23,279707+00:00 Freeing unused kernel image (initmem) memory: 3732K
+2026-04-11T02:18:23,279723+00:00 Write protecting the kernel read-only data: 28672k
+2026-04-11T02:18:23,280020+00:00 Freeing unused kernel image (rodata/data gap) memory: 944K
+2026-04-11T02:18:23,280025+00:00 Run /init as init process
+2026-04-11T02:18:23,280025+00:00   with arguments:
+2026-04-11T02:18:23,280026+00:00     /init
+2026-04-11T02:18:23,280027+00:00   with environment:
+2026-04-11T02:18:23,280027+00:00     HOME=/
+2026-04-11T02:18:23,280028+00:00     TERM=linux
+2026-04-11T02:18:23,296088+00:00 systemd[1]: systemd 252.23-11.amzn2023 running in system mode (+PAM +AUDIT +SELINUX -APPARMOR +IMA +SMACK +SECCOMP -GCRYPT -GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 -IDN -IPTC +KMOD +LIBCRYPTSETUP +LIBFDISK +PCRE2 +PWQUALITY +P11KIT +QRENCODE +TPM2 -BZIP2 -LZ4 +XZ +ZLIB -ZSTD +BPF_FRAMEWORK +XKBCOMMON +UTMP +SYSVINIT default-hierarchy=unified)
+2026-04-11T02:18:23,296091+00:00 systemd[1]: Detected virtualization amazon.
+2026-04-11T02:18:23,296093+00:00 systemd[1]: Detected architecture x86-64.
+2026-04-11T02:18:23,296094+00:00 systemd[1]: Running in initrd.
+2026-04-11T02:18:23,296141+00:00 systemd[1]: No hostname configured, using default hostname.
+2026-04-11T02:18:23,296157+00:00 systemd[1]: Hostname set to <localhost>.
+2026-04-11T02:18:23,296205+00:00 systemd[1]: Initializing machine ID from VM UUID.
+2026-04-11T02:18:23,392407+00:00 systemd[1]: Queued start job for default target initrd.target.
+2026-04-11T02:18:23,393902+00:00 systemd[1]: Started systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
+2026-04-11T02:18:23,393924+00:00 systemd[1]: Expecting device dev-disk-by\x2duuid-417dd49c\x2d6f90\x2d4edd\x2d8517\x2dc87dc5543f08.device - /dev/disk/by-uuid/417dd49c-6f90-4edd-8517-c87dc5543f08...
+2026-04-11T02:18:23,393937+00:00 systemd[1]: Reached target initrd-usr-fs.target - Initrd /usr File System.
+2026-04-11T02:18:23,393943+00:00 systemd[1]: Reached target local-fs.target - Local File Systems.
+2026-04-11T02:18:23,393947+00:00 systemd[1]: Reached target paths.target - Path Units.
+2026-04-11T02:18:23,393956+00:00 systemd[1]: Reached target slices.target - Slice Units.
+2026-04-11T02:18:23,393964+00:00 systemd[1]: Reached target swap.target - Swaps.
+2026-04-11T02:18:23,393969+00:00 systemd[1]: Reached target timers.target - Timer Units.
+2026-04-11T02:18:23,394107+00:00 systemd[1]: Listening on systemd-journald-audit.socket - Journal Audit Socket.
+2026-04-11T02:18:23,394148+00:00 systemd[1]: Listening on systemd-journald-dev-log.socket - Journal Socket (/dev/log).
+2026-04-11T02:18:23,394176+00:00 systemd[1]: Listening on systemd-journald.socket - Journal Socket.
+2026-04-11T02:18:23,394209+00:00 systemd[1]: Listening on systemd-udevd-control.socket - udev Control Socket.
+2026-04-11T02:18:23,394232+00:00 systemd[1]: Listening on systemd-udevd-kernel.socket - udev Kernel Socket.
+2026-04-11T02:18:23,394238+00:00 systemd[1]: Reached target sockets.target - Socket Units.
+2026-04-11T02:18:23,394260+00:00 systemd[1]: kmod-static-nodes.service - Create List of Static Device Nodes was skipped because of an unmet condition check (ConditionFileNotEmpty=/lib/modules/6.12.68-92.122.amzn2023.x86_64/modules.devname).
+2026-04-11T02:18:23,394974+00:00 systemd[1]: Starting systemd-journald.service - Journal Service...
+2026-04-11T02:18:23,395036+00:00 systemd[1]: systemd-modules-load.service - Load Kernel Modules was skipped because no trigger condition checks were met.
+2026-04-11T02:18:23,395370+00:00 systemd[1]: Starting systemd-sysctl.service - Apply Kernel Variables...
+2026-04-11T02:18:23,395703+00:00 systemd[1]: Starting systemd-sysusers.service - Create System Users...
+2026-04-11T02:18:23,396041+00:00 systemd[1]: Starting systemd-vconsole-setup.service - Setup Virtual Console...
+2026-04-11T02:18:23,398322+00:00 systemd[1]: Finished systemd-vconsole-setup.service - Setup Virtual Console.
+2026-04-11T02:18:23,398437+00:00 systemd[1]: dracut-cmdline-ask.service - dracut ask for additional cmdline parameters was skipped because no trigger condition checks were met.
+2026-04-11T02:18:23,398828+00:00 systemd[1]: Starting dracut-cmdline.service - dracut cmdline hook...
+2026-04-11T02:18:23,398951+00:00 systemd[1]: Finished systemd-sysusers.service - Create System Users.
+2026-04-11T02:18:23,399418+00:00 systemd[1]: Starting systemd-tmpfiles-setup-dev.service - Create Static Device Nodes in /dev...
+2026-04-11T02:18:23,399541+00:00 systemd[1]: Finished systemd-sysctl.service - Apply Kernel Variables.
+2026-04-11T02:18:23,402486+00:00 systemd[1]: Finished systemd-tmpfiles-setup-dev.service - Create Static Device Nodes in /dev.
+2026-04-11T02:18:23,402519+00:00 audit: type=1130 audit(1775873902.640:2): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=kernel msg='unit=systemd-tmpfiles-setup-dev comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+2026-04-11T02:18:23,422278+00:00 systemd[1]: Started systemd-journald.service - Journal Service.
+2026-04-11T02:18:23,422339+00:00 audit: type=1130 audit(1775873902.660:3): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=kernel msg='unit=systemd-journald comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+2026-04-11T02:18:23,426618+00:00 audit: type=1130 audit(1775873902.670:4): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=kernel msg='unit=dracut-cmdline comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+2026-04-11T02:18:23,426708+00:00 audit: type=1130 audit(1775873902.670:5): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=kernel msg='unit=systemd-tmpfiles-setup comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+2026-04-11T02:18:23,426925+00:00 audit: type=1334 audit(1775873902.670:6): prog-id=6 op=LOAD
+2026-04-11T02:18:23,426930+00:00 audit: type=1334 audit(1775873902.670:7): prog-id=7 op=LOAD
+2026-04-11T02:18:23,435226+00:00 audit: type=1130 audit(1775873902.680:8): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=kernel msg='unit=systemd-udevd comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+2026-04-11T02:18:23,469966+00:00 audit: type=1130 audit(1775873902.710:9): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=kernel msg='unit=systemd-udev-trigger comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+2026-04-11T02:18:23,471285+00:00 audit: type=1130 audit(1775873902.710:10): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=kernel msg='unit=rngd comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+2026-04-11T02:18:23,529962+00:00 XFS (nvme0n1p1): Mounting V5 Filesystem 417dd49c-6f90-4edd-8517-c87dc5543f08
+2026-04-11T02:18:23,592123+00:00 XFS (nvme0n1p1): Ending clean mount
+2026-04-11T02:18:23,784274+00:00 systemd-journald[1014]: Received SIGTERM from PID 1 (systemd).
+2026-04-11T02:18:24,029031+00:00 SELinux:  Class user_namespace not defined in policy.
+2026-04-11T02:18:24,029035+00:00 SELinux: the above unknown classes and permissions will be allowed
+2026-04-11T02:18:24,030577+00:00 SELinux:  policy capability network_peer_controls=1
+2026-04-11T02:18:24,030579+00:00 SELinux:  policy capability open_perms=1
+2026-04-11T02:18:24,030580+00:00 SELinux:  policy capability extended_socket_class=1
+2026-04-11T02:18:24,030581+00:00 SELinux:  policy capability always_check_network=0
+2026-04-11T02:18:24,030581+00:00 SELinux:  policy capability cgroup_seclabel=1
+2026-04-11T02:18:24,030582+00:00 SELinux:  policy capability nnp_nosuid_transition=1
+2026-04-11T02:18:24,030582+00:00 SELinux:  policy capability genfs_seclabel_symlinks=1
+2026-04-11T02:18:24,030583+00:00 SELinux:  policy capability ioctl_skip_cloexec=0
+2026-04-11T02:18:24,030583+00:00 SELinux:  policy capability userspace_initial_context=0
+2026-04-11T02:18:24,131102+00:00 systemd[1]: Successfully loaded SELinux policy in 160.952ms.
+2026-04-11T02:18:24,247429+00:00 systemd[1]: Relabelled /dev, /dev/shm, /run, /sys/fs/cgroup in 10.607ms.
+2026-04-11T02:18:24,261463+00:00 systemd[1]: systemd 252.23-11.amzn2023 running in system mode (+PAM +AUDIT +SELINUX -APPARMOR +IMA +SMACK +SECCOMP -GCRYPT -GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 -IDN -IPTC +KMOD +LIBCRYPTSETUP +LIBFDISK +PCRE2 +PWQUALITY +P11KIT +QRENCODE +TPM2 -BZIP2 -LZ4 +XZ +ZLIB -ZSTD +BPF_FRAMEWORK +XKBCOMMON +UTMP +SYSVINIT default-hierarchy=unified)
+2026-04-11T02:18:24,261467+00:00 systemd[1]: Detected virtualization amazon.
+2026-04-11T02:18:24,261470+00:00 systemd[1]: Detected architecture x86-64.
+2026-04-11T02:18:24,264155+00:00 systemd[1]: Initializing machine ID from VM UUID.
+2026-04-11T02:18:24,264196+00:00 systemd[1]: Installed transient /etc/machine-id file.
+2026-04-11T02:18:24,503634+00:00 systemd[1]: bpf-lsm: LSM BPF program attached
+2026-04-11T02:18:24,557403+00:00 zram_generator::config[2005]: zram0: system has too much memory (31554MB), limit is 800MB, ignoring.
+2026-04-11T02:18:24,787438+00:00 systemd[1]: /etc/systemd/system/amazon-ssm-agent.service.d/00-oom-score.conf:1: Unknown section 'Slice'. Ignoring.
+2026-04-11T02:18:24,904458+00:00 systemd[1]: initrd-switch-root.service: Deactivated successfully.
+2026-04-11T02:18:24,904528+00:00 systemd[1]: Stopped initrd-switch-root.service - Switch Root.
+2026-04-11T02:18:24,904810+00:00 systemd[1]: systemd-journald.service: Scheduled restart job, restart counter is at 1.
+2026-04-11T02:18:24,905044+00:00 systemd[1]: Created slice system-ebs\x2dinitialize\x2dbin.slice - Slice /system/ebs-initialize-bin.
+2026-04-11T02:18:24,905196+00:00 systemd[1]: Created slice system-getty.slice - Slice /system/getty.
+2026-04-11T02:18:24,905334+00:00 systemd[1]: Created slice system-modprobe.slice - Slice /system/modprobe.
+2026-04-11T02:18:24,905478+00:00 systemd[1]: Created slice system-serial\x2dgetty.slice - Slice /system/serial-getty.
+2026-04-11T02:18:24,905610+00:00 systemd[1]: Created slice system-sshd\x2dkeygen.slice - Slice /system/sshd-keygen.
+2026-04-11T02:18:24,905768+00:00 systemd[1]: Created slice user.slice - User and Session Slice.
+2026-04-11T02:18:24,905848+00:00 systemd[1]: Started systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
+2026-04-11T02:18:24,905883+00:00 systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+2026-04-11T02:18:24,906133+00:00 systemd[1]: Set up automount proc-sys-fs-binfmt_misc.automount - Arbitrary Executable File Formats File System Automount Point.
+2026-04-11T02:18:24,906142+00:00 systemd[1]: Expecting device dev-ttyS0.device - /dev/ttyS0...
+2026-04-11T02:18:24,906154+00:00 systemd[1]: Reached target cryptsetup.target - Local Encrypted Volumes.
+2026-04-11T02:18:24,906171+00:00 systemd[1]: Stopped target initrd-switch-root.target - Switch Root.
+2026-04-11T02:18:24,906180+00:00 systemd[1]: Stopped target initrd-fs.target - Initrd File Systems.
+2026-04-11T02:18:24,906184+00:00 systemd[1]: Stopped target initrd-root-fs.target - Initrd Root File System.
+2026-04-11T02:18:24,906191+00:00 systemd[1]: Reached target integritysetup.target - Local Integrity Protected Volumes.
+2026-04-11T02:18:24,906212+00:00 systemd[1]: Reached target paths.target - Path Units.
+2026-04-11T02:18:24,906227+00:00 systemd[1]: Reached target slices.target - Slice Units.
+2026-04-11T02:18:24,906238+00:00 systemd[1]: Reached target swap.target - Swaps.
+2026-04-11T02:18:24,906248+00:00 systemd[1]: Reached target veritysetup.target - Local Verity Protected Volumes.
+2026-04-11T02:18:24,906478+00:00 systemd[1]: Listening on dm-event.socket - Device-mapper event daemon FIFOs.
+2026-04-11T02:18:24,907317+00:00 systemd[1]: Listening on lvm2-lvmpolld.socket - LVM2 poll daemon socket.
+2026-04-11T02:18:24,908418+00:00 systemd[1]: Listening on systemd-coredump.socket - Process Core Dump Socket.
+2026-04-11T02:18:24,908482+00:00 systemd[1]: Listening on systemd-initctl.socket - initctl Compatibility Named Pipe.
+2026-04-11T02:18:24,908613+00:00 systemd[1]: Listening on systemd-networkd.socket - Network Service Netlink Socket.
+2026-04-11T02:18:24,910089+00:00 systemd[1]: Listening on systemd-udevd-control.socket - udev Control Socket.
+2026-04-11T02:18:24,910275+00:00 systemd[1]: Listening on systemd-udevd-kernel.socket - udev Kernel Socket.
+2026-04-11T02:18:24,910952+00:00 systemd[1]: Listening on systemd-userdbd.socket - User Database Manager Socket.
+2026-04-11T02:18:24,911687+00:00 systemd[1]: Mounting dev-hugepages.mount - Huge Pages File System...
+2026-04-11T02:18:24,912387+00:00 systemd[1]: Mounting dev-mqueue.mount - POSIX Message Queue File System...
+2026-04-11T02:18:24,913089+00:00 systemd[1]: Mounting sys-kernel-debug.mount - Kernel Debug File System...
+2026-04-11T02:18:24,913719+00:00 systemd[1]: Mounting sys-kernel-tracing.mount - Kernel Trace File System...
+2026-04-11T02:18:24,914519+00:00 systemd[1]: Mounting tmp.mount - Temporary Directory /tmp...
+2026-04-11T02:18:24,914570+00:00 systemd[1]: auth-rpcgss-module.service - Kernel Module supporting RPCSEC_GSS was skipped because of an unmet condition check (ConditionPathExists=/etc/krb5.keytab).
+2026-04-11T02:18:24,915547+00:00 systemd[1]: Starting kmod-static-nodes.service - Create List of Static Device Nodes...
+2026-04-11T02:18:24,916155+00:00 systemd[1]: Starting lvm2-monitor.service - Monitoring of LVM2 mirrors, snapshots etc. using dmeventd or progress polling...
+2026-04-11T02:18:24,916915+00:00 systemd[1]: Starting modprobe@configfs.service - Load Kernel Module configfs...
+2026-04-11T02:18:24,917610+00:00 systemd[1]: Starting modprobe@dm_mod.service - Load Kernel Module dm_mod...
+2026-04-11T02:18:24,918364+00:00 systemd[1]: Starting modprobe@drm.service - Load Kernel Module drm...
+2026-04-11T02:18:24,918954+00:00 systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
+2026-04-11T02:18:24,919573+00:00 systemd[1]: Starting modprobe@fuse.service - Load Kernel Module fuse...
+2026-04-11T02:18:24,920164+00:00 systemd[1]: Starting modprobe@loop.service - Load Kernel Module loop...
+2026-04-11T02:18:24,920778+00:00 systemd[1]: Starting nfs-convert.service - Preprocess NFS configuration convertion...
+2026-04-11T02:18:24,921575+00:00 systemd[1]: Starting systemd-fsck-root.service - File System Check on Root Device...
+2026-04-11T02:18:24,921635+00:00 systemd[1]: Stopped systemd-journald.service - Journal Service.
+2026-04-11T02:18:24,922873+00:00 systemd[1]: Starting systemd-journald.service - Journal Service...
+2026-04-11T02:18:24,923974+00:00 systemd[1]: Starting systemd-modules-load.service - Load Kernel Modules...
+2026-04-11T02:18:24,924612+00:00 systemd[1]: Starting systemd-network-generator.service - Generate network units from Kernel command line...
+2026-04-11T02:18:24,925303+00:00 systemd[1]: Starting systemd-udev-trigger.service - Coldplug All udev Devices...
+2026-04-11T02:18:24,926172+00:00 systemd[1]: Mounted dev-hugepages.mount - Huge Pages File System.
+2026-04-11T02:18:24,926214+00:00 systemd[1]: Mounted dev-mqueue.mount - POSIX Message Queue File System.
+2026-04-11T02:18:24,926236+00:00 systemd[1]: Mounted sys-kernel-debug.mount - Kernel Debug File System.
+2026-04-11T02:18:24,926258+00:00 systemd[1]: Mounted sys-kernel-tracing.mount - Kernel Trace File System.
+2026-04-11T02:18:24,926282+00:00 systemd[1]: Mounted tmp.mount - Temporary Directory /tmp.
+2026-04-11T02:18:24,931665+00:00 systemd[1]: nfs-convert.service: Deactivated successfully.
+2026-04-11T02:18:24,931756+00:00 systemd[1]: Finished nfs-convert.service - Preprocess NFS configuration convertion.
+2026-04-11T02:18:24,935019+00:00 systemd[1]: modprobe@drm.service: Deactivated successfully.
+2026-04-11T02:18:24,935110+00:00 systemd[1]: Finished modprobe@drm.service - Load Kernel Module drm.
+2026-04-11T02:18:24,935265+00:00 systemd[1]: Finished kmod-static-nodes.service - Create List of Static Device Nodes.
+2026-04-11T02:18:24,935365+00:00 systemd[1]: modprobe@efi_pstore.service: Deactivated successfully.
+2026-04-11T02:18:24,935429+00:00 systemd[1]: Finished modprobe@efi_pstore.service - Load Kernel Module efi_pstore.
+2026-04-11T02:18:24,936747+00:00 systemd[1]: Finished systemd-network-generator.service - Generate network units from Kernel command line.
+2026-04-11T02:18:24,938117+00:00 loop: module loaded
+2026-04-11T02:18:24,938467+00:00 systemd[1]: modprobe@loop.service: Deactivated successfully.
+2026-04-11T02:18:24,938535+00:00 systemd[1]: Finished modprobe@loop.service - Load Kernel Module loop.
+2026-04-11T02:18:24,943804+00:00 systemd[1]: Started systemd-journald.service - Journal Service.
+2026-04-11T02:18:24,948258+00:00 device-mapper: core: CONFIG_IMA_DISABLE_HTABLE is disabled. Duplicate IMA measurements will not be recorded in the IMA log.
+2026-04-11T02:18:24,948336+00:00 device-mapper: uevent: version 1.0.3
+2026-04-11T02:18:24,948430+00:00 device-mapper: ioctl: 4.48.0-ioctl (2023-03-01) initialised: dm-devel@lists.linux.dev
+2026-04-11T02:18:24,955757+00:00 fuse: init (API version 7.41)
+2026-04-11T02:18:24,999696+00:00 systemd-journald[2027]: Received client request to flush runtime journal.
+2026-04-11T02:18:25,179769+00:00 input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input0
+2026-04-11T02:18:25,182531+00:00 i8042: PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12
+2026-04-11T02:18:25,183701+00:00 i8042: Warning: Keylock active
+2026-04-11T02:18:25,185253+00:00 serio: i8042 KBD port at 0x60,0x64 irq 1
+2026-04-11T02:18:25,185786+00:00 serio: i8042 AUX port at 0x60,0x64 irq 12
+2026-04-11T02:18:25,212873+00:00 ACPI: button: Power Button [PWRF]
+2026-04-11T02:18:25,213401+00:00 input: Sleep Button as /devices/LNXSYSTM:00/LNXSLPBN:00/input/input1
+2026-04-11T02:18:25,214585+00:00 ACPI: button: Sleep Button [SLPF]
+2026-04-11T02:18:25,215514+00:00 ena 0000:27:00.0: Elastic Network Adapter (ENA) v2.16.1g
+2026-04-11T02:18:25,222726+00:00 ena 0000:27:00.0: ENA device version: 0.10
+2026-04-11T02:18:25,223294+00:00 ena 0000:27:00.0: ENA controller version: 0.0.1 implementation version 1
+2026-04-11T02:18:25,322691+00:00 ena 0000:27:00.0: ENA Large LLQ is disabled
+2026-04-11T02:18:25,345875+00:00 ena 0000:27:00.0: Elastic Network Adapter (ENA) found at mem c8700000, mac addr 02:bc:3a:fb:40:07
+2026-04-11T02:18:25,394399+00:00 ena 0000:27:00.0 enp39s0: renamed from eth0
+2026-04-11T02:18:25,423469+00:00 RPC: Registered named UNIX socket transport module.
+2026-04-11T02:18:25,424145+00:00 RPC: Registered udp transport module.
+2026-04-11T02:18:25,424772+00:00 RPC: Registered tcp transport module.
+2026-04-11T02:18:25,425408+00:00 RPC: Registered tcp-with-tls transport module.
+2026-04-11T02:18:25,426140+00:00 RPC: Registered tcp NFSv4.1 backchannel transport module.
+2026-04-11T02:18:25,509048+00:00 nvme nvme0: using unchecked data buffer
+2026-04-11T02:18:25,551021+00:00 zram_generator::config[3115]: zram0: system has too much memory (31554MB), limit is 800MB, ignoring.
+2026-04-11T02:18:34,725750+00:00 Initializing XFRM netlink socket
+2026-04-11T02:18:52,272175+00:00 pcieport 0000:26:00.1: pciehp: Slot(35-1): Button press: will power on in 5 sec
+2026-04-11T02:18:52,273209+00:00 pcieport 0000:26:00.1: pciehp: Slot(35-1): Card present
+2026-04-11T02:18:52,273998+00:00 pcieport 0000:26:00.1: pciehp: Slot(35-1): Link Up
+2026-04-11T02:18:52,422802+00:00 pci 0000:28:00.0: [1d0f:ec20] type 00 class 0x020000 PCIe Endpoint
+2026-04-11T02:18:52,423797+00:00 pci 0000:28:00.0: BAR 0 [mem 0x00000000-0x00001fff]
+2026-04-11T02:18:52,424487+00:00 pci 0000:28:00.0: BAR 1 [mem 0x00000000-0x00001fff]
+2026-04-11T02:18:52,425304+00:00 pci 0000:28:00.0: BAR 2 [mem 0x00000000-0x001fffff 64bit pref]
+2026-04-11T02:18:52,426309+00:00 pci 0000:28:00.0: enabling Extended Tags
+2026-04-11T02:18:52,427329+00:00 pci 0000:28:00.0: BAR 2 [mem 0x8a3000000-0x8a31fffff 64bit pref]: assigned
+2026-04-11T02:18:52,428360+00:00 pci 0000:28:00.0: BAR 0 [mem 0xc8900000-0xc8901fff]: assigned
+2026-04-11T02:18:52,429165+00:00 pci 0000:28:00.0: BAR 1 [mem 0xc8902000-0xc8903fff]: assigned
+2026-04-11T02:18:52,430077+00:00 pcieport 0000:26:00.1: PCI bridge to [bus 28]
+2026-04-11T02:18:52,430811+00:00 pcieport 0000:26:00.1:   bridge window [mem 0xc8900000-0xc8afffff]
+2026-04-11T02:18:52,431761+00:00 pcieport 0000:26:00.1:   bridge window [mem 0x8a3000000-0x8a3ffffff 64bit pref]
+2026-04-11T02:18:52,432992+00:00 ena 0000:28:00.0: enabling device (0000 -> 0002)
+2026-04-11T02:18:52,446665+00:00 ena 0000:28:00.0: ENA device version: 0.10
+2026-04-11T02:18:52,447235+00:00 ena 0000:28:00.0: ENA controller version: 0.0.1 implementation version 1
+2026-04-11T02:18:52,542633+00:00 ena 0000:28:00.0: ENA Large LLQ is disabled
+2026-04-11T02:18:52,565692+00:00 ena 0000:28:00.0: Elastic Network Adapter (ENA) found at mem c8900000, mac addr 02:a3:e7:e1:08:c5
+2026-04-11T02:18:52,569606+00:00 ena 0000:28:00.0 enp40s0: renamed from eth0
+2026-04-11T02:18:52,690702+00:00 zram_generator::config[5004]: zram0: system has too much memory (31554MB), limit is 800MB, ignoring.
+2026-04-11T02:19:15,604424+00:00 kauditd_printk_skb: 118 callbacks suppressed
+2026-04-11T02:19:15,604427+00:00 audit: type=1305 audit(1775873956.147:494): op=set audit_pid=0 old=3069 auid=4294967295 ses=4294967295 subj=system_u:system_r:auditd_t:s0 res=1
+2026-04-11T02:19:15,607805+00:00 audit: type=1131 audit(1775873956.147:495): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=system_u:system_r:init_t:s0 msg='unit=auditd comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+2026-04-11T02:19:15,827564+00:00 audit: type=1305 audit(1775873956.367:496): auid=4294967295 ses=4294967295 subj=system_u:system_r:rpm_script_t:s0 op=remove_rule key=(null) list=1 res=1
+2026-04-11T02:19:15,923106+00:00 audit: type=1130 audit(1775873956.467:497): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=system_u:system_r:init_t:s0 msg='unit=run-r297ac2e71dca436cbe9a91e1053bba60 comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+2026-04-11T02:19:16,254183+00:00 audit: type=1130 audit(1775873956.797:498): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=system_u:system_r:init_t:s0 msg='unit=man-db-cache-update comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+2026-04-11T02:19:16,257038+00:00 audit: type=1131 audit(1775873956.797:499): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=system_u:system_r:init_t:s0 msg='unit=man-db-cache-update comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+2026-04-11T02:19:16,259999+00:00 audit: type=1131 audit(1775873956.797:500): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=system_u:system_r:init_t:s0 msg='unit=run-r297ac2e71dca436cbe9a91e1053bba60 comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'
+2026-04-11T02:19:17,226800+00:00 zram_generator::config[5631]: zram0: system has too much memory (31554MB), limit is 800MB, ignoring.
+2026-04-11T02:19:17,291968+00:00 audit: type=1334 audit(1775873957.827:501): prog-id=173 op=LOAD
+2026-04-11T02:19:17,292898+00:00 audit: type=1334 audit(1775873957.827:502): prog-id=174 op=LOAD
+2026-04-11T02:19:17,293757+00:00 audit: type=1334 audit(1775873957.827:503): prog-id=157 op=UNLOAD
+2026-04-11T02:19:19,396454+00:00 zram_generator::config[5685]: zram0: system has too much memory (31554MB), limit is 800MB, ignoring.
+2026-04-11T02:19:19,604227+00:00 zram_generator::config[5726]: zram0: system has too much memory (31554MB), limit is 800MB, ignoring.
+2026-04-11T02:19:19,684753+00:00 systemd-journald[2027]: Received SIGTERM from PID 1 (systemd).
+2026-04-11T02:19:19,684826+00:00 systemd[1]: Stopping systemd-journald.service - Journal Service...
+2026-04-11T02:19:19,692740+00:00 systemd[1]: systemd-journald.service: Deactivated successfully.
+2026-04-11T02:19:19,693694+00:00 systemd[1]: Stopped systemd-journald.service - Journal Service.
+2026-04-11T02:19:19,762805+00:00 systemd[1]: Starting systemd-journald.service - Journal Service...
+2026-04-11T02:19:19,773768+00:00 systemd[1]: Started systemd-journald.service - Journal Service.
+2026-04-11T02:19:19,838862+00:00 zram_generator::config[5775]: zram0: system has too much memory (31554MB), limit is 800MB, ignoring.
+2026-04-11T02:19:21,998575+00:00 zram_generator::config[5813]: zram0: system has too much memory (31554MB), limit is 800MB, ignoring.
+2026-04-11T02:20:54,205683+00:00 zram_generator::config[6696]: zram0: system has too much memory (31554MB), limit is 800MB, ignoring.
+2026-04-11T02:20:57,215575+00:00 NET: Registered PF_VSOCK protocol family
+2026-04-11T02:20:57,289805+00:00 tun: Universal TUN/TAP device driver, 1.6
+2026-04-11T02:20:57,326494+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T02:20:57,376732+00:00 u32 classifier
+2026-04-11T02:20:57,376975+00:00     Performance counters on
+2026-04-11T02:20:57,377476+00:00     input device check on
+2026-04-11T02:20:57,377967+00:00     Actions configured
+2026-04-11T02:20:57,423024+00:00 Mirror/redirect action on
+2026-04-11T02:20:57,789705+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T02:21:01,313438+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T02:21:03,424846+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T02:21:04,206675+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T02:21:09,263313+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T02:21:09,329161+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T02:21:10,859921+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T02:25:58,902669+00:00 nvme nvme0: rescanning namespaces.
+2026-04-11T02:25:58,940089+00:00 nvme0n1: detected capacity change from 41943040 to 167772160
+2026-04-11T02:27:23,674715+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:24:02,966401+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:24:36,568178+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:25:13,133187+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:25:51,216226+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:26:30,438363+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:27:10,649896+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:27:51,152311+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:28:32,763012+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:38:43,684689+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:39:20,332961+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:39:57,014224+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:40:35,641207+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:41:15,043476+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:41:50,947546+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:42:31,995618+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:42:32,458286+00:00 hrtimer: interrupt took 3357 ns
+2026-04-11T03:43:08,272432+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:45:33,315565+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:46:09,700532+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:46:45,492377+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:47:21,423819+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:47:57,977908+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:48:36,579194+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:49:15,244894+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T03:49:56,355681+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:22:47,279785+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:23:11,139998+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:23:32,269013+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:23:54,273472+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:24:15,328521+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:24:36,289104+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:24:57,210480+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:25:18,380978+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:25:39,429662+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:26:00,474048+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:34:34,828756+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:38:05,675836+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:39:01,545667+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:39:44,024831+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:41:05,884435+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:41:38,805979+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:42:11,761042+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:42:44,915549+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:43:20,431534+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:43:33,755940+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:43:48,737961+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:43:49,707777+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:43:51,799735+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:43:58,631002+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:44:05,876564+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:44:08,987146+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:44:51,368191+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:44:57,255197+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:45:39,244869+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:46:22,638905+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-11T13:46:48,854684+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T01:39:47,948533+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T01:40:43,487550+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T01:41:38,349529+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T01:42:33,648309+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T01:43:29,308759+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T01:44:24,956463+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T01:45:20,707216+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T01:46:16,038642+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T02:18:07,398225+00:00 kvm_intel: set kvm_intel.dump_invalid_vmcs=1 to dump internal KVM state.
+2026-04-12T02:18:07,899093+00:00 kvm_intel: set kvm_intel.dump_invalid_vmcs=1 to dump internal KVM state.
+2026-04-12T02:18:07,984113+00:00 kvm_intel: set kvm_intel.dump_invalid_vmcs=1 to dump internal KVM state.
+2026-04-12T02:18:09,286512+00:00 kvm_intel: set kvm_intel.dump_invalid_vmcs=1 to dump internal KVM state.
+2026-04-12T02:18:09,522629+00:00 kvm_intel: set kvm_intel.dump_invalid_vmcs=1 to dump internal KVM state.
+2026-04-12T02:18:10,146937+00:00 kvm_intel: set kvm_intel.dump_invalid_vmcs=1 to dump internal KVM state.
+2026-04-12T02:18:10,185908+00:00 kvm_intel: set kvm_intel.dump_invalid_vmcs=1 to dump internal KVM state.
+2026-04-12T02:18:10,385985+00:00 kvm_intel: set kvm_intel.dump_invalid_vmcs=1 to dump internal KVM state.
+2026-04-12T02:18:10,853288+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T02:18:10,921197+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T02:18:11,660465+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T02:18:12,801365+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T02:18:12,855465+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T02:18:13,726428+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T02:18:14,657581+00:00 eth0: Caught tx_queue_len zero misconfig
+2026-04-12T02:18:15,963931+00:00 eth0: Caught tx_queue_len zero misconfig
