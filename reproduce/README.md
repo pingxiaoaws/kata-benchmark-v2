@@ -293,7 +293,7 @@ kubectl top pod 只看到 guest 内容器 cgroup 的 memory.current
 
 ### 中期
 
-4. **增大 Pod Overhead CPU**：500m → 1000m
+4. **Pod Overhead 参考值**：生产推荐 `cpu: 100m, memory: 250Mi`（Test 7/8 实测基准）。当前 Test 11 临时设为 500m/640Mi 是为了避免调度器过度装箱，不代表 QEMU 真实需要这么多。客户应根据节点密度和 burst 风险决定是否加大。
 5. **配置 QEMU agent 超时**：`dial_timeout = 30`
 6. **基于 node 级指标告警**（不要用 kubectl top pod）
 
