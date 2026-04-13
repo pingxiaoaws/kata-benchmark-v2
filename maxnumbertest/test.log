@@ -1,0 +1,630 @@
+[2026-04-13 03:06:08] ===== Maximum Stable Pod Count Test =====
+[2026-04-13 03:06:08] Target node: ip-172-31-17-237.us-west-2.compute.internal
+[2026-04-13 03:06:08] RuntimeClass: kata-qemu
+[2026-04-13 03:06:08] Settle time: 60s | Start timeout: 180s
+[2026-04-13 03:06:08] --- Baseline before any test pods ---
+NAME                                          CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-172-31-17-237.us-west-2.compute.internal   36m          0%       1704Mi          5%          
+               total        used        free      shared  buff/cache   available
+Mem:           31554        1133       23163           2        7257       29968
+Swap:              0           0           0
+[2026-04-13 03:06:09] ====== Deploying pod 1 ======
+namespace/maxpod-1 created
+pod/sandbox-1 created
+[2026-04-13 03:06:10] Waiting for sandbox-1 to become Ready (timeout 180s)...
+[2026-04-13 03:06:23] sandbox-1 Ready in 13s
+[2026-04-13 03:06:23] Settling for 60s...
+[2026-04-13 03:07:23] --- Metrics after pod 1 settled ---
+[2026-04-13 03:07:23] kubectl top pod (all test namespaces):
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-1   config-watcher   0m           200Mi           
+sandbox-1   envoy            101m         201Mi           
+sandbox-1   gateway          1m           6Mi             
+sandbox-1   wazuh            2m           402Mi           
+
+[2026-04-13 03:07:24] kubectl top node:
+NAME                                          CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-172-31-17-237.us-west-2.compute.internal   1173m        14%      2773Mi          9%          
+[2026-04-13 03:07:24] QEMU RSS (host):
+[2026-04-13 03:07:24] Total QEMU RSS: 1144 MB
+[2026-04-13 03:07:24] QEMU per-process:
+PID=1018318 RSS=1144MB
+[2026-04-13 03:07:25] Host free -m:
+               total        used        free      shared  buff/cache   available
+Mem:           31554        1180       22072        1046        8302       28876
+Swap:              0           0           0
+[2026-04-13 03:07:26] All pods check: OK
+[2026-04-13 03:07:26] Total restarts across all test pods: 0
+[2026-04-13 03:07:27] Pod 1 stable. MAX_STABLE=1
+[2026-04-13 03:07:27] ====== Deploying pod 2 ======
+namespace/maxpod-2 created
+pod/sandbox-2 created
+[2026-04-13 03:07:27] Waiting for sandbox-2 to become Ready (timeout 180s)...
+[2026-04-13 03:07:40] sandbox-2 Ready in 13s
+[2026-04-13 03:07:40] Settling for 60s...
+[2026-04-13 03:08:40] --- Metrics after pod 2 settled ---
+[2026-04-13 03:08:40] kubectl top pod (all test namespaces):
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-1   config-watcher   1m           200Mi           
+sandbox-1   envoy            101m         201Mi           
+sandbox-1   gateway          1m           6Mi             
+sandbox-1   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-2   config-watcher   0m           201Mi           
+sandbox-2   envoy            100m         201Mi           
+sandbox-2   gateway          1m           6Mi             
+sandbox-2   wazuh            2m           402Mi           
+
+[2026-04-13 03:08:41] kubectl top node:
+NAME                                          CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-172-31-17-237.us-west-2.compute.internal   1295m        16%      3852Mi          12%         
+[2026-04-13 03:08:41] QEMU RSS (host):
+[2026-04-13 03:08:42] Total QEMU RSS: 2292 MB
+[2026-04-13 03:08:42] QEMU per-process:
+PID=1018318 RSS=1145MB
+PID=1018952 RSS=1146MB
+[2026-04-13 03:08:42] Host free -m:
+               total        used        free      shared  buff/cache   available
+Mem:           31554        1229       20976        2093        9348       27780
+Swap:              0           0           0
+[2026-04-13 03:08:44] All pods check: OK
+[2026-04-13 03:08:44] Total restarts across all test pods: 0
+[2026-04-13 03:08:45] Pod 2 stable. MAX_STABLE=2
+[2026-04-13 03:08:45] ====== Deploying pod 3 ======
+namespace/maxpod-3 created
+pod/sandbox-3 created
+[2026-04-13 03:08:46] Waiting for sandbox-3 to become Ready (timeout 180s)...
+[2026-04-13 03:08:58] sandbox-3 Ready in 12s
+[2026-04-13 03:08:58] Settling for 60s...
+[2026-04-13 03:09:58] --- Metrics after pod 3 settled ---
+[2026-04-13 03:09:58] kubectl top pod (all test namespaces):
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-1   config-watcher   0m           200Mi           
+sandbox-1   envoy            101m         201Mi           
+sandbox-1   gateway          1m           6Mi             
+sandbox-1   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-2   config-watcher   1m           201Mi           
+sandbox-2   envoy            100m         201Mi           
+sandbox-2   gateway          1m           6Mi             
+sandbox-2   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-3   config-watcher   0m           201Mi           
+sandbox-3   envoy            100m         200Mi           
+sandbox-3   gateway          1m           6Mi             
+sandbox-3   wazuh            2m           402Mi           
+
+[2026-04-13 03:10:00] kubectl top node:
+NAME                                          CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-172-31-17-237.us-west-2.compute.internal   1547m        19%      4930Mi          16%         
+[2026-04-13 03:10:00] QEMU RSS (host):
+[2026-04-13 03:10:01] Total QEMU RSS: 3435 MB
+[2026-04-13 03:10:01] QEMU per-process:
+PID=1018318 RSS=1147MB
+PID=1018952 RSS=1147MB
+PID=1019636 RSS=1142MB
+[2026-04-13 03:10:01] Host free -m:
+               total        used        free      shared  buff/cache   available
+Mem:           31554        1287       19870        3137       10397       26679
+Swap:              0           0           0
+[2026-04-13 03:10:03] All pods check: OK
+[2026-04-13 03:10:04] Total restarts across all test pods: 0
+[2026-04-13 03:10:05] Pod 3 stable. MAX_STABLE=3
+[2026-04-13 03:10:05] ====== Deploying pod 4 ======
+namespace/maxpod-4 created
+pod/sandbox-4 created
+[2026-04-13 03:10:06] Waiting for sandbox-4 to become Ready (timeout 180s)...
+[2026-04-13 03:10:18] sandbox-4 Ready in 12s
+[2026-04-13 03:10:18] Settling for 60s...
+[2026-04-13 03:11:18] --- Metrics after pod 4 settled ---
+[2026-04-13 03:11:18] kubectl top pod (all test namespaces):
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-1   config-watcher   1m           200Mi           
+sandbox-1   envoy            101m         201Mi           
+sandbox-1   gateway          1m           6Mi             
+sandbox-1   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-2   config-watcher   0m           201Mi           
+sandbox-2   envoy            101m         201Mi           
+sandbox-2   gateway          1m           6Mi             
+sandbox-2   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-3   config-watcher   0m           201Mi           
+sandbox-3   envoy            101m         200Mi           
+sandbox-3   gateway          1m           6Mi             
+sandbox-3   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-4   config-watcher   1m           201Mi           
+sandbox-4   envoy            101m         200Mi           
+sandbox-4   gateway          1m           6Mi             
+sandbox-4   wazuh            2m           401Mi           
+
+[2026-04-13 03:11:20] kubectl top node:
+NAME                                          CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-172-31-17-237.us-west-2.compute.internal   1878m        23%      6012Mi          20%         
+[2026-04-13 03:11:21] QEMU RSS (host):
+[2026-04-13 03:11:21] Total QEMU RSS: 4581 MB
+[2026-04-13 03:11:21] QEMU per-process:
+PID=1018318 RSS=1148MB
+PID=1018952 RSS=1147MB
+PID=1019636 RSS=1143MB
+PID=1020340 RSS=1143MB
+[2026-04-13 03:11:22] Host free -m:
+               total        used        free      shared  buff/cache   available
+Mem:           31554        1324       18783        4183       11446       25596
+Swap:              0           0           0
+[2026-04-13 03:11:24] All pods check: OK
+[2026-04-13 03:11:25] Total restarts across all test pods: 0
+[2026-04-13 03:11:26] Pod 4 stable. MAX_STABLE=4
+[2026-04-13 03:11:26] ====== Deploying pod 5 ======
+namespace/maxpod-5 created
+pod/sandbox-5 created
+[2026-04-13 03:11:26] Waiting for sandbox-5 to become Ready (timeout 180s)...
+[2026-04-13 03:11:39] sandbox-5 Ready in 13s
+[2026-04-13 03:11:39] Settling for 60s...
+[2026-04-13 03:12:39] --- Metrics after pod 5 settled ---
+[2026-04-13 03:12:39] kubectl top pod (all test namespaces):
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-1   config-watcher   1m           200Mi           
+sandbox-1   envoy            101m         201Mi           
+sandbox-1   gateway          1m           6Mi             
+sandbox-1   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-2   config-watcher   0m           201Mi           
+sandbox-2   envoy            101m         201Mi           
+sandbox-2   gateway          1m           6Mi             
+sandbox-2   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-3   config-watcher   1m           201Mi           
+sandbox-3   envoy            101m         200Mi           
+sandbox-3   gateway          1m           6Mi             
+sandbox-3   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-4   config-watcher   0m           201Mi           
+sandbox-4   envoy            100m         200Mi           
+sandbox-4   gateway          1m           7Mi             
+sandbox-4   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-5   config-watcher   0m           201Mi           
+sandbox-5   envoy            101m         201Mi           
+sandbox-5   gateway          1m           6Mi             
+sandbox-5   wazuh            2m           402Mi           
+
+[2026-04-13 03:12:41] kubectl top node:
+NAME                                          CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-172-31-17-237.us-west-2.compute.internal   2062m        26%      7087Mi          23%         
+[2026-04-13 03:12:42] QEMU RSS (host):
+[2026-04-13 03:12:42] Total QEMU RSS: 5728 MB
+[2026-04-13 03:12:42] QEMU per-process:
+PID=1018318 RSS=1148MB
+PID=1018952 RSS=1148MB
+PID=1019636 RSS=1144MB
+PID=1020340 RSS=1144MB
+PID=1021036 RSS=1143MB
+[2026-04-13 03:12:43] Host free -m:
+               total        used        free      shared  buff/cache   available
+Mem:           31554        1364       17693        5229       12496       24509
+Swap:              0           0           0
+[2026-04-13 03:12:45] All pods check: OK
+[2026-04-13 03:12:47] Total restarts across all test pods: 0
+[2026-04-13 03:12:47] Pod 5 stable. MAX_STABLE=5
+[2026-04-13 03:12:47] ====== Deploying pod 6 ======
+namespace/maxpod-6 created
+pod/sandbox-6 created
+[2026-04-13 03:12:48] Waiting for sandbox-6 to become Ready (timeout 180s)...
+[2026-04-13 03:13:01] sandbox-6 Ready in 13s
+[2026-04-13 03:13:01] Settling for 60s...
+[2026-04-13 03:14:01] --- Metrics after pod 6 settled ---
+[2026-04-13 03:14:01] kubectl top pod (all test namespaces):
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-1   config-watcher   0m           200Mi           
+sandbox-1   envoy            100m         201Mi           
+sandbox-1   gateway          1m           6Mi             
+sandbox-1   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-2   config-watcher   1m           201Mi           
+sandbox-2   envoy            101m         201Mi           
+sandbox-2   gateway          1m           6Mi             
+sandbox-2   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-3   config-watcher   0m           201Mi           
+sandbox-3   envoy            100m         200Mi           
+sandbox-3   gateway          1m           6Mi             
+sandbox-3   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-4   config-watcher   0m           201Mi           
+sandbox-4   envoy            100m         200Mi           
+sandbox-4   gateway          1m           6Mi             
+sandbox-4   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-5   config-watcher   1m           200Mi           
+sandbox-5   envoy            101m         201Mi           
+sandbox-5   gateway          1m           6Mi             
+sandbox-5   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-6   config-watcher   0m           201Mi           
+sandbox-6   envoy            100m         201Mi           
+sandbox-6   gateway          1m           6Mi             
+sandbox-6   wazuh            2m           402Mi           
+
+[2026-04-13 03:14:03] kubectl top node:
+NAME                                          CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-172-31-17-237.us-west-2.compute.internal   2181m        27%      8183Mi          27%         
+[2026-04-13 03:14:04] QEMU RSS (host):
+[2026-04-13 03:14:04] Total QEMU RSS: 6877 MB
+[2026-04-13 03:14:04] QEMU per-process:
+PID=1018318 RSS=1149MB
+PID=1018952 RSS=1149MB
+PID=1019636 RSS=1144MB
+PID=1020340 RSS=1145MB
+PID=1021036 RSS=1144MB
+PID=1021782 RSS=1146MB
+[2026-04-13 03:14:05] Host free -m:
+               total        used        free      shared  buff/cache   available
+Mem:           31554        1435       16568        6279       13550       23389
+Swap:              0           0           0
+[2026-04-13 03:14:07] All pods check: OK
+[2026-04-13 03:14:10] Total restarts across all test pods: 0
+[2026-04-13 03:14:10] Pod 6 stable. MAX_STABLE=6
+[2026-04-13 03:14:10] ====== Deploying pod 7 ======
+namespace/maxpod-7 created
+pod/sandbox-7 created
+[2026-04-13 03:14:11] Waiting for sandbox-7 to become Ready (timeout 180s)...
+[2026-04-13 03:14:23] sandbox-7 Ready in 12s
+[2026-04-13 03:14:23] Settling for 60s...
+[2026-04-13 03:15:23] --- Metrics after pod 7 settled ---
+[2026-04-13 03:15:23] kubectl top pod (all test namespaces):
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-1   config-watcher   0m           200Mi           
+sandbox-1   envoy            100m         201Mi           
+sandbox-1   gateway          1m           6Mi             
+sandbox-1   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-2   config-watcher   1m           201Mi           
+sandbox-2   envoy            100m         201Mi           
+sandbox-2   gateway          1m           6Mi             
+sandbox-2   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-3   config-watcher   0m           201Mi           
+sandbox-3   envoy            101m         200Mi           
+sandbox-3   gateway          1m           6Mi             
+sandbox-3   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-4   config-watcher   1m           201Mi           
+sandbox-4   envoy            100m         200Mi           
+sandbox-4   gateway          1m           6Mi             
+sandbox-4   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-5   config-watcher   1m           200Mi           
+sandbox-5   envoy            100m         201Mi           
+sandbox-5   gateway          1m           6Mi             
+sandbox-5   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-6   config-watcher   0m           201Mi           
+sandbox-6   envoy            100m         201Mi           
+sandbox-6   gateway          1m           6Mi             
+sandbox-6   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-7   config-watcher   0m           201Mi           
+sandbox-7   envoy            101m         201Mi           
+sandbox-7   gateway          1m           7Mi             
+sandbox-7   wazuh            2m           402Mi           
+
+[2026-04-13 03:15:27] kubectl top node:
+NAME                                          CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-172-31-17-237.us-west-2.compute.internal   2566m        32%      9269Mi          31%         
+[2026-04-13 03:15:27] QEMU RSS (host):
+[2026-04-13 03:15:27] Total QEMU RSS: 8027 MB
+[2026-04-13 03:15:27] QEMU per-process:
+PID=1018318 RSS=1150MB
+PID=1018952 RSS=1150MB
+PID=1019636 RSS=1145MB
+PID=1020340 RSS=1146MB
+PID=1021036 RSS=1145MB
+PID=1021782 RSS=1148MB
+PID=1022491 RSS=1143MB
+[2026-04-13 03:15:28] Host free -m:
+               total        used        free      shared  buff/cache   available
+Mem:           31554        1499       15451        7328       14603       22275
+Swap:              0           0           0
+[2026-04-13 03:15:31] All pods check: OK
+[2026-04-13 03:15:34] Total restarts across all test pods: 0
+[2026-04-13 03:15:34] Pod 7 stable. MAX_STABLE=7
+[2026-04-13 03:15:34] ====== Deploying pod 8 ======
+namespace/maxpod-8 created
+pod/sandbox-8 created
+[2026-04-13 03:15:35] Waiting for sandbox-8 to become Ready (timeout 180s)...
+[2026-04-13 03:15:48] sandbox-8 Ready in 13s
+[2026-04-13 03:15:48] Settling for 60s...
+[2026-04-13 03:16:48] --- Metrics after pod 8 settled ---
+[2026-04-13 03:16:48] kubectl top pod (all test namespaces):
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-1   config-watcher   0m           200Mi           
+sandbox-1   envoy            101m         201Mi           
+sandbox-1   gateway          1m           6Mi             
+sandbox-1   wazuh            2m           401Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-2   config-watcher   0m           201Mi           
+sandbox-2   envoy            100m         201Mi           
+sandbox-2   gateway          1m           6Mi             
+sandbox-2   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-3   config-watcher   0m           201Mi           
+sandbox-3   envoy            100m         200Mi           
+sandbox-3   gateway          1m           6Mi             
+sandbox-3   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-4   config-watcher   0m           201Mi           
+sandbox-4   envoy            101m         200Mi           
+sandbox-4   gateway          1m           6Mi             
+sandbox-4   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-5   config-watcher   1m           200Mi           
+sandbox-5   envoy            100m         201Mi           
+sandbox-5   gateway          1m           6Mi             
+sandbox-5   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-6   config-watcher   0m           201Mi           
+sandbox-6   envoy            100m         201Mi           
+sandbox-6   gateway          1m           6Mi             
+sandbox-6   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-7   config-watcher   0m           201Mi           
+sandbox-7   envoy            101m         201Mi           
+sandbox-7   gateway          1m           7Mi             
+sandbox-7   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-8   config-watcher   1m           200Mi           
+sandbox-8   envoy            100m         201Mi           
+sandbox-8   gateway          1m           6Mi             
+sandbox-8   wazuh            2m           402Mi           
+
+[2026-04-13 03:16:51] kubectl top node:
+NAME                                          CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-172-31-17-237.us-west-2.compute.internal   2529m        31%      10344Mi         34%         
+[2026-04-13 03:16:52] QEMU RSS (host):
+[2026-04-13 03:16:52] Total QEMU RSS: 9177 MB
+[2026-04-13 03:16:52] QEMU per-process:
+PID=1018318 RSS=1150MB
+PID=1018952 RSS=1150MB
+PID=1019636 RSS=1146MB
+PID=1020340 RSS=1147MB
+PID=1021036 RSS=1147MB
+PID=1021782 RSS=1149MB
+PID=1022491 RSS=1144MB
+PID=1023180 RSS=1144MB
+[2026-04-13 03:16:53] Host free -m:
+               total        used        free      shared  buff/cache   available
+Mem:           31554        1525       14371        8379       15658       21199
+Swap:              0           0           0
+[2026-04-13 03:16:56] All pods check: OK
+[2026-04-13 03:16:59] Total restarts across all test pods: 0
+[2026-04-13 03:17:00] Pod 8 stable. MAX_STABLE=8
+[2026-04-13 03:17:00] ====== Deploying pod 9 ======
+namespace/maxpod-9 created
+pod/sandbox-9 created
+[2026-04-13 03:17:00] Waiting for sandbox-9 to become Ready (timeout 180s)...
+[2026-04-13 03:17:13] sandbox-9 Ready in 13s
+[2026-04-13 03:17:13] Settling for 60s...
+[2026-04-13 03:18:13] --- Metrics after pod 9 settled ---
+[2026-04-13 03:18:13] kubectl top pod (all test namespaces):
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-1   config-watcher   1m           200Mi           
+sandbox-1   envoy            101m         201Mi           
+sandbox-1   gateway          1m           6Mi             
+sandbox-1   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-2   config-watcher   0m           201Mi           
+sandbox-2   envoy            101m         201Mi           
+sandbox-2   gateway          1m           6Mi             
+sandbox-2   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-3   config-watcher   1m           201Mi           
+sandbox-3   envoy            101m         200Mi           
+sandbox-3   gateway          1m           6Mi             
+sandbox-3   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-4   config-watcher   0m           201Mi           
+sandbox-4   envoy            101m         200Mi           
+sandbox-4   gateway          1m           6Mi             
+sandbox-4   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-5   config-watcher   0m           200Mi           
+sandbox-5   envoy            100m         201Mi           
+sandbox-5   gateway          1m           6Mi             
+sandbox-5   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-6   config-watcher   1m           201Mi           
+sandbox-6   envoy            101m         201Mi           
+sandbox-6   gateway          1m           6Mi             
+sandbox-6   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-7   config-watcher   1m           201Mi           
+sandbox-7   envoy            101m         201Mi           
+sandbox-7   gateway          1m           6Mi             
+sandbox-7   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-8   config-watcher   0m           200Mi           
+sandbox-8   envoy            100m         201Mi           
+sandbox-8   gateway          1m           6Mi             
+sandbox-8   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-9   config-watcher   0m           201Mi           
+sandbox-9   envoy            101m         201Mi           
+sandbox-9   gateway          1m           6Mi             
+sandbox-9   wazuh            2m           402Mi           
+
+[2026-04-13 03:18:17] kubectl top node:
+NAME                                          CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-172-31-17-237.us-west-2.compute.internal   2941m        37%      11434Mi         38%         
+[2026-04-13 03:18:17] QEMU RSS (host):
+[2026-04-13 03:18:18] Total QEMU RSS: 10331 MB
+[2026-04-13 03:18:18] QEMU per-process:
+PID=1018318 RSS=1151MB
+PID=1018952 RSS=1151MB
+PID=1019636 RSS=1147MB
+PID=1020340 RSS=1147MB
+PID=1021036 RSS=1148MB
+PID=1021782 RSS=1149MB
+PID=1022491 RSS=1146MB
+PID=1023180 RSS=1145MB
+PID=1023924 RSS=1145MB
+[2026-04-13 03:18:18] Host free -m:
+               total        used        free      shared  buff/cache   available
+Mem:           31554        1574       13264        9433       16716       20096
+Swap:              0           0           0
+[2026-04-13 03:18:22] All pods check: OK
+[2026-04-13 03:18:26] Total restarts across all test pods: 0
+[2026-04-13 03:18:26] Pod 9 stable. MAX_STABLE=9
+[2026-04-13 03:18:26] ====== Deploying pod 10 ======
+namespace/maxpod-10 created
+pod/sandbox-10 created
+[2026-04-13 03:18:27] Waiting for sandbox-10 to become Ready (timeout 180s)...
+[2026-04-13 03:18:39] sandbox-10 Ready in 12s
+[2026-04-13 03:18:39] Settling for 60s...
+[2026-04-13 03:19:39] --- Metrics after pod 10 settled ---
+[2026-04-13 03:19:39] kubectl top pod (all test namespaces):
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-1   config-watcher   1m           200Mi           
+sandbox-1   envoy            101m         201Mi           
+sandbox-1   gateway          1m           6Mi             
+sandbox-1   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-2   config-watcher   0m           201Mi           
+sandbox-2   envoy            101m         201Mi           
+sandbox-2   gateway          1m           6Mi             
+sandbox-2   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-3   config-watcher   1m           201Mi           
+sandbox-3   envoy            100m         200Mi           
+sandbox-3   gateway          1m           6Mi             
+sandbox-3   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-4   config-watcher   1m           201Mi           
+sandbox-4   envoy            100m         200Mi           
+sandbox-4   gateway          1m           6Mi             
+sandbox-4   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-5   config-watcher   0m           200Mi           
+sandbox-5   envoy            101m         201Mi           
+sandbox-5   gateway          1m           6Mi             
+sandbox-5   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-6   config-watcher   1m           201Mi           
+sandbox-6   envoy            100m         201Mi           
+sandbox-6   gateway          1m           6Mi             
+sandbox-6   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-7   config-watcher   1m           201Mi           
+sandbox-7   envoy            101m         201Mi           
+sandbox-7   gateway          1m           6Mi             
+sandbox-7   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-8   config-watcher   0m           200Mi           
+sandbox-8   envoy            101m         201Mi           
+sandbox-8   gateway          1m           6Mi             
+sandbox-8   wazuh            2m           402Mi           
+POD         NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-9   config-watcher   0m           201Mi           
+sandbox-9   envoy            100m         201Mi           
+sandbox-9   gateway          1m           6Mi             
+sandbox-9   wazuh            2m           402Mi           
+POD          NAME             CPU(cores)   MEMORY(bytes)   
+sandbox-10   config-watcher   0m           200Mi           
+sandbox-10   envoy            100m         201Mi           
+sandbox-10   gateway          1m           6Mi             
+sandbox-10   wazuh            2m           402Mi           
+
+[2026-04-13 03:19:44] kubectl top node:
+NAME                                          CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+ip-172-31-17-237.us-west-2.compute.internal   2984m        37%      12515Mi         41%         
+[2026-04-13 03:19:44] QEMU RSS (host):
+[2026-04-13 03:19:45] Total QEMU RSS: 11478 MB
+[2026-04-13 03:19:45] QEMU per-process:
+PID=1018318 RSS=1151MB
+PID=1018952 RSS=1151MB
+PID=1019636 RSS=1148MB
+PID=1020340 RSS=1148MB
+PID=1021036 RSS=1149MB
+PID=1021782 RSS=1150MB
+PID=1022491 RSS=1148MB
+PID=1023180 RSS=1146MB
+PID=1023924 RSS=1147MB
+PID=1024633 RSS=1140MB
+[2026-04-13 03:19:45] Host free -m:
+               total        used        free      shared  buff/cache   available
+Mem:           31554        1630       12164       10480       17759       18993
+Swap:              0           0           0
+[2026-04-13 03:19:49] All pods check: OK
+[2026-04-13 03:19:53] Total restarts across all test pods: 0
+[2026-04-13 03:19:54] Pod 10 stable. MAX_STABLE=10
+[2026-04-13 03:19:54] ====== Deploying pod 11 ======
+namespace/maxpod-11 created
+pod/sandbox-11 created
+[2026-04-13 03:19:54] Waiting for sandbox-11 to become Ready (timeout 180s)...
+[2026-04-13 03:20:31] sandbox-11 Ready in 37s
+[2026-04-13 03:20:31] Settling for 60s...
+[2026-04-13 03:21:31] --- Metrics after pod 11 settled ---
+[2026-04-13 03:21:31] kubectl top pod (all test namespaces):
+error
+error
+error
+error
+error
+error
+error
+error
+error
+error
+error
+
+[2026-04-13 03:21:36] kubectl top node:
+error
+[2026-04-13 03:21:36] QEMU RSS (host):
+[2026-04-13 03:21:52] Total QEMU RSS: 10426 MB
+[2026-04-13 03:21:52] QEMU per-process:
+PID=1018318 RSS=1152MB
+PID=1021782 RSS=1150MB
+PID=1024633 RSS=1142MB
+PID=1025446 RSS=1066MB
+PID=1026059 RSS=738MB
+PID=1026962 RSS=1046MB
+PID=1027104 RSS=326MB
+PID=1027120 RSS=891MB
+PID=1027199 RSS=982MB
+PID=1027211 RSS=937MB
+PID=1027212 RSS=1018MB
+[2026-04-13 03:21:59] Host free -m:
+               total        used        free      shared  buff/cache   available
+Mem:           31554        1730       13087        9461       16736       19911
+Swap:              0           0           0
+[2026-04-13 03:22:05] All pods check: OK
+[2026-04-13 03:22:09] Total restarts across all test pods: 31
+[2026-04-13 03:22:10] STOP: 31 new restart(s) detected
+[2026-04-13 03:22:10] 
+[2026-04-13 03:22:10] ===== TEST COMPLETE =====
+[2026-04-13 03:22:10] Maximum stable pod count: 10
+[2026-04-13 03:22:10] Stop reason: 31 container restart(s) detected after deploying pod 11
+[2026-04-13 03:22:10] 
+[2026-04-13 03:22:10] --- Final state ---
+NAME        READY   STATUS    RESTARTS   AGE   IP              NODE                                          NOMINATED NODE   READINESS GATES
+sandbox-1   4/4     Running   0          16m   172.31.27.247   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+NAME        READY   STATUS    RESTARTS       AGE   IP              NODE                                          NOMINATED NODE   READINESS GATES
+sandbox-2   4/4     Running   4 (2m8s ago)   14m   172.31.26.194   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+NAME        READY   STATUS    RESTARTS       AGE   IP              NODE                                          NOMINATED NODE   READINESS GATES
+sandbox-3   4/4     Running   4 (2m9s ago)   13m   172.31.22.227   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+NAME        READY   STATUS    RESTARTS      AGE   IP              NODE                                          NOMINATED NODE   READINESS GATES
+sandbox-4   3/4     Running   5 (63s ago)   12m   172.31.24.142   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+NAME        READY   STATUS    RESTARTS        AGE   IP             NODE                                          NOMINATED NODE   READINESS GATES
+sandbox-5   3/4     Running   4 (2m10s ago)   10m   172.31.24.11   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+NAME        READY   STATUS    RESTARTS   AGE     IP              NODE                                          NOMINATED NODE   READINESS GATES
+sandbox-6   4/4     Running   0          9m24s   172.31.16.241   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+NAME        READY   STATUS    RESTARTS      AGE    IP              NODE                                          NOMINATED NODE   READINESS GATES
+sandbox-7   4/4     Running   5 (62s ago)   8m1s   172.31.31.143   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+NAME        READY   STATUS    RESTARTS        AGE     IP            NODE                                          NOMINATED NODE   READINESS GATES
+sandbox-8   4/4     Running   4 (2m11s ago)   6m38s   172.31.19.1   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+NAME        READY   STATUS    RESTARTS        AGE     IP              NODE                                          NOMINATED NODE   READINESS GATES
+sandbox-9   4/4     Running   5 (2m11s ago)   5m13s   172.31.30.238   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+NAME         READY   STATUS    RESTARTS   AGE     IP              NODE                                          NOMINATED NODE   READINESS GATES
+sandbox-10   4/4     Running   0          3m46s   172.31.26.231   ip-172-31-17-237.us-west-2.compute.internal   <none>           <none>
+Error from server (NotFound): nodemetrics.metrics.k8s.io "ip-172-31-17-237.us-west-2.compute.internal" not found
