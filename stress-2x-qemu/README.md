@@ -7,7 +7,7 @@
 
 | 属性 | 值 |
 |------|-----|
-| 节点 | ip-172-31-18-59.us-west-2.compute.internal |
+| 节点 | ip-172-31-30-148.us-west-2.compute.internal |
 | 实例类型 | **m8i.2xlarge**（8 vCPU，32 GiB） |
 | 虚拟化 | **嵌套**（EC2 bare-metal-equivalent 上的 KVM） |
 | 节点可调度资源 | cpu=7910m，memory=29901 MiB |
