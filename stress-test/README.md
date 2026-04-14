@@ -37,7 +37,7 @@
 |------|-----------|----------|
 | **2xlarge 失败** | Pod 8：4 次 restart | Pod 14：调度器拒绝（内存不足） |
 | **4xlarge 失败** | Pod 15：4 次 restart，stress 内存降至 877 MiB | 无失败，24 Pod 时节点内存 90% |
-| **失败根因** | 嵌套虚拟化 EPT 争抢，VM 无法完整启动 | 达到调度器理论上限 |
+| **失败根因** | 嵌套虚拟化下 VMExit 争抢 + nested page walk 放大 | 达到调度器理论上限 |
 | **影响范围** | 仅失败 Pod 自身 restart | 无影响 |
 
 ---
@@ -57,7 +57,7 @@
 
 ### 3.2 差距根因
 
-#### kata-qemu：嵌套虚拟化 EPT 争抢（主因）
+#### kata-qemu：嵌套虚拟化下 VMExit 与内存虚拟化开销（主因）
 
 ```
 失败时节点资源利用：
@@ -65,21 +65,23 @@
   m8i.4xlarge: CPU 43%, 内存 54% — 大量资源闲置
 ```
 
-QEMU 在嵌套虚拟化下的瓶颈**不是内存或 CPU**，而是 L1 KVM hypervisor 的 EPT（Extended Page Table）影子页表管理：
+QEMU 在嵌套虚拟化下的瓶颈**不是内存或 CPU 的绝对不足**，而是多层虚拟化带来的系统开销叠加：
 
-1. **EPT 影子开销**：每个 QEMU VM 需要 L1 hypervisor 维护影子 EPT 页表，VM 数量越多，页表管理的 CPU 开销呈超线性增长
-2. **VM 启动尖峰**：新 VM 启动时需要大量页表操作（guest 内存 fault-in、设备模拟），与已有 VM 的活跃页表管理产生严重争抢
-3. **QEMU 设备模型复杂**：QEMU 模拟了完整的 PC 硬件（ACPI、PCI、USB 等），每个设备的 MMIO 操作都需要 VMExit → 加重 EPT 影子负担
-4. **密度与 vCPU 线性相关**：2xlarge(8 vCPU) → 7 pods，4xlarge(16 vCPU) → 14 pods，精确 2 倍关系，证明瓶颈在 CPU 侧的 hypervisor 调度
+1. **频繁 VMExit（核心瓶颈）**：QEMU 模拟完整 PC 硬件（ACPI、PCI、USB 等），每个设备的 MMIO 操作都需要 VMExit。嵌套虚拟化下 VMExit 路径为 L2→L1→L0，每次 VMExit 消耗数百到数千 CPU cycles。VM 数量增多时，VMExit 频率线性叠加，hypervisor 的 CPU 时间被大量消耗在 exit handling 上
+2. **Nested page table walk 放大**：嵌套虚拟化下地址翻译为两级 EPT walk（GVA→GPA→HPA），单次 page table walk 最多需要 24 次内存访问（4 级 × 2 层 EPT × 3 次访问）。VM 数量增多时，TLB 容量被多个 VM 分摊，TLB miss rate 上升，nested page walk 频率进一步增加
+3. **vCPU 调度争抢**：每个 kata VM 默认 5 个 vCPU，满载下所有 vCPU 都在活跃运行。L1 hypervisor 需要调度大量 vCPU 到有限的物理 CPU 上，调度延迟和上下文切换开销随 VM 数增长
+4. **VM 启动时的资源尖峰**：新 VM 启动需要大量 page fault handling（guest 内存首次触碰）+ 设备初始化 VMExit，与已有 VM 的活跃负载产生严重 CPU 争抢
+
+**密度与 vCPU 的近似线性关系**：2xlarge(8 vCPU)→7 pods，4xlarge(16 vCPU)→14 pods，精确 2 倍。这表明瓶颈在 CPU 侧（VMExit handling + vCPU scheduling），但也可能受 K8s scheduler admission、VM startup burst 等因素共同影响，不能单凭此断言瓶颈只在 CPU/EPT。
 
 #### kata-clh：几乎无差距
 
 CLH 接近或达到调度器理论上限（100% / 96%），原因：
 
-1. **精简设备模型**：Cloud Hypervisor 仅实现必要的 virtio 设备，无 ACPI/PCI/USB 等传统设备模拟，VMExit 频率大幅降低
-2. **更小的 VMM 进程开销**：CLH 进程 RSS 比 QEMU 小 ~40 MiB（167 MiB vs 207 MiB），EPT 影子页表压力更小
-3. **更低的 Pod Overhead**：200 MiB vs 250 MiB，每 Pod 节省 50 MiB，调度器允许更多 Pod
-4. **更好的嵌套虚拟化兼容性**：简单的 VMM 架构使得 L1 hypervisor 的 EPT 管理更高效
+1. **极简设备模型，VMExit 大幅减少**：Cloud Hypervisor 仅实现 virtio 设备，无 ACPI/PCI/USB 等传统设备模拟。业界研究表明设备模拟开销可占 QEMU 总开销的 50-70%，CLH 直接消除了这部分
+2. **更低的 hypervisor 参与度**：virtio 使用 shared memory + eventfd 通知机制，大部分数据传输无需 VMExit，减少了嵌套虚拟化下的 L2→L1→L0 切换频率
+3. **更小的 VMM 进程开销**：CLH 进程 RSS 比 QEMU 小 ~40 MiB（167 MiB vs 207 MiB），减少了 cache/NUMA/内存压力（但这不是决定性因素）
+4. **更低的 Pod Overhead**：200 MiB vs 250 MiB，每 Pod 节省 50 MiB，调度器允许更多 Pod
 
 ---
 
@@ -100,7 +102,7 @@ overhead:
 | m8i.2xlarge | floor(29751/2398) = 12 | ~7 | 5 pods |
 | m8i.4xlarge | floor(58417/2398) = 24 | ~14 | 10 pods |
 
-> ⚠️ kata-qemu 在嵌套虚拟化下，调度器预留与实际稳定数有较大差距。Overhead 无法解决 EPT 争抢问题，只能通过调大 overhead 来间接限制密度。但这会浪费大量可调度资源。
+> ⚠️ kata-qemu 在嵌套虚拟化下，调度器预留与实际稳定数有较大差距。Overhead 机制只能增加调度器的内存/CPU 预留，**无法解决 VMExit 争抢和 nested page walk 开销**。这是 Pod Overhead 模型的固有局限 — 它假设开销可以用固定的 CPU/内存量表示，但嵌套虚拟化的开销是随 VM 数量非线性增长的系统级开销。
 
 ```yaml
 # kata-clh — 嵌套虚拟化
@@ -133,7 +135,7 @@ overhead:
     memory: 200Mi    # 实测 167 MiB + 20% 余量
 ```
 
-裸金属消除了 EPT 影子页表开销，kata-qemu 的密度瓶颈将大幅缓解，预期可达到或接近调度器理论上限。
+裸金属消除了嵌套虚拟化的额外 VMExit 路径和 nested page walk 开销，kata-qemu 的密度瓶颈将大幅缓解，预期可达到或接近调度器理论上限。
 
 ---
 
@@ -148,7 +150,7 @@ overhead:
 | **VM 进程开销** | 207 MiB | 167 MiB | **CLH (-19%)** |
 | **Pod Overhead** | 250 MiB | 200 MiB | **CLH (-20%)** |
 | **失败模式** | VM restart | 调度器拒绝（优雅） | **CLH** |
-| **嵌套虚拟化兼容性** | 差（EPT 争抢严重） | 好（精简设备模型） | **CLH** |
+| **嵌套虚拟化兼容性** | 差（VMExit 争抢严重） | 好（极简 virtio 模型） | **CLH** |
 | **超卖稳定性** | 稳定 | 高负载 crash（Test 5b/10） | **QEMU** |
 | **网络吞吐** | 32.2 Gbps (-50%) | 16.6 Gbps (-74%) | **QEMU** |
 | **生态成熟度** | 成熟，社区活跃 | 较新，功能较少 | **QEMU** |
@@ -159,7 +161,7 @@ overhead:
 |------|-----------|------|
 | **嵌套虚拟化 + 高密度** | kata-clh | Pod 密度比 QEMU 高 71-86%，达到调度器上限 |
 | **嵌套虚拟化 + 网络密集** | kata-qemu | 网络吞吐 32.2 Gbps vs CLH 16.6 Gbps |
-| **裸金属部署** | kata-qemu | EPT 开销消失后 QEMU 密度接近 CLH，且生态更成熟 |
+| **裸金属部署** | kata-qemu | 嵌套开销消失后 QEMU 密度接近 CLH，且生态更成熟 |
 | **内存超卖场景** | kata-qemu | CLH 在超卖高负载下有 crash 风险 |
 | **Guaranteed QoS + 最大密度** | kata-clh | 不超卖时 CLH 完全稳定，密度领先 |
 

@@ -133,9 +133,9 @@ Pod 15 的失败特征与轻量测试不同：
 3. **CPU 突跳**：节点 CPU 从 43%（14 Pod）跳到 62%（15 Pod），增幅 19%（正常每 Pod 只增 3%）。额外的 16% 来自 hypervisor 争抢和 VM restart 开销
 4. **内存仅增 453 MiB**：正常每 Pod 增 ~2161 MiB，但 Pod 15 只增了 453 MiB，说明 VM 未能完整启动
 
-### 7.2 根因：嵌套虚拟化 EPT 争抢
+### 7.2 根因：嵌套虚拟化下 VMExit 与内存虚拟化开销
 
-和轻量测试相同的根因 — L1 KVM hypervisor 的 EPT（Extended Page Table）影子管理瓶颈：
+和轻量测试相同的根因 — 嵌套虚拟化下 VMExit 频率放大 + nested page table walk 开销叠加：
 
 ```
                         轻量测试 (m8i.2xlarge)    全压满 (m8i.4xlarge)
@@ -151,7 +151,7 @@ Pod 15 的失败特征与轻量测试不同：
 
 关键发现：
 - **Pod 密度与 vCPU 近似线性**：m8i.2xlarge（8 vCPU）→ 10 Pod，m8i.4xlarge（16 vCPU）→ 14 Pod。每增加 8 vCPU 多支撑 ~4-5 个 kata VM
-- **全压满降低了密度**：理论上 4xlarge 有 2x 资源应该支撑 2x Pod（20），但只到 14。stress-ng 的持续 CPU + 内存压力加重了 EPT 管理负担
+- **全压满降低了密度**：理论上 4xlarge 有 2x 资源应该支撑 2x Pod（20），但只到 14。stress-ng 的持续 CPU + 内存压力增加了 TLB miss rate 和 nested page walk 频率
 - **内存不是瓶颈**：失败时节点内存只用了 54%（31.7 GiB / 58.5 GiB），剩余 27 GiB 可用
 - **CPU 也不是直接瓶颈**：失败时节点 CPU 43%（Pod 15 的异常跳到 62% 是 hypervisor 争抢的结果，非原因）
 
@@ -230,7 +230,7 @@ overhead:
     memory: 250Mi
 ```
 
-裸金属没有 EPT 影子页表开销，VM overhead 更低（~207 MiB，Test 7 数据）。250 MiB 留 20% 余量。
+裸金属消除了嵌套虚拟化的额外 VMExit 路径和 nested page walk 开销，VM overhead 更低（~207 MiB，Test 7 数据）。250 MiB 留 20% 余量。
 
 ### 8.3 保守生产配置
 
@@ -254,7 +254,7 @@ overhead:
 2. **全压满 workload 降低了约 30% 密度**：相对于轻量 workload（按 vCPU 比例）
 3. **全压满时调度器预留更准确**：overhead 1.06x vs 轻量时 2.0x，因为 Guest 内存被充分 touch
 4. **Pod 密度与 vCPU 数近似线性**：可用于容量规划
-5. **裸金属部署可大幅提升密度**：消除 EPT 影子页表开销，预计 2x-3x Pod 密度提升
+5. **裸金属部署可大幅提升密度**：消除嵌套虚拟化的额外 VMExit 路径和 nested page walk 开销，预计 2x-3x Pod 密度提升
 6. **推荐 overhead：cpu=250m, memory=350Mi**（嵌套虚拟化），cpu=100m, memory=250Mi（裸金属）
 
 ## 10. 文件

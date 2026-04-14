@@ -115,7 +115,7 @@ CPU 上限: floor(7720 / 550) = 14
 ### 5.3 kata-clh 表现更好的原因
 
 1. **Cloud Hypervisor 更轻量**：CLH 进程本身 RSS 比 QEMU 小 ~40 MiB（Test 9 数据：167 MiB vs 207 MiB）
-2. **更好的嵌套虚拟化兼容性**：CLH 使用更简单的设备模型，EPT 影子页表管理压力更小
+2. **更好的嵌套虚拟化兼容性**：CLH 仅使用 virtio 设备，大幅减少 VMExit 频率，降低嵌套虚拟化下的 nested page walk 和 vCPU 调度争抢
 3. **内存效率更高**：Pod overhead 只有 200 MiB（vs QEMU 250 MiB），每 Pod 节省 50 MiB
 4. **无级联 crash**：即使到 13 Pod（95% 内存），所有 VM 仍然稳定运行
 

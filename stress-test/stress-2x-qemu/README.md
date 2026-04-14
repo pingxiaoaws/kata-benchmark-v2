@@ -99,7 +99,7 @@ CPU 上限: floor(7720 / 550) = 14
 | 失败时节点内存 | 53% | 54% |
 | 失败模式 | Pod 8 restart | Pod 15 restart |
 
-关键发现：**Pod 密度精确线性扩展** — 2xlarge 7 个，4xlarge 14 个，正好 2 倍。这说明嵌套虚拟化的 EPT 争抢瓶颈与 vCPU 数成正比。
+关键发现：**Pod 密度精确线性扩展** — 2xlarge 7 个，4xlarge 14 个，正好 2 倍。这表明瓶颈在 CPU 侧（VMExit handling + vCPU 调度），但也可能受 scheduler admission、VM startup burst 等因素共同影响。
 
 ### 5.2 与 kata-clh 同机型对比（m8i.2xlarge）
 
