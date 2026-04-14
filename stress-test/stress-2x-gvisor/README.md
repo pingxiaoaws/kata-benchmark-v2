@@ -82,8 +82,7 @@ gVisor 完全绕过了这些问题 — 没有 VM，没有 hypervisor，没有 EP
 
 1. **安全隔离等级不同**：gVisor（用户态 syscall 拦截）vs Kata（硬件 VM 隔离），安全边界强度不可直比
 2. **syscall 兼容性**：gVisor 不支持所有 Linux syscall，某些应用可能需要适配
-3. **SSH 不可达**：测试期间 host-level 指标（free -m）未能采集（SSH 未配置），但不影响 K8s 层面的测试结论
-4. **网络/存储性能未测**：本测试仅覆盖 CPU + 内存密度，gVisor 的网络和存储性能需要单独评估
+3. **网络/存储性能**：详见 [network-storage-benchmark.md](network-storage-benchmark.md)
 
 ---
 
