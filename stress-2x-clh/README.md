@@ -1,61 +1,61 @@
-# Max Pod Density Test: kata-clh Full Stress on m8i.2xlarge (Nested Virtualization)
+# 最大 Pod 密度测试：kata-clh 全压满 — m8i.2xlarge（嵌套虚拟化）
 
-**Date:** 2026-04-14 02:45–03:10 UTC  
-**Result: 13 pods stable under full CPU+memory stress (scheduler limit reached), pod 14 Failed**
+**日期：** 2026-04-14 02:45–03:10 UTC  
+**结果：13 个 Pod 在 CPU+内存全压满下稳定运行（达到调度器上限），第 14 个 Pod Failed**
 
-## 1. Environment
+## 1. 环境
 
-| Property | Value |
-|----------|-------|
-| Node | ip-172-31-30-148.us-west-2.compute.internal |
-| Instance Type | **m8i.2xlarge** (8 vCPU, 32 GiB) |
-| Virtualization | **Nested** (KVM inside EC2 bare-metal-equivalent) |
-| Node Allocatable | cpu=7910m, memory=29901 MiB |
+| 属性 | 值 |
+|------|-----|
+| 节点 | ip-172-31-30-148.us-west-2.compute.internal |
+| 实例类型 | **m8i.2xlarge**（8 vCPU，32 GiB） |
+| 虚拟化 | **嵌套**（EC2 bare-metal-equivalent 上的 KVM） |
+| 节点可调度资源 | cpu=7910m，memory=29901 MiB |
 | RuntimeClass | **kata-clh** |
-| Pod Overhead | cpu=100m, memory=200Mi |
+| Pod Overhead | cpu=100m，memory=200Mi |
 | Kata default_vcpus | 5 |
 | Kata default_memory | 2048 MiB |
-| K8s version | v1.34.4-eks |
-| Stress tool | polinux/stress-ng (CPU 95% load + vm-keep) |
+| K8s 版本 | v1.34.4-eks |
+| 压测工具 | polinux/stress-ng（CPU 95% 负载 + vm-keep） |
 
-## 2. Pod Specification (Guaranteed QoS, request = limit)
+## 2. Pod 规格（Guaranteed QoS，request = limit）
 
-| Container | CPU | Memory | stress-ng Args |
-|-----------|-----|--------|----------------|
+| 容器 | CPU | 内存 | stress-ng 参数 |
+|------|-----|------|---------------|
 | gateway | 150m | 1 GiB | `--cpu 1 --cpu-load 95 --vm 1 --vm-bytes 900M --vm-keep` |
 | config-watcher | 100m | 256 MiB | `--cpu 1 --cpu-load 95 --vm 1 --vm-bytes 200M --vm-keep` |
 | envoy | 100m | 256 MiB | `--cpu 1 --cpu-load 95 --vm 1 --vm-bytes 200M --vm-keep` |
 | wazuh | 100m | 512 MiB | `--cpu 1 --cpu-load 95 --vm 1 --vm-bytes 450M --vm-keep` |
-| **Container totals** | **450m** | **2048 MiB** | |
+| **容器合计** | **450m** | **2048 MiB** | |
 | **+ RuntimeClass overhead** | **+100m** | **+200 MiB** | |
-| **Scheduling footprint** | **550m** | **2248 MiB** | |
+| **调度器视角（每 Pod）** | **550m** | **2248 MiB** | |
 
-## 3. Theoretical Maximum
+## 3. 理论最大值
 
 ```
-Node allocatable memory: 29901 MiB
-System pod requests:     -  150 MiB
-Available for test pods:  29751 MiB
+节点可调度内存:     29901 MiB
+系统 Pod 请求:      -  150 MiB
+可用于测试 Pod:      29751 MiB
 
-Per pod (with overhead):   2248 MiB
-Max pods by memory: floor(29751 / 2248) = 13
+每 Pod（含 overhead）: 2248 MiB
+内存上限: floor(29751 / 2248) = 13
 
-Node allocatable CPU:     7910m
-System pod requests:      - 190m
-Available for test pods:   7720m
+节点可调度 CPU:      7910m
+系统 Pod 请求:       - 190m
+可用于测试 Pod:       7720m
 
-Per pod (with overhead):    550m
-Max pods by CPU: floor(7720 / 550) = 14
+每 Pod（含 overhead）:  550m
+CPU 上限: floor(7720 / 550) = 14
 
-Theoretical maximum = 13 pods (memory-limited)
+理论最大值 = 13 个 Pod（内存受限）
 ```
 
-## 4. Results
+## 4. 结果
 
-### Per-Pod Metrics
+### 逐 Pod 指标
 
-| Pod | Ready(s) | Node CPU | CPU% | Node Mem | Mem% | stress CPU | stress Mem (MiB) | Status |
-|-----|----------|----------|------|----------|------|------------|------------------|--------|
+| Pod | 就绪(s) | 节点 CPU | CPU% | 节点内存 | 内存% | stress CPU | stress 内存(MiB) | 状态 |
+|-----|---------|----------|------|----------|-------|------------|-----------------|------|
 | 1 | 7 | 620m | 7% | 2998Mi | 10% | 452m | 1807 | OK |
 | 2 | 7 | 1055m | 13% | 5075Mi | 16% | 451m | 1807 | OK |
 | 3 | 7 | 1448m | 18% | 7148Mi | 23% | 452m | 1807 | OK |
@@ -71,64 +71,64 @@ Theoretical maximum = 13 pods (memory-limited)
 | 13 | 7 | 5222m | 66% | 28616Mi | 95% | 453m | 1782 | OK |
 | **14** | — | — | — | — | — | — | — | **Failed** |
 
-### Incremental Cost Per Pod
+### 每 Pod 增量开销
 
-| Metric | Per-Pod Delta | Notes |
-|--------|---------------|-------|
-| kubectl top node memory | ~2130 MiB | cAdvisor: QEMU sandbox cgroup |
-| kubectl top node CPU | ~384m | 5 vCPUs, stress driving ~452m |
-| stress-ng CPU per pod | ~452m | Consistent across all 13 pods |
-| stress-ng memory per pod | ~1807 MiB | Remarkably consistent |
-| VM startup time | 7s | No degradation even at 13 pods |
+| 指标 | 每 Pod 增量 | 备注 |
+|------|------------|------|
+| kubectl top node 内存 | ~2130 MiB | cAdvisor：QEMU sandbox cgroup |
+| kubectl top node CPU | ~384m | 5 vCPU，stress 驱动 ~452m |
+| stress-ng CPU/Pod | ~452m | 13 个 Pod 间高度一致 |
+| stress-ng 内存/Pod | ~1807 MiB | 高度一致 |
+| VM 启动时间 | 7s | 即使到 13 个 Pod 也无退化 |
 
-### Summary
+### 汇总
 
-| Metric | Value |
-|--------|-------|
-| **Maximum stable pods** | **13** |
-| Scheduler theoretical max | 13 (memory-limited) |
-| Gap | **0 pods (100% of scheduler limit!)** |
-| Failure trigger | Pod 14 — scheduler rejected (insufficient memory) |
-| Node CPU at 13 pods | 66% |
-| Node memory at 13 pods | 95% |
-| Total restarts (all pods) | 0 |
+| 指标 | 值 |
+|------|-----|
+| **最大稳定 Pod 数** | **13** |
+| 调度器理论上限 | 13（内存受限） |
+| 差距 | **0 个 Pod（100% 达到调度器上限！）** |
+| 失败触发 | Pod 14 — 调度器拒绝（内存不足） |
+| 13 Pod 时节点 CPU | 66% |
+| 13 Pod 时节点内存 | 95% |
+| 所有 Pod 总 restart | 0 |
 
-## 5. Analysis
+## 5. 分析
 
 ### 5.1 kata-clh 达到了调度器上限
 
-这是所有测试中唯一一次 **100% 达到调度器理论上限** 的结果。13 个 pod 全部稳定，0 restart，pod 14 因为调度器内存不足被拒绝（不是 VM crash）。
+这是所有测试中唯一一次 **100% 达到调度器理论上限** 的结果。13 个 Pod 全部稳定，0 次 restart，Pod 14 因调度器内存不足被拒绝（不是 VM crash）。
 
-### 5.2 与 kata-qemu 同机型对比 (m8i.2xlarge)
+### 5.2 与 kata-qemu 同机型对比（m8i.2xlarge）
 
 | 维度 | kata-qemu | kata-clh | 差异 |
 |------|-----------|----------|------|
-| 稳定 pods | 7 | **13** | **+86%** |
-| 理论上限 | 12 | 13 | +8% (overhead 更小) |
+| 稳定 Pod 数 | 7 | **13** | **+86%** |
+| 理论上限 | 12 | 13 | +8%（overhead 更小） |
 | 利用率 vs 理论 | 58% | **100%** | +42pp |
-| 失败时 node mem% | 53% | 95% | 更高利用 |
-| 失败时 node CPU% | 36% | 66% | 更高利用 |
-| 失败模式 | VM crash (4 restarts) | 调度器拒绝 | 更优雅 |
-| 每 pod cAdvisor 内存 Δ | ~2161 MiB | ~2130 MiB | CLH 略小 |
-| VM startup time | 6-7s | 7s | 相当 |
+| 失败时节点内存% | 53% | 95% | 更高利用率 |
+| 失败时节点 CPU% | 36% | 66% | 更高利用率 |
+| 失败模式 | VM crash（4 次 restart） | 调度器拒绝 | 更优雅 |
+| 每 Pod cAdvisor 内存 Δ | ~2161 MiB | ~2130 MiB | CLH 略小 |
+| VM 启动时间 | 6-7s | 7s | 相当 |
 
-### 5.3 Why kata-clh Performs Better
+### 5.3 kata-clh 表现更好的原因
 
 1. **Cloud Hypervisor 更轻量**：CLH 进程本身 RSS 比 QEMU 小 ~40 MiB（Test 9 数据：167 MiB vs 207 MiB）
 2. **更好的嵌套虚拟化兼容性**：CLH 使用更简单的设备模型，EPT 影子页表管理压力更小
-3. **内存效率更高**：Pod overhead 只有 200 MiB（vs QEMU 250 MiB），每 pod 节省 50 MiB
-4. **无级联 crash**：即使到 13 pods（95% 内存），所有 VM 仍然稳定运行
+3. **内存效率更高**：Pod overhead 只有 200 MiB（vs QEMU 250 MiB），每 Pod 节省 50 MiB
+4. **无级联 crash**：即使到 13 Pod（95% 内存），所有 VM 仍然稳定运行
 
-### 5.4 Previously Known kata-clh Weakness
+### 5.4 之前已知的 kata-clh 弱点
 
 之前 Test 5b 和 Test 10 发现 kata-clh 在高负载下会 crash。但那些测试是**超卖场景**（memory overcommit），而本测试是 Guaranteed QoS（request = limit）。在不超卖的情况下，kata-clh 表现优于 kata-qemu。
 
-## 6. Recommended Pod Overhead for kata-clh
+## 6. 推荐 Pod Overhead 配置
 
-### Nested Virtualization
+### 嵌套虚拟化
 
 ```yaml
-# kata-clh — Nested Virtualization
+# kata-clh — 嵌套虚拟化
 overhead:
   podFixed:
     cpu: 100m
@@ -137,21 +137,21 @@ overhead:
 
 当前 200 MiB 的 overhead 已经验证足够，不需要增加。
 
-### Bare Metal
+### 裸金属
 
 ```yaml
-# kata-clh — Bare Metal
+# kata-clh — 裸金属
 overhead:
   podFixed:
     cpu: 100m
-    memory: 170Mi   # 实测 167 MiB + ~2% margin
+    memory: 170Mi   # 实测 167 MiB + ~2% 余量
 ```
 
-## 7. Files
+## 7. 文件
 
-| File | Description |
-|------|-------------|
-| `max-pod-test-fullload-v2.sh` | Test script (supports runtime parameter) |
-| `results-fullload-clh.csv` | Raw per-pod metrics in CSV format |
-| `test-fullload-clh.log` | Full test execution log |
-| `README.md` | This analysis |
+| 文件 | 说明 |
+|------|------|
+| `max-pod-test-fullload-v2.sh` | 测试脚本（支持运行时参数） |
+| `results-fullload-clh.csv` | 逐 Pod 原始指标（CSV 格式） |
+| `test-fullload-clh.log` | 完整测试执行日志 |
+| `README.md` | 本分析文档 |
