@@ -54,7 +54,7 @@
 |------|--------|------|----------------|---------|
 | stress-4x-qemu | kata-qemu | m8i.4xlarge | 14 | Pod 15 restart |
 | **stress-4x-clh** | **kata-clh** | **m8i.4xlarge** | **24** | **内存 90%** |
-| stress-2x-qemu | kata-qemu | m8i.2xlarge | 10 | Pod 11 级联 VM 崩溃 |
+| stress-2x-qemu | kata-qemu | m8i.2xlarge | 7 | Pod 8 restart |
 | stress-2x-clh | kata-clh | m8i.2xlarge | 13 | Pod 14 Failed |
 
 ## 6. 文件
