@@ -1,0 +1,65 @@
+{
+    "AutoScalingGroups": [
+        {
+            "AutoScalingGroupName": "gvisor-m8i-2xlarge-asg",
+            "AutoScalingGroupARN": "arn:aws:autoscaling:us-west-2:970547376847:autoScalingGroup:f7573366-82cc-4337-aec3-4f0b78fea693:autoScalingGroupName/gvisor-m8i-2xlarge-asg",
+            "LaunchTemplate": {
+                "LaunchTemplateId": "lt-0f8d77f6f2b22be33",
+                "LaunchTemplateName": "gvisor-m8i-2xlarge",
+                "Version": "$Latest"
+            },
+            "MinSize": 0,
+            "MaxSize": 1,
+            "DesiredCapacity": 1,
+            "DefaultCooldown": 300,
+            "AvailabilityZones": [
+                "us-west-2c"
+            ],
+            "LoadBalancerNames": [],
+            "TargetGroupARNs": [],
+            "HealthCheckType": "EC2",
+            "HealthCheckGracePeriod": 0,
+            "Instances": [
+                {
+                    "InstanceId": "i-064636debbe628316",
+                    "InstanceType": "m8i.2xlarge",
+                    "AvailabilityZone": "us-west-2c",
+                    "LifecycleState": "InService",
+                    "HealthStatus": "Healthy",
+                    "LaunchTemplate": {
+                        "LaunchTemplateId": "lt-0f8d77f6f2b22be33",
+                        "LaunchTemplateName": "gvisor-m8i-2xlarge",
+                        "Version": "2"
+                    },
+                    "ProtectedFromScaleIn": false
+                }
+            ],
+            "CreatedTime": "2026-04-14T09:14:50.494000+00:00",
+            "SuspendedProcesses": [],
+            "VPCZoneIdentifier": "subnet-0ddf028eca68fffa2",
+            "EnabledMetrics": [],
+            "Tags": [
+                {
+                    "ResourceId": "gvisor-m8i-2xlarge-asg",
+                    "ResourceType": "auto-scaling-group",
+                    "Key": "Name",
+                    "Value": "gvisor-test-node",
+                    "PropagateAtLaunch": true
+                },
+                {
+                    "ResourceId": "gvisor-m8i-2xlarge-asg",
+                    "ResourceType": "auto-scaling-group",
+                    "Key": "kubernetes.io/cluster/test-s4",
+                    "Value": "owned",
+                    "PropagateAtLaunch": true
+                }
+            ],
+            "TerminationPolicies": [
+                "Default"
+            ],
+            "NewInstancesProtectedFromScaleIn": false,
+            "ServiceLinkedRoleARN": "arn:aws:iam::970547376847:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling",
+            "TrafficSources": []
+        }
+    ]
+}

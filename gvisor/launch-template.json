@@ -1,0 +1,48 @@
+{
+    "LaunchTemplateVersions": [
+        {
+            "LaunchTemplateId": "lt-0f8d77f6f2b22be33",
+            "LaunchTemplateName": "gvisor-m8i-2xlarge",
+            "VersionNumber": 7,
+            "CreateTime": "2026-04-14T10:07:53+00:00",
+            "CreatedBy": "arn:aws:iam::970547376847:user/ping-2",
+            "DefaultVersion": false,
+            "LaunchTemplateData": {
+                "IamInstanceProfile": {
+                    "Name": "EKSNodeProfile-test-s4-nested"
+                },
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/xvda",
+                        "Ebs": {
+                            "DeleteOnTermination": true,
+                            "VolumeSize": 100,
+                            "VolumeType": "gp3"
+                        }
+                    }
+                ],
+                "ImageId": "ami-0eb3b00aa432dfc02",
+                "InstanceType": "m8i.2xlarge",
+                "UserData": "IyEvYmluL2Jhc2gKc2V0IC1ldXhvIHBpcGVmYWlsCmV4ZWMgPiA+KHRlZSAvdmFyL2xvZy9ndmlzb3Itc2V0dXAubG9nKSAyPiYxCgplY2hvICI9PT0gZ1Zpc29yIFNldHVwIFN0YXJ0ZWQgYXQgJChkYXRlKSA9PT0iCgojIDEuIEluc3RhbGwgZ1Zpc29yIGJpbmFyeQpBUkNIPSQodW5hbWUgLW0pCkdWSVNPUl9VUkw9Imh0dHBzOi8vc3RvcmFnZS5nb29nbGVhcGlzLmNvbS9ndmlzb3IvcmVsZWFzZXMvcmVsZWFzZS9sYXRlc3QvJHtBUkNIfSIKY2QgL3RtcApjdXJsIC1mc1NMICIke0dWSVNPUl9VUkx9L3J1bnNjIiAtbyBydW5zYwpjdXJsIC1mc1NMICIke0dWSVNPUl9VUkx9L2NvbnRhaW5lcmQtc2hpbS1ydW5zYy12MSIgLW8gY29udGFpbmVyZC1zaGltLXJ1bnNjLXYxCmNobW9kICt4IHJ1bnNjIGNvbnRhaW5lcmQtc2hpbS1ydW5zYy12MQptdiBydW5zYyAvdXNyL2xvY2FsL2Jpbi8KbXYgY29udGFpbmVyZC1zaGltLXJ1bnNjLXYxIC91c3IvbG9jYWwvYmluLwplY2hvICLinJMgZ1Zpc29yIGluc3RhbGxlZDogJCgvdXNyL2xvY2FsL2Jpbi9ydW5zYyAtLXZlcnNpb24pIgoKIyAyLiBXcml0ZSBub2RlYWRtIGNvbmZpZwpta2RpciAtcCAvZXRjL25vZGVhZG0KY2F0ID4gL2V0Yy9ub2RlYWRtL25vZGVhZG0tY29uZmlnLnlhbWwgPDwgJ0VPRk5PREVBRE0nCmFwaVZlcnNpb246IG5vZGUuZWtzLmF3cy92MWFscGhhMQpraW5kOiBOb2RlQ29uZmlnCnNwZWM6CiAgY2x1c3RlcjoKICAgIG5hbWU6IHRlc3QtczQKICAgIHJlZ2lvbjogdXMtd2VzdC0yCiAgICBhcGlTZXJ2ZXJFbmRwb2ludDogaHR0cHM6Ly81REMxNkMwRDk2REUxMzA0OUZDNzdFMDIyMEFEM0I5OS5ncjcudXMtd2VzdC0yLmVrcy5hbWF6b25hd3MuY29tCiAgICBjZXJ0aWZpY2F0ZUF1dGhvcml0eTogTFMwdExTMUNSVWRKVGlCRFJWSlVTVVpKUTBGVVJTMHRMUzB0Q2sxSlNVUkNWRU5EUVdVeVowRjNTVUpCWjBsSldqbElXamhXWW14eWRHTjNSRkZaU2t0dldrbG9kbU5PUVZGRlRFSlJRWGRHVkVWVVRVSkZSMEV4VlVVS1FYaE5TMkV6Vm1sYVdFcDFXbGhTYkdONlFXVkdkekI1VGxSRmVVMUVTWGROUkZWNFRYcGFZVVozTUhwT1ZFVjRUWHBCZDAxRVZUSk5lbHBoVFVKVmVBcEZla0ZTUW1kT1ZrSkJUVlJEYlhReFdXMVdlV0p0VmpCYVdFMTNaMmRGYVUxQk1FZERVM0ZIVTBsaU0wUlJSVUpCVVZWQlFUUkpRa1IzUVhkblowVkxDa0Z2U1VKQlVVUklMekI1WTJsbVRFSjZlVEJGY2s5Vk1IZGxVbXRxV0doVmJrOUpNbWx3WWtaMU5HSkhTWE40WWxoc01XdElhVWhMWlhKS1RsbE1NMWtLTVU5SGIzaERZV2d6TWsxUVRuRkVSbXBOVmpKSlJrMWFPRGd5TTJkUWVtSkZhbE00YVVvd0t6bHJNbXRPTlVac1NDdG1lSEpCZVdkUlRYRnpWM0F2Y1FwaVJGYzJaV3hCYlhWQmNEVldhVWhRUXpWWkswZGpRaXRNVjB0aGQwRXhWR3BPTUU5a0wwMW5SRGRtZEhCRFRYVnRZMUJQVDJaa1RrNHlOV0kxV0U1b0NtTmhWVFEyVldWRWNqbDFkMDl6V2xGU2JVcEtiRmx3ZFZSUlNHdzFTRkpIVDFOSFZXUklVVEV3YUV3MlJsZDZWbVpvV0RCSlRHWlNjRFpWWjNGVWIwVUtXbW8zV0dvNFVsTm9hazlGVjNWd1FqSjFUMGhzUTFNdlNXbGpVbHB4U2xCelVDczVhaXQ0UjAxNGJXTnNkMlJXYVVSNFVsSkdZV0pTYW1kUFdUVlFPQXBwUXpoWk1XODJOSEZ4TVZOUFozaDRUR2cwYTFaQ1duQkdUR2w0UVdkTlFrRkJSMnBYVkVKWVRVRTBSMEV4VldSRWQwVkNMM2RSUlVGM1NVTndSRUZRQ2tKblRsWklVazFDUVdZNFJVSlVRVVJCVVVndlRVSXdSMEV4VldSRVoxRlhRa0pSYzNCM1RXcG1VaTlGTjBjeGVVdFNkVEZhTkdWbGFGQTNaWGhFUVZZS1FtZE9Wa2hTUlVWRWFrRk5aMmR3Y21SWFNteGpiVFZzWkVkV2VrMUJNRWREVTNGSFUwbGlNMFJSUlVKRGQxVkJRVFJKUWtGUlFXeGpXWFZ6TUVaT1ZBbzRWMFJvYnpjemVIcFBVMmxFYTA1UVMydzFSR2xpWlVaQ1ZtTk9TRVF3TUZkM1duTkxWRkZ3V1VSWFYwWlNlWFZ3UW1sVllqRkdhMmxqVGt4TGFtdDRDazhyWkhoVFpsRXZZVGgxZDNCQlNXUlRMekJDWjJKWWEwdzRTV2hTYW1STk5GRlZjVGhaTWpOa2JVMXJkWG8xYkZZMFpUSTBkRGxYTVhkTlMzcEVkVElLU3poNWQwbzRhQzlKTW1wd1VIbEpXSGh0VTJWQlRuZEpRbXhzTUdvMUszTkpVVzh2UVdsek5XWTJPRFp5TDI0MFQyTm9OSHBoUzBWblRqRXZZU3RRVndvclNIZFZaRWxIU0ZOMVVIbHVhM1pDTm14SVNtcEJhMFIxT0RaVllqVlBUMjgzUjFocmJtUjBXRlpGTlZaalJXRnhlWGwxVlRnNWRERXpORmMyTkRaU0NpOUJNVkF3WTJ0S1RYa3JhVU5ZUkZCTGJVaHZUV3haY1ZBd1ZEWlVhVWhYTTFkU05GTTRiWFF4V214aFEyODFZamhJVVZsRVdsaGlZV3h2WlhOS09TOEtVVE0xYWt0bGJGUjBWMmMxQ2kwdExTMHRSVTVFSUVORlVsUkpSa2xEUVZSRkxTMHRMUzBLCiAgICBjaWRyOiAxMC4xMDAuMC4wLzE2CiAga3ViZWxldDoKICAgIGNvbmZpZzoKICAgICAgbWF4UG9kczogMTEwCiAgICBmbGFnczoKICAgICAgLSAtLW5vZGUtbGFiZWxzPXdvcmtsb2FkLXR5cGU9Z3Zpc29yLHJ1bnRpbWU9Z3Zpc29yCiAgICAgIC0gLS1yZWdpc3Rlci13aXRoLXRhaW50cz1ndmlzb3I9dHJ1ZTpOb1NjaGVkdWxlCkVPRk5PREVBRE0KCiMgMy4gUnVuIG5vZGVhZG0gaW5pdApub2RlYWRtIGluaXQgLWMgZmlsZTovLy9ldGMvbm9kZWFkbS9ub2RlYWRtLWNvbmZpZy55YW1sCmVjaG8gIuKckyBub2RlYWRtIGluaXQgY29tcGxldGVkIgoKIyA0LiBBZGQgcnVuc2MgdG8gY29udGFpbmVyZCAodXNlIGNvbnRhaW5lcmQgMi54IG5hbWVzcGFjZSEpCnNsZWVwIDEwCnByaW50ZiAiXG5bcGx1Z2lucy4naW8uY29udGFpbmVyZC5jcmkudjEucnVudGltZScuY29udGFpbmVyZC5ydW50aW1lcy5ydW5zY11cbnJ1bnRpbWVfdHlwZSA9IFwiaW8uY29udGFpbmVyZC5ydW5zYy52MVwiXG4iID4+IC9ldGMvY29udGFpbmVyZC9jb25maWcudG9tbAoKc3lzdGVtY3RsIHJlc3RhcnQgY29udGFpbmVyZApzbGVlcCA1CmVjaG8gIuKckyBjb250YWluZXJkIHJlc3RhcnRlZCB3aXRoIHJ1bnNjIGhhbmRsZXIiCmVjaG8gIj09PSBnVmlzb3IgU2V0dXAgQ29tcGxldGVkIGF0ICQoZGF0ZSkgPT09Igo=",
+                "TagSpecifications": [
+                    {
+                        "ResourceType": "instance",
+                        "Tags": [
+                            {
+                                "Key": "Name",
+                                "Value": "gvisor-test-node"
+                            },
+                            {
+                                "Key": "kubernetes.io/cluster/test-s4",
+                                "Value": "owned"
+                            }
+                        ]
+                    }
+                ],
+                "SecurityGroupIds": [
+                    "sg-075a0cdf836e09575"
+                ]
+            }
+        }
+    ]
+}

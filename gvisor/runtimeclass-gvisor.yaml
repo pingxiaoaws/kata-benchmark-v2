@@ -1,0 +1,19 @@
+apiVersion: node.k8s.io/v1
+handler: runsc
+kind: RuntimeClass
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"node.k8s.io/v1","handler":"runsc","kind":"RuntimeClass","metadata":{"annotations":{},"name":"gvisor"},"scheduling":{"nodeSelector":{"runtime":"gvisor"},"tolerations":[{"effect":"NoSchedule","key":"gvisor","operator":"Equal","value":"true"}]}}
+  creationTimestamp: "2026-04-14T09:14:55Z"
+  name: gvisor
+  resourceVersion: "46690370"
+  uid: f66c6766-96b0-42cd-8073-0a3a4a42daf2
+scheduling:
+  nodeSelector:
+    runtime: gvisor
+  tolerations:
+  - effect: NoSchedule
+    key: gvisor
+    operator: Equal
+    value: "true"
