@@ -1,14 +1,15 @@
-# Kata Containers 满载压力测试总结：Pod 密度与 Overhead 配置指南
+# 容器运行时满载压力测试总结：Pod 密度与 Overhead 配置指南
 
 **测试日期：** 2026-04-14  
 **环境：** Amazon EKS 1.34，嵌套虚拟化（EC2 bare-metal-equivalent 上的 KVM）  
-**Kata Operator：** v0.22.2 | **Guest Kernel：** 6.18.12 | **Host Kernel：** 6.12.68
+**Kata Operator：** v0.22.2 | **Guest Kernel：** 6.18.12 | **Host Kernel：** 6.12.68  
+**gVisor：** runsc release-20260406.0
 
 ---
 
 ## 1. 测试概要
 
-在两种机型（m8i.2xlarge / m8i.4xlarge）上，分别使用 kata-qemu 和 kata-clh 运行时，逐个部署满载 Pod（stress-ng CPU 95% + 内存 vm-keep），测量单节点最大稳定 Pod 数。
+在两种机型（m8i.2xlarge / m8i.4xlarge）上，分别使用 kata-qemu、kata-clh 和 gVisor (runsc) 运行时，逐个部署满载 Pod（stress-ng CPU 95% + 内存 vm-keep），测量单节点最大稳定 Pod 数。
 
 ### 工作负载规格（每 Pod，Guaranteed QoS）
 
@@ -26,19 +27,19 @@
 
 ### 2.1 最大稳定 Pod 数
 
-| 机型 | vCPU | 内存 | kata-qemu | kata-clh | CLH 优势 |
-|------|------|------|-----------|----------|---------|
-| m8i.2xlarge | 8 | 32 GiB | **7** | **13** | +86% |
-| m8i.4xlarge | 16 | 64 GiB | **14** | **24** | +71% |
+| 机型 | vCPU | 内存 | kata-qemu | kata-clh | gVisor | CLH vs QEMU | gVisor vs QEMU |
+|------|------|------|-----------|----------|--------|------------|---------------|
+| m8i.2xlarge | 8 | 32 GiB | **7** | **13** | **14** | +86% | **+100%** |
+| m8i.4xlarge | 16 | 64 GiB | **14** | **24** | — | +71% | — |
 
 ### 2.2 失败模式对比
 
-| 维度 | kata-qemu | kata-clh |
-|------|-----------|----------|
-| **2xlarge 失败** | Pod 8：4 次 restart | Pod 14：调度器拒绝（内存不足） |
-| **4xlarge 失败** | Pod 15：4 次 restart，stress 内存降至 877 MiB | 无失败，24 Pod 时节点内存 90% |
-| **失败根因** | 嵌套虚拟化下 VMExit 争抢 + nested page walk 放大 | 达到调度器理论上限 |
-| **影响范围** | 仅失败 Pod 自身 restart | 无影响 |
+| 维度 | kata-qemu | kata-clh | gVisor |
+|------|-----------|----------|--------|
+| **2xlarge 失败** | Pod 8：4 次 restart | Pod 14：调度器拒绝 | Pod 15：Failed（内存耗尽） |
+| **4xlarge 失败** | Pod 15：4 次 restart | 无失败，24 Pod 时 90% 内存 | — |
+| **失败根因** | VMExit 争抢 + nested page walk | 达到调度器上限 | 达到调度器上限 |
+| **理论达成率** | 56-58% | 96-100% | **100%** |
 
 ---
 
@@ -48,10 +49,11 @@
 
 | 机型 | 运行时 | 调度器理论上限 | 实际稳定数 | 利用率 | 差距 |
 |------|--------|-------------|-----------|--------|------|
-| m8i.2xlarge | kata-qemu | 12 | 7 | 58% | **-5 pods (42%)** |
+| m8i.2xlarge | gVisor | 14 | 14 | **100%** | **0 pods** |
 | m8i.2xlarge | kata-clh | 13 | 13 | **100%** | **0 pods** |
-| m8i.4xlarge | kata-qemu | 25 | 14 | 56% | **-11 pods (44%)** |
+| m8i.2xlarge | kata-qemu | 12 | 7 | 58% | **-5 pods (42%)** |
 | m8i.4xlarge | kata-clh | 25 | 24 | 96% | **-1 pod (4%)** |
+| m8i.4xlarge | kata-qemu | 25 | 14 | 56% | **-11 pods (44%)** |
 
 > **理论上限计算方式**：`floor((节点可调度内存 - 系统 Pod 请求) / (容器 request + Pod Overhead))`
 
@@ -143,27 +145,30 @@ overhead:
 
 ### 5.1 综合对比
 
-| 维度 | kata-qemu | kata-clh | 胜出 |
-|------|-----------|----------|------|
-| **满载 Pod 密度** | 7 / 14 | 13 / 24 | **CLH (+71~86%)** |
-| **调度器利用率** | 56-58% | 96-100% | **CLH** |
-| **VM 进程开销** | 207 MiB | 167 MiB | **CLH (-19%)** |
-| **Pod Overhead** | 250 MiB | 200 MiB | **CLH (-20%)** |
-| **失败模式** | VM restart | 调度器拒绝（优雅） | **CLH** |
-| **嵌套虚拟化兼容性** | 差（VMExit 争抢严重） | 好（极简 virtio 模型） | **CLH** |
-| **超卖稳定性** | 稳定 | 高负载 crash（Test 5b/10） | **QEMU** |
-| **网络吞吐** | 32.2 Gbps (-50%) | 16.6 Gbps (-74%) | **QEMU** |
-| **生态成熟度** | 成熟，社区活跃 | 较新，功能较少 | **QEMU** |
+| 维度 | kata-qemu | kata-clh | gVisor | 胜出 |
+|------|-----------|----------|--------|------|
+| **满载 Pod 密度（2xlarge）** | 7 | 13 | **14** | **gVisor** |
+| **调度器利用率** | 56-58% | 96-100% | **100%** | **gVisor** |
+| **隔离强度** | **硬件 VM** | **硬件 VM** | 用户态内核 | **Kata** |
+| **VM 进程开销** | 207 MiB | 167 MiB | **0** | **gVisor** |
+| **Pod Overhead** | 250 MiB | 200 MiB | **0** | **gVisor** |
+| **失败模式** | VM restart | 调度器拒绝 | 调度器拒绝 | CLH/gVisor |
+| **嵌套虚拟化兼容性** | 差 | 好 | **不需要** | **gVisor** |
+| **超卖稳定性** | 稳定 | 高负载 crash | 待测 | QEMU |
+| **网络吞吐** | 32.2 Gbps | 16.6 Gbps | 待测 | QEMU |
+| **syscall 兼容性** | **完整** | **完整** | 部分 | **Kata** |
+| **生态成熟度** | 成熟 | 较新 | 成熟（GKE 默认） | QEMU/gVisor |
 
 ### 5.2 场景推荐
 
 | 场景 | 推荐运行时 | 理由 |
 |------|-----------|------|
-| **嵌套虚拟化 + 高密度** | kata-clh | Pod 密度比 QEMU 高 71-86%，达到调度器上限 |
+| **最大 Pod 密度 + 无需 VM 隔离** | gVisor | 零 overhead，密度最高，不需嵌套虚拟化 |
+| **嵌套虚拟化 + 高密度 + VM 隔离** | kata-clh | 密度比 QEMU 高 71-86%，达到调度器上限 |
 | **嵌套虚拟化 + 网络密集** | kata-qemu | 网络吞吐 32.2 Gbps vs CLH 16.6 Gbps |
-| **裸金属部署** | kata-qemu | 嵌套开销消失后 QEMU 密度接近 CLH，且生态更成熟 |
+| **裸金属部署 + VM 隔离** | kata-qemu | 嵌套开销消失后 QEMU 密度接近 CLH，生态更成熟 |
 | **内存超卖场景** | kata-qemu | CLH 在超卖高负载下有 crash 风险 |
-| **Guaranteed QoS + 最大密度** | kata-clh | 不超卖时 CLH 完全稳定，密度领先 |
+| **GKE 环境** | gVisor | GKE 原生支持，零运维成本 |
 
 ---
 
@@ -185,8 +190,9 @@ overhead:
 
 | 目录 | 运行时 | 机型 | 结果 |
 |------|--------|------|------|
-| [stress-2x-qemu/](stress-2x-qemu/) | kata-qemu | m8i.2xlarge | 7 pods 稳定，Pod 8 restart |
+| [stress-2x-gvisor/](stress-2x-gvisor/) | gVisor (runsc) | m8i.2xlarge | **14 pods 稳定**，Pod 15 Failed |
 | [stress-2x-clh/](stress-2x-clh/) | kata-clh | m8i.2xlarge | 13 pods 稳定，Pod 14 调度器拒绝 |
+| [stress-2x-qemu/](stress-2x-qemu/) | kata-qemu | m8i.2xlarge | 7 pods 稳定，Pod 8 restart |
 | [stress-4x-qemu/](stress-4x-qemu/) | kata-qemu | m8i.4xlarge | 14 pods 稳定，Pod 15 restart |
 | [stress-4x-clh/](stress-4x-clh/) | kata-clh | m8i.4xlarge | 24 pods 稳定，节点内存 90% |
 
