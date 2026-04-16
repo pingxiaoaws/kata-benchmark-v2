@@ -1,0 +1,410 @@
+[2026-04-15 13:41:51 UTC] === Max Pod Full-Load Test: gVisor (runsc) on Graviton ip-172-31-9-46.us-west-2.compute.internal with EFS ===
+[2026-04-15 13:41:51 UTC] Checking node...
+ip-172-31-9-46.us-west-2.compute.internal 7910m cpu, 31232928Ki mem
+[2026-04-15 13:41:53 UTC] Node: m7g.2xlarge (arm64), allocatable: 7910m CPU, 30500 MiB memory
+[2026-04-15 13:41:53 UTC] Collecting baseline...
+[2026-04-15 13:41:53 UTC] Baseline kubectl top node: ip-172-31-9-46.us-west-2.compute.internal   31m   0%    902Mi   2%    
+[2026-04-15 13:41:58 UTC] Baseline free -m: N/A
+[2026-04-15 13:41:58 UTC] Starting incremental pod deployment...
+[2026-04-15 13:41:58 UTC] --- Deploying pod 1 ---
+namespace/maxpod-graviton-gvisor-efs-1 created
+persistentvolumeclaim/efs-data-1 created
+pod/stress-1 created
+[2026-04-15 13:42:00 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:42:01 UTC] EFS PVC bound.
+[2026-04-15 13:42:01 UTC] Waiting for pod stress-1 to be Ready...
+[2026-04-15 13:42:23 UTC] Settling 90s for stress workload...
+[2026-04-15 13:43:54 UTC] EFS mount check on pod 1: OK
+s-1 to be Ready...
+[2026-04-15 13:42:23 UTC] Settling 90s for stress workload...
+[2026-04-15 13:43:54 UTC] EFS mount check on pod 1: OK
+[2026-04-15 13:44:01 UTC] Pod 1 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=7555m stress_mem=1848 efs=OK
+[2026-04-15 13:44:01 UTC] Pod 1 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=7555m stress_mem=1848 efs=OK
+[2026-04-15 13:44:01 UTC] Pod 1 stable. Continuing...
+[2026-04-15 13:44:01 UTC] Pod 1 stable. Continuing...
+[2026-04-15 13:44:01 UTC] --- Deploying pod 2 ---
+[2026-04-15 13:44:01 UTC] --- Deploying pod 2 ---
+namespace/maxpod-graviton-gvisor-efs-2 created
+namespace/maxpod-graviton-gvisor-efs-2 created
+persistentvolumeclaim/efs-data-2 created
+persistentvolumeclaim/efs-data-2 created
+pod/stress-2 created
+pod/stress-2 created
+[2026-04-15 13:44:02 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:44:02 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:44:02 UTC] EFS PVC bound.
+[2026-04-15 13:44:02 UTC] EFS PVC bound.
+[2026-04-15 13:44:02 UTC] Waiting for pod stress-2 to be Ready...
+[2026-04-15 13:44:02 UTC] Waiting for pod stress-2 to be Ready...
+[2026-04-15 13:44:24 UTC] Settling 90s for stress workload...
+[2026-04-15 13:44:24 UTC] Settling 90s for stress workload...
+[2026-04-15 13:45:57 UTC] EFS mount check on pod 2: OK
+[2026-04-15 13:45:57 UTC] EFS mount check on pod 2: OK
+[2026-04-15 13:46:03 UTC] Pod 2 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=6890m stress_mem=1848 efs=OK
+[2026-04-15 13:46:03 UTC] Pod 2 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=6890m stress_mem=1848 efs=OK
+[2026-04-15 13:46:03 UTC] Pod 2 stable. Continuing...
+[2026-04-15 13:46:03 UTC] Pod 2 stable. Continuing...
+[2026-04-15 13:46:03 UTC] --- Deploying pod 3 ---
+[2026-04-15 13:46:03 UTC] --- Deploying pod 3 ---
+namespace/maxpod-graviton-gvisor-efs-3 created
+namespace/maxpod-graviton-gvisor-efs-3 created
+persistentvolumeclaim/efs-data-3 created
+persistentvolumeclaim/efs-data-3 created
+pod/stress-3 created
+pod/stress-3 created
+[2026-04-15 13:46:04 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:46:04 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:46:04 UTC] EFS PVC bound.
+[2026-04-15 13:46:04 UTC] EFS PVC bound.
+[2026-04-15 13:46:04 UTC] Waiting for pod stress-3 to be Ready...
+[2026-04-15 13:46:04 UTC] Waiting for pod stress-3 to be Ready...
+[2026-04-15 13:46:27 UTC] Settling 90s for stress workload...
+[2026-04-15 13:46:27 UTC] Settling 90s for stress workload...
+[2026-04-15 13:48:00 UTC] EFS mount check on pod 3: OK
+[2026-04-15 13:48:00 UTC] EFS mount check on pod 3: OK
+[2026-04-15 13:48:06 UTC] Pod 3 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=6819m stress_mem=1848 efs=OK
+[2026-04-15 13:48:06 UTC] Pod 3 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=6819m stress_mem=1848 efs=OK
+[2026-04-15 13:48:06 UTC] Pod 3 stable. Continuing...
+[2026-04-15 13:48:06 UTC] Pod 3 stable. Continuing...
+[2026-04-15 13:48:06 UTC] --- Deploying pod 4 ---
+[2026-04-15 13:48:06 UTC] --- Deploying pod 4 ---
+namespace/maxpod-graviton-gvisor-efs-4 created
+namespace/maxpod-graviton-gvisor-efs-4 created
+persistentvolumeclaim/efs-data-4 created
+persistentvolumeclaim/efs-data-4 created
+pod/stress-4 created
+pod/stress-4 created
+[2026-04-15 13:48:07 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:48:07 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:48:08 UTC] EFS PVC bound.
+[2026-04-15 13:48:08 UTC] EFS PVC bound.
+[2026-04-15 13:48:08 UTC] Waiting for pod stress-4 to be Ready...
+[2026-04-15 13:48:08 UTC] Waiting for pod stress-4 to be Ready...
+[2026-04-15 13:48:32 UTC] Settling 90s for stress workload...
+[2026-04-15 13:48:32 UTC] Settling 90s for stress workload...
+[2026-04-15 13:50:06 UTC] EFS mount check on pod 4: OK
+[2026-04-15 13:50:06 UTC] EFS mount check on pod 4: OK
+[2026-04-15 13:50:12 UTC] Pod 4 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=6325m stress_mem=1823 efs=OK
+[2026-04-15 13:50:12 UTC] Pod 4 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=6325m stress_mem=1823 efs=OK
+[2026-04-15 13:50:12 UTC] Pod 4 stable. Continuing...
+[2026-04-15 13:50:12 UTC] Pod 4 stable. Continuing...
+[2026-04-15 13:50:12 UTC] --- Deploying pod 5 ---
+[2026-04-15 13:50:12 UTC] --- Deploying pod 5 ---
+namespace/maxpod-graviton-gvisor-efs-5 created
+namespace/maxpod-graviton-gvisor-efs-5 created
+persistentvolumeclaim/efs-data-5 created
+persistentvolumeclaim/efs-data-5 created
+pod/stress-5 created
+pod/stress-5 created
+[2026-04-15 13:50:13 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:50:13 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:50:13 UTC] EFS PVC bound.
+[2026-04-15 13:50:13 UTC] EFS PVC bound.
+[2026-04-15 13:50:13 UTC] Waiting for pod stress-5 to be Ready...
+[2026-04-15 13:50:13 UTC] Waiting for pod stress-5 to be Ready...
+[2026-04-15 13:50:36 UTC] Settling 90s for stress workload...
+[2026-04-15 13:50:36 UTC] Settling 90s for stress workload...
+[2026-04-15 13:52:10 UTC] EFS mount check on pod 5: OK
+[2026-04-15 13:52:10 UTC] EFS mount check on pod 5: OK
+[2026-04-15 13:52:16 UTC] Pod 5 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=5747m stress_mem=1798 efs=OK
+[2026-04-15 13:52:16 UTC] Pod 5 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=5747m stress_mem=1798 efs=OK
+[2026-04-15 13:52:16 UTC] Pod 5 stable. Continuing...
+[2026-04-15 13:52:16 UTC] Pod 5 stable. Continuing...
+[2026-04-15 13:52:16 UTC] --- Deploying pod 6 ---
+[2026-04-15 13:52:16 UTC] --- Deploying pod 6 ---
+namespace/maxpod-graviton-gvisor-efs-6 created
+namespace/maxpod-graviton-gvisor-efs-6 created
+persistentvolumeclaim/efs-data-6 created
+persistentvolumeclaim/efs-data-6 created
+pod/stress-6 created
+pod/stress-6 created
+[2026-04-15 13:52:17 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:52:17 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:52:18 UTC] EFS PVC bound.
+[2026-04-15 13:52:18 UTC] EFS PVC bound.
+[2026-04-15 13:52:18 UTC] Waiting for pod stress-6 to be Ready...
+[2026-04-15 13:52:18 UTC] Waiting for pod stress-6 to be Ready...
+[2026-04-15 13:52:43 UTC] Settling 90s for stress workload...
+[2026-04-15 13:52:43 UTC] Settling 90s for stress workload...
+[2026-04-15 13:54:19 UTC] EFS mount check on pod 6: OK
+[2026-04-15 13:54:19 UTC] EFS mount check on pod 6: OK
+[2026-04-15 13:54:25 UTC] Pod 6 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=5799m stress_mem=1798 efs=OK
+[2026-04-15 13:54:25 UTC] Pod 6 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=5799m stress_mem=1798 efs=OK
+[2026-04-15 13:54:25 UTC] Pod 6 stable. Continuing...
+[2026-04-15 13:54:25 UTC] Pod 6 stable. Continuing...
+[2026-04-15 13:54:25 UTC] --- Deploying pod 7 ---
+[2026-04-15 13:54:25 UTC] --- Deploying pod 7 ---
+namespace/maxpod-graviton-gvisor-efs-7 created
+namespace/maxpod-graviton-gvisor-efs-7 created
+persistentvolumeclaim/efs-data-7 created
+persistentvolumeclaim/efs-data-7 created
+pod/stress-7 created
+pod/stress-7 created
+[2026-04-15 13:54:26 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:54:26 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:54:26 UTC] EFS PVC bound.
+[2026-04-15 13:54:26 UTC] EFS PVC bound.
+[2026-04-15 13:54:26 UTC] Waiting for pod stress-7 to be Ready...
+[2026-04-15 13:54:26 UTC] Waiting for pod stress-7 to be Ready...
+[2026-04-15 13:55:03 UTC] Settling 90s for stress workload...
+[2026-04-15 13:55:03 UTC] Settling 90s for stress workload...
+[2026-04-15 13:56:39 UTC] EFS mount check on pod 7: OK
+[2026-04-15 13:56:39 UTC] EFS mount check on pod 7: OK
+[2026-04-15 13:56:45 UTC] Pod 7 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=5227m stress_mem=1798 efs=OK
+[2026-04-15 13:56:45 UTC] Pod 7 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=5227m stress_mem=1798 efs=OK
+[2026-04-15 13:56:45 UTC] Pod 7 stable. Continuing...
+[2026-04-15 13:56:45 UTC] Pod 7 stable. Continuing...
+[2026-04-15 13:56:45 UTC] --- Deploying pod 8 ---
+[2026-04-15 13:56:45 UTC] --- Deploying pod 8 ---
+namespace/maxpod-graviton-gvisor-efs-8 created
+namespace/maxpod-graviton-gvisor-efs-8 created
+persistentvolumeclaim/efs-data-8 created
+persistentvolumeclaim/efs-data-8 created
+pod/stress-8 created
+pod/stress-8 created
+[2026-04-15 13:56:46 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:56:46 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:56:46 UTC] EFS PVC bound.
+[2026-04-15 13:56:46 UTC] EFS PVC bound.
+[2026-04-15 13:56:46 UTC] Waiting for pod stress-8 to be Ready...
+[2026-04-15 13:56:46 UTC] Waiting for pod stress-8 to be Ready...
+[2026-04-15 13:57:23 UTC] Settling 90s for stress workload...
+[2026-04-15 13:57:23 UTC] Settling 90s for stress workload...
+[2026-04-15 13:59:00 UTC] EFS mount check on pod 8: OK
+[2026-04-15 13:59:00 UTC] EFS mount check on pod 8: OK
+[2026-04-15 13:59:06 UTC] Pod 8 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=4523m stress_mem=1798 efs=OK
+[2026-04-15 13:59:06 UTC] Pod 8 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=4523m stress_mem=1798 efs=OK
+[2026-04-15 13:59:06 UTC] Pod 8 stable. Continuing...
+[2026-04-15 13:59:06 UTC] Pod 8 stable. Continuing...
+[2026-04-15 13:59:06 UTC] --- Deploying pod 9 ---
+[2026-04-15 13:59:06 UTC] --- Deploying pod 9 ---
+namespace/maxpod-graviton-gvisor-efs-9 created
+namespace/maxpod-graviton-gvisor-efs-9 created
+persistentvolumeclaim/efs-data-9 created
+persistentvolumeclaim/efs-data-9 created
+pod/stress-9 created
+pod/stress-9 created
+[2026-04-15 13:59:07 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:59:07 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 13:59:08 UTC] EFS PVC bound.
+[2026-04-15 13:59:08 UTC] EFS PVC bound.
+[2026-04-15 13:59:08 UTC] Waiting for pod stress-9 to be Ready...
+[2026-04-15 13:59:08 UTC] Waiting for pod stress-9 to be Ready...
+[2026-04-15 13:59:30 UTC] Settling 90s for stress workload...
+[2026-04-15 13:59:30 UTC] Settling 90s for stress workload...
+[2026-04-15 14:01:08 UTC] EFS mount check on pod 9: OK
+[2026-04-15 14:01:08 UTC] EFS mount check on pod 9: OK
+[2026-04-15 14:01:14 UTC] Pod 9 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=4769m stress_mem=1823 efs=OK
+[2026-04-15 14:01:14 UTC] Pod 9 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=4769m stress_mem=1823 efs=OK
+[2026-04-15 14:01:14 UTC] Pod 9 stable. Continuing...
+[2026-04-15 14:01:14 UTC] Pod 9 stable. Continuing...
+[2026-04-15 14:01:14 UTC] --- Deploying pod 10 ---
+[2026-04-15 14:01:14 UTC] --- Deploying pod 10 ---
+namespace/maxpod-graviton-gvisor-efs-10 created
+namespace/maxpod-graviton-gvisor-efs-10 created
+persistentvolumeclaim/efs-data-10 created
+persistentvolumeclaim/efs-data-10 created
+pod/stress-10 created
+pod/stress-10 created
+[2026-04-15 14:01:15 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 14:01:15 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 14:01:15 UTC] EFS PVC bound.
+[2026-04-15 14:01:15 UTC] EFS PVC bound.
+[2026-04-15 14:01:15 UTC] Waiting for pod stress-10 to be Ready...
+[2026-04-15 14:01:15 UTC] Waiting for pod stress-10 to be Ready...
+[2026-04-15 14:01:43 UTC] Settling 90s for stress workload...
+[2026-04-15 14:01:43 UTC] Settling 90s for stress workload...
+[2026-04-15 14:03:22 UTC] EFS mount check on pod 10: OK
+[2026-04-15 14:03:22 UTC] EFS mount check on pod 10: OK
+[2026-04-15 14:03:28 UTC] Pod 10 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=3903m stress_mem=1798 efs=OK
+[2026-04-15 14:03:28 UTC] Pod 10 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=3903m stress_mem=1798 efs=OK
+[2026-04-15 14:03:28 UTC] Pod 10 stable. Continuing...
+[2026-04-15 14:03:28 UTC] Pod 10 stable. Continuing...
+[2026-04-15 14:03:28 UTC] --- Deploying pod 11 ---
+[2026-04-15 14:03:28 UTC] --- Deploying pod 11 ---
+namespace/maxpod-graviton-gvisor-efs-11 created
+namespace/maxpod-graviton-gvisor-efs-11 created
+persistentvolumeclaim/efs-data-11 created
+persistentvolumeclaim/efs-data-11 created
+pod/stress-11 created
+pod/stress-11 created
+[2026-04-15 14:03:30 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 14:03:30 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 14:03:30 UTC] EFS PVC bound.
+[2026-04-15 14:03:30 UTC] EFS PVC bound.
+[2026-04-15 14:03:30 UTC] Waiting for pod stress-11 to be Ready...
+[2026-04-15 14:03:30 UTC] Waiting for pod stress-11 to be Ready...
+[2026-04-15 14:03:54 UTC] Settling 90s for stress workload...
+[2026-04-15 14:03:54 UTC] Settling 90s for stress workload...
+[2026-04-15 14:05:34 UTC] EFS mount check on pod 11: OK
+[2026-04-15 14:05:34 UTC] EFS mount check on pod 11: OK
+[2026-04-15 14:05:40 UTC] Pod 11 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=5031m stress_mem=1823 efs=OK
+[2026-04-15 14:05:40 UTC] Pod 11 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=5031m stress_mem=1823 efs=OK
+[2026-04-15 14:05:40 UTC] Pod 11 stable. Continuing...
+[2026-04-15 14:05:40 UTC] Pod 11 stable. Continuing...
+[2026-04-15 14:05:40 UTC] --- Deploying pod 12 ---
+[2026-04-15 14:05:40 UTC] --- Deploying pod 12 ---
+namespace/maxpod-graviton-gvisor-efs-12 created
+namespace/maxpod-graviton-gvisor-efs-12 created
+persistentvolumeclaim/efs-data-12 created
+persistentvolumeclaim/efs-data-12 created
+pod/stress-12 created
+pod/stress-12 created
+[2026-04-15 14:05:41 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 14:05:41 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 14:05:41 UTC] EFS PVC bound.
+[2026-04-15 14:05:41 UTC] EFS PVC bound.
+[2026-04-15 14:05:41 UTC] Waiting for pod stress-12 to be Ready...
+[2026-04-15 14:05:41 UTC] Waiting for pod stress-12 to be Ready...
+[2026-04-15 14:06:07 UTC] Settling 90s for stress workload...
+[2026-04-15 14:06:07 UTC] Settling 90s for stress workload...
+[2026-04-15 14:07:48 UTC] EFS mount check on pod 12: OK
+[2026-04-15 14:07:48 UTC] EFS mount check on pod 12: OK
+[2026-04-15 14:07:54 UTC] Pod 12 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=3835m stress_mem=1848 efs=OK
+[2026-04-15 14:07:54 UTC] Pod 12 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=3835m stress_mem=1848 efs=OK
+[2026-04-15 14:07:54 UTC] Pod 12 stable. Continuing...
+[2026-04-15 14:07:54 UTC] Pod 12 stable. Continuing...
+[2026-04-15 14:07:54 UTC] --- Deploying pod 13 ---
+[2026-04-15 14:07:54 UTC] --- Deploying pod 13 ---
+namespace/maxpod-graviton-gvisor-efs-13 created
+namespace/maxpod-graviton-gvisor-efs-13 created
+persistentvolumeclaim/efs-data-13 created
+persistentvolumeclaim/efs-data-13 created
+pod/stress-13 created
+pod/stress-13 created
+[2026-04-15 14:07:55 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 14:07:55 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 14:07:55 UTC] EFS PVC bound.
+[2026-04-15 14:07:55 UTC] EFS PVC bound.
+[2026-04-15 14:07:55 UTC] Waiting for pod stress-13 to be Ready...
+[2026-04-15 14:07:55 UTC] Waiting for pod stress-13 to be Ready...
+[2026-04-15 14:08:21 UTC] Settling 90s for stress workload...
+[2026-04-15 14:08:21 UTC] Settling 90s for stress workload...
+[2026-04-15 14:10:02 UTC] EFS mount check on pod 13: OK
+[2026-04-15 14:10:02 UTC] EFS mount check on pod 13: OK
+[2026-04-15 14:10:08 UTC] Pod 13 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=4396m stress_mem=1798 efs=OK
+[2026-04-15 14:10:08 UTC] Pod 13 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=4396m stress_mem=1798 efs=OK
+[2026-04-15 14:10:08 UTC] Pod 13 stable. Continuing...
+[2026-04-15 14:10:08 UTC] Pod 13 stable. Continuing...
+[2026-04-15 14:10:08 UTC] --- Deploying pod 14 ---
+[2026-04-15 14:10:08 UTC] --- Deploying pod 14 ---
+namespace/maxpod-graviton-gvisor-efs-14 created
+namespace/maxpod-graviton-gvisor-efs-14 created
+persistentvolumeclaim/efs-data-14 created
+persistentvolumeclaim/efs-data-14 created
+pod/stress-14 created
+pod/stress-14 created
+[2026-04-15 14:10:09 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 14:10:09 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 14:10:10 UTC] EFS PVC bound.
+[2026-04-15 14:10:10 UTC] EFS PVC bound.
+[2026-04-15 14:10:10 UTC] Waiting for pod stress-14 to be Ready...
+[2026-04-15 14:10:10 UTC] Waiting for pod stress-14 to be Ready...
+[2026-04-15 14:10:34 UTC] Settling 90s for stress workload...
+[2026-04-15 14:10:34 UTC] Settling 90s for stress workload...
+[2026-04-15 14:12:16 UTC] EFS mount check on pod 14: OK
+[2026-04-15 14:12:16 UTC] EFS mount check on pod 14: OK
+[2026-04-15 14:12:22 UTC] Pod 14 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=3779m stress_mem=1823 efs=OK
+[2026-04-15 14:12:22 UTC] Pod 14 metrics: status=OK restarts=0 host_avail=0MiB stress_cpu=3779m stress_mem=1823 efs=OK
+[2026-04-15 14:12:22 UTC] Pod 14 stable. Continuing...
+[2026-04-15 14:12:22 UTC] Pod 14 stable. Continuing...
+[2026-04-15 14:12:22 UTC] --- Deploying pod 15 ---
+[2026-04-15 14:12:22 UTC] --- Deploying pod 15 ---
+namespace/maxpod-graviton-gvisor-efs-15 created
+namespace/maxpod-graviton-gvisor-efs-15 created
+persistentvolumeclaim/efs-data-15 created
+persistentvolumeclaim/efs-data-15 created
+pod/stress-15 created
+pod/stress-15 created
+[2026-04-15 14:12:23 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 14:12:23 UTC] Waiting for EFS PVC to bind...
+[2026-04-15 14:12:24 UTC] EFS PVC bound.
+[2026-04-15 14:12:24 UTC] EFS PVC bound.
+[2026-04-15 14:12:24 UTC] Waiting for pod stress-15 to be Ready...
+[2026-04-15 14:12:24 UTC] Waiting for pod stress-15 to be Ready...
+[2026-04-15 14:12:24 UTC] Pod 15 status: Failed — stopping.
+[2026-04-15 14:12:24 UTC] Pod 15 status: Failed — stopping.
+[2026-04-15 14:12:24 UTC] 
+[2026-04-15 14:12:24 UTC] 
+[2026-04-15 14:12:24 UTC] === TEST COMPLETE ===
+[2026-04-15 14:12:24 UTC] === TEST COMPLETE ===
+[2026-04-15 14:12:24 UTC] Stop reason: Pod 15 failed with status Failed
+[2026-04-15 14:12:24 UTC] Stop reason: Pod 15 failed with status Failed
+[2026-04-15 14:12:24 UTC] 
+[2026-04-15 14:12:24 UTC] 
+[2026-04-15 14:12:24 UTC] Results saved to results-graviton-gvisor-efs.csv
+[2026-04-15 14:12:24 UTC] Results saved to results-graviton-gvisor-efs.csv
+[2026-04-15 14:12:24 UTC] 
+[2026-04-15 14:12:24 UTC] 
+[2026-04-15 14:12:24 UTC] === SUMMARY TABLE ===
+[2026-04-15 14:12:24 UTC] === SUMMARY TABLE ===
+pod_num  deploy_time          ready_time           settle_time          pod_status  total_restarts  node_cpu_req  node_cpu_pct  node_mem_req  node_mem_pct  host_total_mb  host_used_mb  host_free_mb  host_available_mb  all_pods_ok  stress_cpu_actual  stress_mem_actual  efs_mount_ok
+1        2026-04-15 13:41:58  2026-04-15 13:42:23  2026-04-15 13:43:53  Running     0               7957m         100%          2826Mi        9%            0              0             0             0                  OK           7555m              1848               OK
+2        2026-04-15 13:44:01  2026-04-15 13:44:24  2026-04-15 13:45:54  Running     0               7998m         101%          4748Mi        15%           0              0             0             0                  OK           6890m              1848               OK
+3        2026-04-15 13:46:03  2026-04-15 13:46:27  2026-04-15 13:47:57  Running     0               7997m         101%          6827Mi        22%           0              0             0             0                  OK           6819m              1848               OK
+4        2026-04-15 13:48:06  2026-04-15 13:48:32  2026-04-15 13:50:02  Running     0               8000m         101%          8544Mi        28%           0              0             0             0                  OK           6325m              1823               OK
+5        2026-04-15 13:50:12  2026-04-15 13:50:36  2026-04-15 13:52:06  Running     0               8001m         101%          10690Mi       35%           0              0             0             0                  OK           5747m              1798               OK
+6        2026-04-15 13:52:16  2026-04-15 13:52:43  2026-04-15 13:54:13  Running     0               8000m         101%          12356Mi       40%           0              0             0             0                  OK           5799m              1798               OK
+7        2026-04-15 13:54:25  2026-04-15 13:55:03  2026-04-15 13:56:33  Running     0               7999m         101%          14466Mi       47%           0              0             0             0                  OK           5227m              1798               OK
+8        2026-04-15 13:56:45  2026-04-15 13:57:23  2026-04-15 13:58:53  Running     0               8002m         101%          16494Mi       54%           0              0             0             0                  OK           4523m              1798               OK
+9        2026-04-15 13:59:06  2026-04-15 13:59:30  2026-04-15 14:01:00  Running     0               7998m         101%          18459Mi       60%           0              0             0             0                  OK           4769m              1823               OK
+10       2026-04-15 14:01:14  2026-04-15 14:01:43  2026-04-15 14:03:13  Running     0               7998m         101%          20329Mi       66%           0              0             0             0                  OK           3903m              1798               OK
+11       2026-04-15 14:03:28  2026-04-15 14:03:54  2026-04-15 14:05:24  Running     0               7999m         101%          22286Mi       73%           0              0             0             0                  OK           5031m              1823               OK
+12       2026-04-15 14:05:40  2026-04-15 14:06:07  2026-04-15 14:07:37  Running     0               8000m         101%          24059Mi       78%           0              0             0             0                  OK           3835m              1848               OK
+13       2026-04-15 14:07:54  2026-04-15 14:08:21  2026-04-15 14:09:51  Running     0               7997m         101%          26026Mi       85%           0              0             0             0                  OK           4396m              1798               OK
+14       2026-04-15 14:10:08  2026-04-15 14:10:34  2026-04-15 14:12:04  Running     0               8000m         101%          28169Mi       92%           0              0             0             0                  OK           3779m              1823               OK
+pod_num  deploy_time          ready_time           settle_time          pod_status  total_restarts  node_cpu_req  node_cpu_pct  node_mem_req  node_mem_pct  host_total_mb  host_used_mb  host_free_mb  host_available_mb  all_pods_ok  stress_cpu_actual  stress_mem_actual  efs_mount_ok
+1        2026-04-15 13:41:58  2026-04-15 13:42:23  2026-04-15 13:43:53  Running     0               7957m         100%          2826Mi        9%            0              0             0             0                  OK           7555m              1848               OK
+2        2026-04-15 13:44:01  2026-04-15 13:44:24  2026-04-15 13:45:54  Running     0               7998m         101%          4748Mi        15%           0              0             0             0                  OK           6890m              1848               OK
+3        2026-04-15 13:46:03  2026-04-15 13:46:27  2026-04-15 13:47:57  Running     0               7997m         101%          6827Mi        22%           0              0             0             0                  OK           6819m              1848               OK
+4        2026-04-15 13:48:06  2026-04-15 13:48:32  2026-04-15 13:50:02  Running     0               8000m         101%          8544Mi        28%           0              0             0             0                  OK           6325m              1823               OK
+5        2026-04-15 13:50:12  2026-04-15 13:50:36  2026-04-15 13:52:06  Running     0               8001m         101%          10690Mi       35%           0              0             0             0                  OK           5747m              1798               OK
+6        2026-04-15 13:52:16  2026-04-15 13:52:43  2026-04-15 13:54:13  Running     0               8000m         101%          12356Mi       40%           0              0             0             0                  OK           5799m              1798               OK
+7        2026-04-15 13:54:25  2026-04-15 13:55:03  2026-04-15 13:56:33  Running     0               7999m         101%          14466Mi       47%           0              0             0             0                  OK           5227m              1798               OK
+8        2026-04-15 13:56:45  2026-04-15 13:57:23  2026-04-15 13:58:53  Running     0               8002m         101%          16494Mi       54%           0              0             0             0                  OK           4523m              1798               OK
+9        2026-04-15 13:59:06  2026-04-15 13:59:30  2026-04-15 14:01:00  Running     0               7998m         101%          18459Mi       60%           0              0             0             0                  OK           4769m              1823               OK
+10       2026-04-15 14:01:14  2026-04-15 14:01:43  2026-04-15 14:03:13  Running     0               7998m         101%          20329Mi       66%           0              0             0             0                  OK           3903m              1798               OK
+11       2026-04-15 14:03:28  2026-04-15 14:03:54  2026-04-15 14:05:24  Running     0               7999m         101%          22286Mi       73%           0              0             0             0                  OK           5031m              1823               OK
+12       2026-04-15 14:05:40  2026-04-15 14:06:07  2026-04-15 14:07:37  Running     0               8000m         101%          24059Mi       78%           0              0             0             0                  OK           3835m              1848               OK
+13       2026-04-15 14:07:54  2026-04-15 14:08:21  2026-04-15 14:09:51  Running     0               7997m         101%          26026Mi       85%           0              0             0             0                  OK           4396m              1798               OK
+14       2026-04-15 14:10:08  2026-04-15 14:10:34  2026-04-15 14:12:04  Running     0               8000m         101%          28169Mi       92%           0              0             0             0                  OK           3779m              1823               OK
+[2026-04-15 14:12:24 UTC] 
+[2026-04-15 14:12:24 UTC] 
+[2026-04-15 14:12:24 UTC] Cleaning up...
+[2026-04-15 14:12:24 UTC] Cleaning up...
+[2026-04-15 14:12:24 UTC] Cleaning up all maxpod-graviton-gvisor-efs-* namespaces...
+[2026-04-15 14:12:24 UTC] Cleaning up all maxpod-graviton-gvisor-efs-* namespaces...
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+namespace "maxpod-graviton-gvisor-efs-4" force deleted
+namespace "maxpod-graviton-gvisor-efs-5" force deleted
+namespace "maxpod-graviton-gvisor-efs-13" force deleted
+namespace "maxpod-graviton-gvisor-efs-11" force deleted
+namespace "maxpod-graviton-gvisor-efs-3" force deleted
+namespace "maxpod-graviton-gvisor-efs-12" force deleted
+namespace "maxpod-graviton-gvisor-efs-8" force deleted
+namespace "maxpod-graviton-gvisor-efs-7" force deleted
+namespace "maxpod-graviton-gvisor-efs-6" force deleted
+namespace "maxpod-graviton-gvisor-efs-9" force deleted
+namespace "maxpod-graviton-gvisor-efs-10" force deleted
+namespace "maxpod-graviton-gvisor-efs-14" force deleted
+namespace "maxpod-graviton-gvisor-efs-1" force deleted
+namespace "maxpod-graviton-gvisor-efs-2" force deleted
+namespace "maxpod-graviton-gvisor-efs-15" force deleted
+[2026-04-15 14:12:49 UTC] Cleanup done.
+[2026-04-15 14:12:49 UTC] Cleanup done.
+[2026-04-15 14:12:49 UTC] Done.
+[2026-04-15 14:12:49 UTC] Done.
