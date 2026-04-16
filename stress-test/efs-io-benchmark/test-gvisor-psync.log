@@ -1,0 +1,56 @@
+[2026-04-16 14:11:27 UTC] Waiting PVC...
+[2026-04-16 14:11:27 UTC] Waiting pod Ready...
+pod/fio condition met
+[2026-04-16 14:11:42 UTC] Waiting for fio install...
+[2026-04-16 14:12:04 UTC] fio ready.
+[2026-04-16 14:12:04 UTC] [gvisor-psync] seq-write: rw=write bs=1M ioengine=psync iodepth=1 numjobs=4 runtime=60s
+[2026-04-16 14:12:04 UTC] [gvisor-psync] seq-write FAILED, raw tail:
+        "500" : 0.000000,
+        "750" : 0.000000,
+        "1000" : 0.000000,
+        "2000" : 0.000000,
+        ">=2000" : 0.000000
+      }
+    }
+  ]
+}
+command terminated with exit code 4
+[2026-04-16 14:12:04 UTC] [gvisor-psync] seq-read: rw=read bs=1M ioengine=psync iodepth=1 numjobs=4 runtime=60s
+[2026-04-16 14:12:04 UTC] [gvisor-psync] Pre-creating test file...
+[2026-04-16 14:12:09 UTC] [gvisor-psync] seq-read FAILED, raw tail:
+        "500" : 0.000000,
+        "750" : 0.000000,
+        "1000" : 0.000000,
+        "2000" : 0.000000,
+        ">=2000" : 0.000000
+      }
+    }
+  ]
+}
+command terminated with exit code 4
+[2026-04-16 14:12:09 UTC] [gvisor-psync] rand-write: rw=randwrite bs=4k ioengine=psync iodepth=1 numjobs=4 runtime=60s
+[2026-04-16 14:12:10 UTC] [gvisor-psync] rand-write FAILED, raw tail:
+        "500" : 0.000000,
+        "750" : 0.000000,
+        "1000" : 0.000000,
+        "2000" : 0.000000,
+        ">=2000" : 0.000000
+      }
+    }
+  ]
+}
+command terminated with exit code 4
+[2026-04-16 14:12:10 UTC] [gvisor-psync] rand-read: rw=randread bs=4k ioengine=psync iodepth=1 numjobs=4 runtime=60s
+[2026-04-16 14:12:10 UTC] [gvisor-psync] Pre-creating test file...
+[2026-04-16 14:12:14 UTC] [gvisor-psync] rand-read FAILED, raw tail:
+        "500" : 0.000000,
+        "750" : 0.000000,
+        "1000" : 0.000000,
+        "2000" : 0.000000,
+        ">=2000" : 0.000000
+      }
+    }
+  ]
+}
+command terminated with exit code 4
+[2026-04-16 14:12:14 UTC] === gVisor psync tests done ===

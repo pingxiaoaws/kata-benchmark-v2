@@ -1,0 +1,123 @@
+[2026-04-16 14:03:57 UTC] === EFS fio Benchmark v2 ===
+[2026-04-16 14:03:57 UTC] === Phase 1: gVisor ===
+[2026-04-16 14:03:58 UTC] Waiting PVC bind...
+[2026-04-16 14:03:58 UTC] Waiting pod Ready (up to 300s)...
+pod/fio condition met
+[2026-04-16 14:04:16 UTC] Waiting for fio install...
+[2026-04-16 14:04:32 UTC] fio installed, ready to test.
+[2026-04-16 14:04:32 UTC] [gvisor] seq-write: rw=write bs=1M iodepth=32 numjobs=4 runtime=60s
+[2026-04-16 14:04:33 UTC] [gvisor] seq-write: fio output parse failed, raw output:
+        "1000" : 0.000000
+      },
+      "latency_ms" : {
+        "2" : 0.000000,
+        "4" : 0.000000,
+        "10" : 0.000000,
+        "20" : 0.000000,
+        "50" : 0.000000,
+        "100" : 0.000000,
+        "250" : 0.000000,
+        "500" : 0.000000,
+        "750" : 0.000000,
+        "1000" : 0.000000,
+        "2000" : 0.000000,
+        ">=2000" : 0.000000
+      }
+    }
+  ]
+}
+command terminated with exit code 4
+[2026-04-16 14:04:37 UTC] [gvisor] seq-read: rw=read bs=1M iodepth=32 numjobs=4 runtime=60s
+[2026-04-16 14:04:37 UTC] [gvisor] Pre-creating 1G test file...
+[2026-04-16 14:04:41 UTC] [gvisor] seq-read: fio output parse failed, raw output:
+        "1000" : 0.000000
+      },
+      "latency_ms" : {
+        "2" : 0.000000,
+        "4" : 0.000000,
+        "10" : 0.000000,
+        "20" : 0.000000,
+        "50" : 0.000000,
+        "100" : 0.000000,
+        "250" : 0.000000,
+        "500" : 0.000000,
+        "750" : 0.000000,
+        "1000" : 0.000000,
+        "2000" : 0.000000,
+        ">=2000" : 0.000000
+      }
+    }
+  ]
+}
+command terminated with exit code 4
+[2026-04-16 14:04:45 UTC] [gvisor] rand-write: rw=randwrite bs=4k iodepth=32 numjobs=4 runtime=60s
+[2026-04-16 14:04:46 UTC] [gvisor] rand-write: fio output parse failed, raw output:
+        "1000" : 0.000000
+      },
+      "latency_ms" : {
+        "2" : 0.000000,
+        "4" : 0.000000,
+        "10" : 0.000000,
+        "20" : 0.000000,
+        "50" : 0.000000,
+        "100" : 0.000000,
+        "250" : 0.000000,
+        "500" : 0.000000,
+        "750" : 0.000000,
+        "1000" : 0.000000,
+        "2000" : 0.000000,
+        ">=2000" : 0.000000
+      }
+    }
+  ]
+}
+command terminated with exit code 4
+[2026-04-16 14:04:49 UTC] [gvisor] rand-read: rw=randread bs=4k iodepth=32 numjobs=4 runtime=60s
+[2026-04-16 14:04:49 UTC] [gvisor] Pre-creating 1G test file...
+[2026-04-16 14:04:54 UTC] [gvisor] rand-read: fio output parse failed, raw output:
+        "1000" : 0.000000
+      },
+      "latency_ms" : {
+        "2" : 0.000000,
+        "4" : 0.000000,
+        "10" : 0.000000,
+        "20" : 0.000000,
+        "50" : 0.000000,
+        "100" : 0.000000,
+        "250" : 0.000000,
+        "500" : 0.000000,
+        "750" : 0.000000,
+        "1000" : 0.000000,
+        "2000" : 0.000000,
+        ">=2000" : 0.000000
+      }
+    }
+  ]
+}
+command terminated with exit code 4
+[2026-04-16 14:05:22 UTC] === Phase 2: runc ===
+[2026-04-16 14:05:24 UTC] Waiting PVC bind...
+[2026-04-16 14:05:24 UTC] Waiting pod Ready (up to 300s)...
+pod/fio condition met
+[2026-04-16 14:05:37 UTC] Waiting for fio install...
+[2026-04-16 14:05:54 UTC] fio installed, ready to test.
+[2026-04-16 14:05:54 UTC] [runc] seq-write: rw=write bs=1M iodepth=32 numjobs=4 runtime=60s
+[2026-04-16 14:06:55 UTC] [runc] seq-write: BW=1697.35 MiB/s  IOPS=1697  lat_avg=2340.9us  lat_p99=23724.0us
+[2026-04-16 14:06:59 UTC] [runc] seq-read: rw=read bs=1M iodepth=32 numjobs=4 runtime=60s
+[2026-04-16 14:06:59 UTC] [runc] Pre-creating 1G test file...
+[2026-04-16 14:08:05 UTC] [runc] seq-read: BW=3649.82 MiB/s  IOPS=3650  lat_avg=1074.9us  lat_p99=20840.4us
+[2026-04-16 14:08:09 UTC] [runc] rand-write: rw=randwrite bs=4k iodepth=32 numjobs=4 runtime=60s
+[2026-04-16 14:09:23 UTC] [runc] rand-write: BW=249.61 MiB/s  IOPS=63902  lat_avg=49.9us  lat_p99=10.5us
+[2026-04-16 14:09:27 UTC] [runc] rand-read: rw=randread bs=4k iodepth=32 numjobs=4 runtime=60s
+[2026-04-16 14:09:27 UTC] [runc] Pre-creating 1G test file...
+[2026-04-16 14:10:32 UTC] [runc] rand-read: BW=10.81 MiB/s  IOPS=2768  lat_avg=1444.1us  lat_p99=4489.2us
+[2026-04-16 14:10:36 UTC] === All done ===
+runtime,test,rw,bs,bw_kib,bw_mib,iops,lat_avg_us,lat_p99_us
+gvisor,seq-write,write,1M,0,0,0,0,0
+gvisor,seq-read,read,1M,0,0,0,0,0
+gvisor,rand-write,randwrite,4k,0,0,0,0,0
+gvisor,rand-read,randread,4k,0,0,0,0,0
+runc,seq-write,write,1M,1738095,1697.35,1697,2340.9,23724.0
+runc,seq-read,read,1M,3737424,3649.82,3650,1074.9,20840.4
+runc,rand-write,randwrite,4k,255609,249.61,63902,49.9,10.5
+runc,rand-read,randread,4k,11070,10.81,2768,1444.1,4489.2
