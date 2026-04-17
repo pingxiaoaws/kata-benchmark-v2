@@ -1,0 +1,17 @@
+[2026-04-17 01:20:54 UTC] === gVisor + EFS fio (uid=1000) ===
+[2026-04-17 01:20:54 UTC] [gvisor-uid1000] efs-seq-write: rw=write bs=1M ioengine=psync iodepth=1 numjobs=4 runtime=60s
+[2026-04-17 01:21:57 UTC] [gvisor-uid1000] efs-seq-write: BW=12733.14 MiB/s  IOPS=12733  lat_avg=307.3us  lat_p99=407.5us
+[2026-04-17 01:22:00 UTC] [gvisor-uid1000] efs-seq-read: rw=read bs=1M ioengine=psync iodepth=1 numjobs=4 runtime=60s
+[2026-04-17 01:22:00 UTC] [gvisor-uid1000] Pre-creating test file...
+[2026-04-17 01:23:07 UTC] [gvisor-uid1000] efs-seq-read: BW=46236.41 MiB/s  IOPS=46236  lat_avg=86.1us  lat_p99=577.5us
+[2026-04-17 01:23:10 UTC] [gvisor-uid1000] efs-rand-write: rw=randwrite bs=4k ioengine=psync iodepth=1 numjobs=4 runtime=60s
+[2026-04-17 01:24:28 UTC] [gvisor-uid1000] efs-rand-write: BW=762.16 MiB/s  IOPS=195113  lat_avg=15.7us  lat_p99=76.2us
+[2026-04-17 01:24:32 UTC] [gvisor-uid1000] efs-rand-read: rw=randread bs=4k ioengine=psync iodepth=1 numjobs=4 runtime=60s
+[2026-04-17 01:24:32 UTC] [gvisor-uid1000] Pre-creating test file...
+[2026-04-17 01:25:38 UTC] [gvisor-uid1000] efs-rand-read: BW=151.19 MiB/s  IOPS=38707  lat_avg=103.0us  lat_p99=2703.3us
+[2026-04-17 01:25:42 UTC] === Done ===
+runtime,test,rw,bs,bw_kib,bw_mib,iops,lat_avg_us,lat_p99_us
+gvisor-uid1000,efs-seq-write,write,1M,13038737,12733.14,12733,307.3,407.5
+gvisor-uid1000,efs-seq-read,read,1M,47346086,46236.41,46236,86.1,577.5
+gvisor-uid1000,efs-rand-write,randwrite,4k,780452,762.16,195113,15.7,76.2
+gvisor-uid1000,efs-rand-read,randread,4k,154826,151.19,38707,103.0,2703.3

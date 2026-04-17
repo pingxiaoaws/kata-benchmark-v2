@@ -1,0 +1,33 @@
+[2026-04-17 00:38:06 UTC] === EBS fio Benchmark: gVisor vs runc ===
+[2026-04-17 00:38:06 UTC] --- gVisor + EBS ---
+[2026-04-17 00:38:06 UTC] [gvisor] ebs-seq-write on /ebs: rw=write bs=1M iodepth=32 numjobs=4 runtime=60s
+[2026-04-17 00:39:14 UTC] [gvisor] ebs-seq-write: BW=6079.84 MiB/s  IOPS=6080  lat_avg=586.5us  lat_p99=675.8us
+[2026-04-17 00:39:18 UTC] [gvisor] ebs-seq-read on /ebs: rw=read bs=1M iodepth=32 numjobs=4 runtime=60s
+[2026-04-17 00:39:18 UTC] [gvisor] Pre-creating test file...
+[2026-04-17 00:40:30 UTC] [gvisor] ebs-seq-read: BW=34969.09 MiB/s  IOPS=34969  lat_avg=113.9us  lat_p99=618.4us
+[2026-04-17 00:40:34 UTC] [gvisor] ebs-rand-write on /ebs: rw=randwrite bs=4k iodepth=32 numjobs=4 runtime=60s
+[2026-04-17 00:41:42 UTC] [gvisor] ebs-rand-write: BW=784.33 MiB/s  IOPS=200790  lat_avg=17.5us  lat_p99=89.6us
+[2026-04-17 00:41:46 UTC] [gvisor] ebs-rand-read on /ebs: rw=randread bs=4k iodepth=32 numjobs=4 runtime=60s
+[2026-04-17 00:41:46 UTC] [gvisor] Pre-creating test file...
+[2026-04-17 00:42:58 UTC] [gvisor] ebs-rand-read: BW=1141.21 MiB/s  IOPS=292152  lat_avg=13.4us  lat_p99=27.2us
+[2026-04-17 00:43:02 UTC] --- runc + EBS ---
+[2026-04-17 00:43:02 UTC] [runc] ebs-seq-write on /ebs: rw=write bs=1M iodepth=32 numjobs=4 runtime=60s
+[2026-04-17 00:44:03 UTC] [runc] ebs-seq-write: BW=127.14 MiB/s  IOPS=127  lat_avg=31451.8us  lat_p99=42205.1us
+[2026-04-17 00:44:06 UTC] [runc] ebs-seq-read on /ebs: rw=read bs=1M iodepth=32 numjobs=4 runtime=60s
+[2026-04-17 00:44:06 UTC] [runc] Pre-creating test file...
+[2026-04-17 00:45:18 UTC] [runc] ebs-seq-read: BW=126.01 MiB/s  IOPS=126  lat_avg=31674.0us  lat_p99=70778.8us
+[2026-04-17 00:45:22 UTC] [runc] ebs-rand-write on /ebs: rw=randwrite bs=4k iodepth=32 numjobs=4 runtime=60s
+[2026-04-17 00:46:23 UTC] [runc] ebs-rand-write: BW=11.89 MiB/s  IOPS=3045  lat_avg=1312.6us  lat_p99=1810.4us
+[2026-04-17 00:46:26 UTC] [runc] ebs-rand-read on /ebs: rw=randread bs=4k iodepth=32 numjobs=4 runtime=60s
+[2026-04-17 00:46:26 UTC] [runc] Pre-creating test file...
+[2026-04-17 00:47:38 UTC] [runc] ebs-rand-read: BW=11.89 MiB/s  IOPS=3044  lat_avg=1310.6us  lat_p99=1662.9us
+[2026-04-17 00:47:42 UTC] === All EBS tests done ===
+runtime,test,rw,bs,bw_kib,bw_mib,iops,lat_avg_us,lat_p99_us
+gvisor,ebs-seq-write,write,1M,6225766,6079.84,6080,586.5,675.8
+gvisor,ebs-seq-read,read,1M,35808358,34969.09,34969,113.9,618.4
+gvisor,ebs-rand-write,randwrite,4k,803161,784.33,200790,17.5,89.6
+gvisor,ebs-rand-read,randread,4k,1168609,1141.21,292152,13.4,27.2
+runc,ebs-seq-write,write,1M,130194,127.14,127,31451.8,42205.1
+runc,ebs-seq-read,read,1M,129040,126.01,126,31674.0,70778.8
+runc,ebs-rand-write,randwrite,4k,12179,11.89,3045,1312.6,1810.4
+runc,ebs-rand-read,randread,4k,12176,11.89,3044,1310.6,1662.9
