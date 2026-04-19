@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: s3files-sc
+provisioner: efs.csi.aws.com
+parameters:
+  # S3 Files 使用 EFS CSI driver，但 volumeHandle 格式不同
+  # Static provisioning 不需要额外 parameters
+reclaimPolicy: Retain
+volumeBindingMode: Immediate

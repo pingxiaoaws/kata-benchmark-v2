@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: s3files-pv
+spec:
+  capacity:
+    storage: 100Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  storageClassName: s3files-sc
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: efs.csi.aws.com
+    # 格式: s3files:[FileSystemId]
+    # 运行 setup-s3files.sh 后替换为实际的 FileSystem ID
+    volumeHandle: "s3files:fs-REPLACE_ME"
+    # 可选: 指定 mount target IP（跳过 DNS 解析）
+    # volumeAttributes:
+    #   mounttargetip: "10.0.1.100"

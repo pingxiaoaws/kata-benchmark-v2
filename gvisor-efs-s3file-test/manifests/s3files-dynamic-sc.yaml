@@ -1,0 +1,22 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: s3files-dynamic-sc
+provisioner: efs.csi.aws.com
+parameters:
+  # Dynamic provisioning 通过 S3 Files Access Points
+  provisioningMode: s3files-ap
+  # 替换为实际的 S3 Files FileSystem ID
+  fileSystemId: "fs-REPLACE_ME"
+  directoryPerms: "700"
+  # Access Point UID/GID
+  uid: "1000"
+  gid: "1000"
+  # 可选参数
+  basePath: "/dynamic"
+  # gidRangeStart: "50000"
+  # gidRangeEnd: "7000000"
+  # subPathPattern: "${.PVC.namespace}/${.PVC.name}"
+  # ensureUniqueDirectory: "true"
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
