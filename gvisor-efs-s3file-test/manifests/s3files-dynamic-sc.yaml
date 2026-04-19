@@ -7,7 +7,7 @@ parameters:
   # Dynamic provisioning 通过 S3 Files Access Points
   provisioningMode: s3files-ap
   # 替换为实际的 S3 Files FileSystem ID
-  fileSystemId: "fs-REPLACE_ME"
+  fileSystemId: "fs-0987d9f1d827a8767"
   directoryPerms: "700"
   # Access Point UID/GID
   uid: "1000"

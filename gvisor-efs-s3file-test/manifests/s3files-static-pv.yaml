@@ -14,7 +14,7 @@ spec:
     driver: efs.csi.aws.com
     # 格式: s3files:[FileSystemId]
     # 运行 setup-s3files.sh 后替换为实际的 FileSystem ID
-    volumeHandle: "s3files:fs-REPLACE_ME"
+    volumeHandle: "s3files:fs-0987d9f1d827a8767"
     # 可选: 指定 mount target IP（跳过 DNS 解析）
     # volumeAttributes:
     #   mounttargetip: "10.0.1.100"
