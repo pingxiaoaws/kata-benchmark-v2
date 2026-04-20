@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: efs-gvisor-karpenter
+  namespace: gvisor-test
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: efs-sc
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: s3files-gvisor
+  namespace: gvisor-test
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: s3files-dynamic-sc
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gvisor-efs-test
+  namespace: gvisor-test
+spec:
+  runtimeClassName: gvisor
+  tolerations:
+  - key: gvisor
+    operator: Equal
+    value: "true"
+    effect: NoSchedule
+  nodeSelector:
+    runtime: gvisor
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+  containers:
+  - name: test
+    image: public.ecr.aws/amazonlinux/amazonlinux:2023
+    command: ["sleep", "infinity"]
+    volumeMounts:
+    - name: efs
+      mountPath: /mnt/efs
+    - name: s3files
+      mountPath: /mnt/s3files
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "512Mi"
+      limits:
+        cpu: "2"
+        memory: "2Gi"
+  volumes:
+  - name: efs
+    persistentVolumeClaim:
+      claimName: efs-gvisor-karpenter
+  - name: s3files
+    persistentVolumeClaim:
+      claimName: s3files-gvisor
