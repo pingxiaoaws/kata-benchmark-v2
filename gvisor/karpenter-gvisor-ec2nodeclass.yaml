@@ -17,9 +17,10 @@ spec:
     intent: gvisor
   userData: |
     #!/bin/bash
-    # Install gVisor (runsc) for Karpenter-provisioned nodes
-    # This script runs BEFORE nodeadm init on AL2023
-    set -euxo pipefail
+    # Install gVisor (runsc) for Karpenter-provisioned Graviton nodes
+    # On AL2023 + Karpenter, this script is embedded in MIME userData by Karpenter.
+    # It executes via cloud-init AFTER nodeadm has finished.
+    set -eux
 
     ARCH=$(uname -m)
     GVISOR_URL="https://storage.googleapis.com/gvisor/releases/release/latest/${ARCH}"
@@ -30,12 +31,16 @@ spec:
     mv runsc /usr/local/bin/
     mv containerd-shim-runsc-v1 /usr/local/bin/
 
-    # Create a drop-in that patches containerd config after nodeadm sets it up
-    # nodeadm creates containerd.service, so we hook into it with a drop-in
-    mkdir -p /etc/systemd/system/containerd.service.d
-    cat > /etc/systemd/system/containerd.service.d/gvisor.conf << 'EOF'
-    [Service]
-    ExecStartPost=/bin/bash -c 'grep -q runsc /etc/containerd/config.toml || (printf "\n[plugins.\"io.containerd.cri.v1.runtime\".containerd.runtimes.runsc]\nruntime_type = \"io.containerd.runsc.v1\"\n" >> /etc/containerd/config.toml && systemctl restart containerd)'
-    EOF
+    # Wait for containerd to be running (nodeadm starts it)
+    for i in $(seq 1 30); do
+      systemctl is-active containerd && break
+      sleep 1
+    done
 
-    systemctl daemon-reload
+    # Patch containerd config to add runsc runtime
+    if ! grep -q runsc /etc/containerd/config.toml; then
+      printf '\n[plugins."io.containerd.cri.v1.runtime".containerd.runtimes.runsc]\nruntime_type = "io.containerd.runsc.v1"\n' >> /etc/containerd/config.toml
+      systemctl restart containerd
+      sleep 3
+      systemctl restart kubelet
+    fi
