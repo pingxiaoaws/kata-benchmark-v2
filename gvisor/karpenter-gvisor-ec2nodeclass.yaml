@@ -1,0 +1,41 @@
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: gvisor
+spec:
+  amiFamily: AL2023
+  amiSelectorTerms:
+  - alias: al2023@latest
+  role: KarpenterNodeRole-test-s4
+  securityGroupSelectorTerms:
+  - tags:
+      karpenter.sh/discovery: test-s4
+  subnetSelectorTerms:
+  - tags:
+      karpenter.sh/discovery: test-s4
+  tags:
+    intent: gvisor
+  userData: |
+    #!/bin/bash
+    # Install gVisor (runsc) for Karpenter-provisioned nodes
+    # This script runs BEFORE nodeadm init on AL2023
+    set -euxo pipefail
+
+    ARCH=$(uname -m)
+    GVISOR_URL="https://storage.googleapis.com/gvisor/releases/release/latest/${ARCH}"
+    cd /tmp
+    curl -fsSL "${GVISOR_URL}/runsc" -o runsc
+    curl -fsSL "${GVISOR_URL}/containerd-shim-runsc-v1" -o containerd-shim-runsc-v1
+    chmod +x runsc containerd-shim-runsc-v1
+    mv runsc /usr/local/bin/
+    mv containerd-shim-runsc-v1 /usr/local/bin/
+
+    # Create a drop-in that patches containerd config after nodeadm sets it up
+    # nodeadm creates containerd.service, so we hook into it with a drop-in
+    mkdir -p /etc/systemd/system/containerd.service.d
+    cat > /etc/systemd/system/containerd.service.d/gvisor.conf << 'EOF'
+    [Service]
+    ExecStartPost=/bin/bash -c 'grep -q runsc /etc/containerd/config.toml || (printf "\n[plugins.\"io.containerd.cri.v1.runtime\".containerd.runtimes.runsc]\nruntime_type = \"io.containerd.runsc.v1\"\n" >> /etc/containerd/config.toml && systemctl restart containerd)'
+    EOF
+
+    systemctl daemon-reload
