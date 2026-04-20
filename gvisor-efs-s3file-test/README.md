@@ -66,20 +66,60 @@ gVisor 的 9p VFS 缓存完全吸收了 I/O 请求（忽略 O_DIRECT、fsync）�
 6. **创建 Node SA Pod Identity**（efs-csi-node-sa → AmazonEKS_EFS_CSI_NodeRole）
 7. **附加 AmazonS3FilesCSIDriverPolicy** 到 controller role
 
-### Phase 1: 可用性验证
+### Phase 1: Static Provisioning 可用性验证
 
-1. 部署 Static PV/PVC 和 Dynamic StorageClass
-2. 分别用 runc (root)、gVisor (root)、gVisor (uid=1000) 验证读写
-3. 结论：见上方测试结论表格
+```bash
+# 1. 部署 Static PV/PVC
+kubectl apply -f manifests/s3files-storageclass.yaml
+kubectl apply -f manifests/s3files-static-pv.yaml
+kubectl apply -f manifests/s3files-pvc.yaml
 
-### Phase 2: fio 性能基准
+# 2. 部署测试 Pod
+kubectl apply -f manifests/pod-runc.yaml          # runc (root)
+kubectl apply -f manifests/pod-gvisor.yaml         # gVisor (root)
+
+# 3. 验证读写
+kubectl exec s3files-fio-runc -- bash -c "echo test > /data/test.txt && cat /data/test.txt"
+kubectl exec s3files-fio-gvisor -- bash -c "echo test > /data/test.txt && cat /data/test.txt"
+```
+
+### Phase 2: Dynamic Provisioning 可用性验证
+
+Dynamic Provisioning 通过 S3 Files Access Point 强制 uid/gid 映射。
+
+```bash
+# 1. 部署 Dynamic StorageClass + PVC
+kubectl apply -f manifests/s3files-dynamic-sc.yaml
+kubectl apply -f manifests/s3files-dynamic-pvc.yaml
+
+# 2. 部署三种配置的测试 Pod
+kubectl apply -f manifests/pod-dyn-runc.yaml              # runc (root) + Dynamic AP
+kubectl apply -f manifests/pod-dyn-gvisor.yaml             # gVisor (root) + Dynamic AP
+kubectl apply -f manifests/pod-dyn-gvisor-uid1000.yaml     # gVisor (uid=1000) + Dynamic AP
+
+# 3. 验证读写
+kubectl exec s3files-dyn-runc -- bash -c "echo test > /data/test.txt"          # ✅ OK
+kubectl exec s3files-dyn-gvisor -- bash -c "echo test > /data/test.txt"        # ❌ Operation not permitted
+kubectl exec s3files-dyn-gvisor-uid1000 -c fio -- bash -c "echo test > /data/test.txt"  # ✅ OK
+```
+
+或使用自动化脚本：
+```bash
+bash s3files-dynamic-test.sh
+```
+
+### Phase 3: fio 性能基准
 
 测试矩阵：
 - **运行时**：runc, gVisor (root, static PV), gVisor (uid=1000, dynamic PV with AP)
 - **读写模式**：read, write, randread, randwrite
 - **Block Size**：4k, 128k, 1M (顺序) / 4k, 128k (随机)
 
-### Phase 3: 分析
+```bash
+bash s3files-fio-benchmark.sh
+```
+
+### Phase 4: 分析
 
 详见 `results/ANALYSIS.md`
 
@@ -94,11 +134,16 @@ gvisor-efs-s3file-test/
 │   ├── s3files-storageclass.yaml  # Static StorageClass
 │   ├── s3files-static-pv.yaml    # Static PV (volumeHandle: s3files:fs-xxx)
 │   ├── s3files-pvc.yaml          # Static PVC
-│   ├── s3files-dynamic-sc.yaml   # Dynamic Provisioning StorageClass (s3files-ap)
-│   ├── pod-runc.yaml             # runc 测试 Pod
-│   ├── pod-gvisor.yaml           # gVisor 测试 Pod
-│   └── pod-gvisor-uid1000.yaml   # gVisor uid=1000 测试 Pod
+│   ├── s3files-dynamic-sc.yaml   # Dynamic StorageClass (s3files-ap, uid=1000)
+│   ├── s3files-dynamic-pvc.yaml  # Dynamic PVC
+│   ├── pod-runc.yaml             # Static PV: runc 测试 Pod
+│   ├── pod-gvisor.yaml           # Static PV: gVisor (root) 测试 Pod
+│   ├── pod-gvisor-uid1000.yaml   # Static PV: gVisor (uid=1000) 测试 Pod
+│   ├── pod-dyn-runc.yaml         # Dynamic PV: runc 测试 Pod
+│   ├── pod-dyn-gvisor.yaml       # Dynamic PV: gVisor (root) 测试 Pod
+│   └── pod-dyn-gvisor-uid1000.yaml # Dynamic PV: gVisor (uid=1000) 测试 Pod
 ├── s3files-fio-benchmark.sh       # fio 性能测试脚本
+├── s3files-dynamic-test.sh        # Dynamic Provisioning 可用性测试脚本
 └── results/
     ├── fio-results.csv            # 原始 fio 数据
     └── ANALYSIS.md                # 详细分析报告

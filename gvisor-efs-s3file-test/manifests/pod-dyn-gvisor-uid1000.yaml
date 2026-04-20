@@ -1,0 +1,64 @@
+# Dynamic Provisioning 测试 Pod: gVisor (uid=1000)
+# 生产推荐配置：securityContext uid=1000 + Dynamic PV Access Point uid=1000
+apiVersion: v1
+kind: Pod
+metadata:
+  name: s3files-dyn-gvisor-uid1000
+  namespace: default
+spec:
+  runtimeClassName: gvisor
+  nodeSelector:
+    runtime: gvisor
+  tolerations:
+  - key: "gvisor"
+    value: "true"
+    effect: NoSchedule
+  # 使用 initContainer 安装 fio（因为 uid=1000 无法 apt-get）
+  initContainers:
+  - name: install-fio
+    image: ubuntu:22.04
+    command:
+    - /bin/bash
+    - -c
+    - |
+      apt-get update -qq && apt-get install -y -qq fio > /dev/null 2>&1
+      # 复制 fio 和依赖库到共享目录
+      cp /usr/bin/fio /shared/
+      # 复制动态链接库
+      ldd /usr/bin/fio | grep "=>" | awk '{print $3}' | xargs -I{} cp {} /shared/ 2>/dev/null
+      chmod +x /shared/fio
+    volumeMounts:
+    - name: shared
+      mountPath: /shared
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "512Mi"
+  containers:
+  - name: fio
+    image: ubuntu:22.04
+    command:
+    - /bin/bash
+    - -c
+    - |
+      # 将依赖库加入搜索路径
+      cp /opt/fio/lib*.so* /usr/lib/ 2>/dev/null
+      echo READY && sleep infinity
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+    volumeMounts:
+    - name: data
+      mountPath: /data
+    - name: shared
+      mountPath: /opt/fio
+    resources:
+      requests:
+        cpu: "1"
+        memory: "1Gi"
+  volumes:
+  - name: data
+    persistentVolumeClaim:
+      claimName: s3files-dynamic-pvc
+  - name: shared
+    emptyDir: {}

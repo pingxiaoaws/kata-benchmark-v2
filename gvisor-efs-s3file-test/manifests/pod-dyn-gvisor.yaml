@@ -1,0 +1,30 @@
+# Dynamic Provisioning 测试 Pod: gVisor (root)
+# 验证 gVisor root + Access Point 是否出现 "Operation not permitted"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: s3files-dyn-gvisor
+  namespace: default
+spec:
+  runtimeClassName: gvisor
+  nodeSelector:
+    runtime: gvisor
+  tolerations:
+  - key: "gvisor"
+    value: "true"
+    effect: NoSchedule
+  containers:
+  - name: fio
+    image: ubuntu:22.04
+    command: ["/bin/bash", "-c", "apt-get update -qq && apt-get install -y -qq fio > /dev/null 2>&1 && echo READY && sleep infinity"]
+    volumeMounts:
+    - name: data
+      mountPath: /data
+    resources:
+      requests:
+        cpu: "1"
+        memory: "1Gi"
+  volumes:
+  - name: data
+    persistentVolumeClaim:
+      claimName: s3files-dynamic-pvc
