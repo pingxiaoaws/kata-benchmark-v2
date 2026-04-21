@@ -205,6 +205,277 @@ S3 Files 通过 NFS4 协议访问 S3 数据，性能预期：
 
 ---
 
+## EFS 文件系统基础
+
+### Q14: EFS 的"文件系统"(File System) 到底是什么？
+
+EFS FileSystem (`fs-xxx`) 是一个**网络共享文件系统**，可以类比为：
+
+| 概念 | Windows 类比 | Linux 类比 |
+|------|-------------|-----------|
+| EFS FileSystem | 网络共享 `\\server\share` | NFS export |
+| Mount Target | 网络路径/IP | NFS server IP |
+| 挂载到本地 | 映射为 `Z:` 盘 | `mount -t nfs4 ... /mnt/data` |
+
+挂载后就像本地目录一样使用：
+```bash
+# Linux EC2
+sudo mount -t nfs4 fs-xxx.efs.us-west-2.amazonaws.com:/ /mnt/efs
+ls /mnt/efs
+echo "hello" > /mnt/efs/test.txt
+```
+
+与本地盘 (EBS) 的区别：
+- **EBS**：单机独占，低延迟 (<1ms)
+- **EFS**：多机共享 (ReadWriteMany)，延迟较高 (~3-5ms)，自动扩缩容，数据持久化
+
+### Q15: Mount Target 是什么？跨子网/跨 AZ 能用吗？
+
+Mount Target 是一个**网络端点 (ENI)**，部署在 VPC 的某个子网中，提供 NFS 服务 IP 地址。
+
+**网络可达性**：
+- **同 VPC 内所有子网都能路由到**（VPC 内部 local route），不限于同一子网
+- **同 AZ 访问**：延迟 <1ms，**免费**
+- **跨 AZ 访问**：延迟 +0.5-1ms，**收跨 AZ 流量费**（$0.01/GB 双向）
+
+**最佳实践**：每个 AZ 各放一个 Mount Target，EFS CSI driver 通过 DNS 自动解析到当前 AZ 的 Mount Target。
+
+**子网与 AZ 的关系**：一个子网只属于一个 AZ，但一个 AZ 可以有多个子网。每个 AZ 只需要一个 Mount Target，放在该 AZ 的任意子网即可。
+
+### Q16: 使用 EFS/S3Files 必须提前创建文件系统吗？CSI 的"动态 provisioning"动态的是什么？
+
+**文件系统必须提前创建**，CSI driver 不会帮你创建。动态 provisioning 的"动态"指的是 **Access Point**：
+
+```
+你手动创建（一次性）             CSI driver 动态创建（每个 PVC）
+─────────────────             ──────────────────────────
+FileSystem (fs-xxx)        →  Access Point (fsap-aaa) → PVC-1
+  + Mount Target(s)        →  Access Point (fsap-bbb) → PVC-2
+  + StorageClass           →  Access Point (fsap-ccc) → PVC-3
+```
+
+| 资源 | 谁创建 | 频率 |
+|------|--------|------|
+| FileSystem | 运维手动 / IaC | 一次 |
+| Mount Target | 运维手动 / IaC | 每个 AZ 一次 |
+| StorageClass | 运维手动 `kubectl apply` | 一次 |
+| Access Point | **CSI driver 自动** | 每个 PVC 自动创建 |
+| PV | **CSI driver 自动** | 每个 PVC 自动创建 |
+
+### Q17: Access Point 的本质是什么？
+
+Access Point = **文件系统里的子目录入口** + **强制权限绑定**：
+
+```
+EFS FileSystem (fs-xxx) 根目录 /
+├── /dynamic/                          ← basePath (StorageClass 配置)
+│   ├── /dynamic/pvc-aaa/              ← Access Point 1 → PVC-1 看到的根
+│   ├── /dynamic/pvc-bbb/              ← Access Point 2 → PVC-2 看到的根
+│   └── /dynamic/pvc-ccc/              ← Access Point 3 → PVC-3 看到的根
+```
+
+Access Point 的三个核心属性：
+| 属性 | 作用 |
+|------|------|
+| **Root Directory** | chroot 到指定路径（如 `/dynamic/pvc-xxx`） |
+| **POSIX User** | 强制所有访问以 uid/gid 身份执行 |
+| **目录自动创建** | 路径不存在时自动创建并设好 owner/permissions |
+
+简单理解：**Access Point = chroot 到子目录 + 强制 uid**。每个 PVC 得到隔离的子目录，互相看不到。
+
+---
+
+## EFS/S3Files 安全性
+
+### Q18: 在 runc 下 root Pod 能访问 Access Point 设了 uid=1000 的 EFS 目录吗？gVisor 呢？
+
+| 运行时 | Pod UID | Access Point uid=1000 | 结果 | 原因 |
+|--------|---------|----------------------|------|------|
+| runc | root (0) | ✅ 读写正常 | NFS 服务端 Access Point 强制映射为 uid=1000 |
+| gVisor | root (0) | ❌ Operation not permitted | gVisor 9p VFS 在用户态做 DAC 检查，不像真实内核对 root 跳过 |
+| gVisor | 1000 | ✅ 读写正常 | uid 匹配 |
+
+**生产建议**：gVisor 必须 `securityContext.runAsUser: 1000` 匹配 Access Point 的 uid。
+
+### Q19: 随便一个 Pod 都能挂载 EFS 吗？默认安全性如何？
+
+**默认配置下安全性确实不强**。不加任何控制的 EFS ≈ VPC 内的公共网盘。
+
+安全控制分四层：
+
+| 层 | 控制方式 | 作用 |
+|----|---------|------|
+| **K8s RBAC** | Namespace + RBAC | 控制谁能创建 PVC 引用特定 StorageClass |
+| **网络层** | Security Group | Mount Target SG 只放行特定来源的 2049 端口 |
+| **EFS 资源策略** | FileSystem Policy | 限制只允许特定 IAM Role mount，强制加密传输，强制使用 Access Point |
+| **IAM** | CSI driver 的 Role | 节点的 IAM role 不对或 Access Point 不在允许列表里，mount 被服务端拒绝 |
+
+**FileSystem Policy 示例**（生产必配）：
+```json
+{
+  "Effect": "Allow",
+  "Principal": {"AWS": "arn:aws:iam::xxx:role/EFSCSIRole"},
+  "Action": ["elasticfilesystem:ClientMount", "elasticfilesystem:ClientWrite"],
+  "Condition": {
+    "StringEquals": {
+      "elasticfilesystem:AccessPointArn": "arn:aws:elasticfilesystem:...:access-point/fsap-xxx"
+    },
+    "Bool": {
+      "aws:SecureTransport": "true"
+    }
+  }
+}
+```
+
+**生产最佳实践**：
+1. FileSystem Policy — 限 IAM role + 强制 Access Point + 强制 TLS
+2. Security Group — 限来源 CIDR/SG
+3. K8s RBAC + namespace 隔离
+4. Access Point — 每个 PVC 隔离子目录
+
+---
+
+## 验证 gVisor 运行时
+
+### Q20: 如何验证 Pod 确实在 gVisor 运行时下运行？
+
+**从 Pod 内部验证（最简单）：**
+```bash
+# gVisor 报告固定内核版本 4.4.0，runc 会显示宿主机内核 (如 6.12.x)
+kubectl exec -n gvisor-test gvisor-efs-test -- uname -r
+# → 4.4.0   ← gVisor
+
+# /proc/version 包含 gVisor 固定时间戳
+kubectl exec -n gvisor-test gvisor-efs-test -- cat /proc/version
+# → Linux version 4.4.0 #1 SMP Sun Jan 10 15:06:54 PST 2016
+
+# K8s Pod spec 确认 runtimeClassName
+kubectl get pod -n gvisor-test gvisor-efs-test -o jsonpath='{.spec.runtimeClassName}'
+# → gvisor
+```
+
+**从 EC2 宿主机验证（需要 sudo）：**
+```bash
+# 列出运行中的 gVisor sandbox
+sudo runsc --root /run/containerd/runsc/k8s.io list
+
+# 查看 gVisor 进程树
+ps aux | grep runsc
+# containerd-shim-runsc-v1  ← shim
+# runsc-gofer               ← 文件系统代理 (lisafs)
+# runsc-sandbox             ← Sentry (用户态内核)
+# runsc wait                ← 等待退出
+
+# 确认 containerd 配置了 runsc handler
+grep -A2 runsc /etc/containerd/config.toml
+
+# 查看 runsc 版本
+/usr/local/bin/runsc --version
+```
+
+**注意**：宿主机上用 `runsc list` 必须 **sudo**，非 root 用户看不到 sandbox 信息。
+
+---
+
+## S3 Files 文件系统管理
+
+### Q21: S3 Files 文件系统在哪里找？为什么 EFS 控制台看不到？
+
+S3 Files FileSystem (`fs-xxx`) **不是 EFS**，是独立的 **Amazon S3 Files** 服务资源。在 EFS 控制台找不到是正常的。
+
+**CLI 查看：**
+```bash
+# 列出所有 S3 Files 文件系统
+aws s3files list-file-systems --region us-west-2
+
+# 查看详情
+aws s3files list-mount-targets --file-system-id fs-xxx --region us-west-2
+```
+
+**控制台查看：**
+- S3 控制台 → 左侧导航栏 → "S3 Files" 或 "File access points"
+- 直接访问：`https://us-west-2.console.aws.amazon.com/s3files/home?region=us-west-2`
+
+**VolumeHandle 格式解读：**
+```
+s3files:fs-0987d9f1d827a8767::fsap-0a5c000670a36f58f
+│       │                      │
+│       │                      └─ S3 Files Access Point ID
+│       └─ S3 Files FileSystem ID (不是 EFS!)
+└─ 前缀标识：这是 S3 Files 类型
+```
+
+虽然 CSI driver 是 `efs.csi.aws.com`，但 `s3files:` 前缀告诉 driver 使用 S3 Files 模式，底层对接的是 S3 Files 服务。
+
+### Q22: 如何创建 S3 Files FileSystem 和 Mount Target？
+
+**前置条件：**
+1. AWS CLI v2.34+（`aws s3files` 命令支持）
+2. EFS CSI Driver v3.0.0+
+3. S3 bucket 开启 Versioning
+4. IAM Role（trust: `s3.amazonaws.com` + `elasticfilesystem.amazonaws.com`）
+
+**创建步骤：**
+```bash
+# 1. 创建 S3 Files FileSystem
+aws s3files create-file-system \
+  --bucket "arn:aws:s3:::BUCKET_NAME" \
+  --role-arn "arn:aws:iam::ACCOUNT:role/S3FilesAccessRole" \
+  --region us-west-2
+
+# 2. 为每个 AZ 创建 Mount Target
+aws s3files create-mount-target \
+  --file-system-id fs-xxx \
+  --subnet-id subnet-xxx \
+  --security-groups sg-xxx \
+  --region us-west-2
+
+# 3. 创建 StorageClass (Dynamic Provisioning)
+cat <<EOF | kubectl apply -f -
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: s3files-dynamic-sc
+provisioner: efs.csi.aws.com
+parameters:
+  provisioningMode: s3files-ap
+  fileSystemId: fs-xxx
+  directoryPerms: "700"
+  basePath: /dynamic
+  uid: "1000"
+  gid: "1000"
+EOF
+
+# 4. 附加 IAM Policy 到 CSI driver roles
+aws iam attach-role-policy --role-name EFS_CSI_CONTROLLER_ROLE \
+  --policy-arn arn:aws:iam::aws:policy/service-role/AmazonS3FilesCSIDriverPolicy
+
+# 5. 创建 Node SA Pod Identity (v3.0 新增要求)
+aws eks create-pod-identity-association --cluster-name CLUSTER \
+  --role-arn arn:aws:iam::ACCOUNT:role/EFS_CSI_NODE_ROLE \
+  --namespace kube-system --service-account efs-csi-node-sa
+```
+
+完整自动化脚本见 `setup-s3files.sh`。
+
+### Q23: Karpenter 动态节点如何自动挂载 EFS/S3Files？
+
+**不需要特殊处理**。流程是 Pod 先调度到节点，kubelet 再触发 CSI mount：
+
+```
+1. Pod 创建 → Karpenter 拉起新节点
+2. 节点 Ready → kubelet 处理 Pod
+3. kubelet 调用 EFS CSI driver (NodePublishVolume)
+4. CSI driver 执行 NFS mount → 连接 Mount Target
+5. Mount 成功 → 容器启动
+```
+
+Mount Target 是网络端点 (ENI)，不是绑在某个节点上的。VPC 内任何 EC2 都能通过网络访问同 AZ（或跨 AZ）的 Mount Target。
+
+**唯一前提**：Karpenter 新节点所在的 AZ 有 Mount Target（否则会跨 AZ 访问，增加延迟和流量费用）。`setup-s3files.sh` 脚本已为 VPC 内所有子网创建了 Mount Target。
+
+---
+
 ## 环境信息
 
 | 项目 | 值 |
