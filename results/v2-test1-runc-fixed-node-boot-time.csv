@@ -1,0 +1,6 @@
+runtime,iteration,boot_time_sec,node,kernel,arch,instance_type,timestamp
+runc,1,24.38,ip-172-31-30-148.us-west-2.compute.internal,6.12.68-92.122.amzn2023.x86_64,amd64,m8i.2xlarge,2026-04-22T01:35:32Z
+runc,2,23.92,ip-172-31-30-148.us-west-2.compute.internal,6.12.68-92.122.amzn2023.x86_64,amd64,m8i.2xlarge,2026-04-22T01:36:23Z
+runc,3,23.05,ip-172-31-30-148.us-west-2.compute.internal,6.12.68-92.122.amzn2023.x86_64,amd64,m8i.2xlarge,2026-04-22T01:37:14Z
+runc,4,25.27,ip-172-31-30-148.us-west-2.compute.internal,6.12.68-92.122.amzn2023.x86_64,amd64,m8i.2xlarge,2026-04-22T01:38:04Z
+runc,5,24.08,ip-172-31-30-148.us-west-2.compute.internal,6.12.68-92.122.amzn2023.x86_64,amd64,m8i.2xlarge,2026-04-22T01:38:57Z

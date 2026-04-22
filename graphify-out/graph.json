@@ -1,0 +1,316 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "generate_ppt.py",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L1",
+      "id": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "community": 0,
+      "norm_label": "generate_ppt.py"
+    },
+    {
+      "label": "set_slide_bg()",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L58",
+      "id": "generate_ppt_set_slide_bg",
+      "community": 0,
+      "norm_label": "set_slide_bg()"
+    },
+    {
+      "label": "add_textbox()",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L65",
+      "id": "generate_ppt_add_textbox",
+      "community": 1,
+      "norm_label": "add_textbox()"
+    },
+    {
+      "label": "add_paragraph()",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L80",
+      "id": "generate_ppt_add_paragraph",
+      "community": 0,
+      "norm_label": "add_paragraph()"
+    },
+    {
+      "label": "add_shape_rect()",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L91",
+      "id": "generate_ppt_add_shape_rect",
+      "community": 1,
+      "norm_label": "add_shape_rect()"
+    },
+    {
+      "label": "add_orange_bar()",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L99",
+      "id": "generate_ppt_add_orange_bar",
+      "community": 1,
+      "norm_label": "add_orange_bar()"
+    },
+    {
+      "label": "add_slide_title()",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L103",
+      "id": "generate_ppt_add_slide_title",
+      "community": 1,
+      "norm_label": "add_slide_title()"
+    },
+    {
+      "label": "save_chart()",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L112",
+      "id": "generate_ppt_save_chart",
+      "community": 0,
+      "norm_label": "save_chart()"
+    },
+    {
+      "label": "style_chart()",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L120",
+      "id": "generate_ppt_style_chart",
+      "community": 0,
+      "norm_label": "style_chart()"
+    },
+    {
+      "label": "read_csv()",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L132",
+      "id": "generate_ppt_read_csv",
+      "community": 0,
+      "norm_label": "read_csv()"
+    },
+    {
+      "label": "draw_box()",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L222",
+      "id": "generate_ppt_draw_box",
+      "community": 0,
+      "norm_label": "draw_box()"
+    },
+    {
+      "label": "parse_cpu()",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L463",
+      "id": "generate_ppt_parse_cpu",
+      "community": 0,
+      "norm_label": "parse_cpu()"
+    },
+    {
+      "label": "parse_mem()",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L466",
+      "id": "generate_ppt_parse_mem",
+      "community": 0,
+      "norm_label": "parse_mem()"
+    },
+    {
+      "label": "md2pdf.py",
+      "file_type": "code",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/scripts/md2pdf.py",
+      "source_location": "L1",
+      "id": "home_ec2_user_kata_benchmark_v2_scripts_md2pdf_py",
+      "community": 2,
+      "norm_label": "md2pdf.py"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L58",
+      "weight": 1.0,
+      "_src": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "_tgt": "generate_ppt_set_slide_bg",
+      "source": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "target": "generate_ppt_set_slide_bg",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L65",
+      "weight": 1.0,
+      "_src": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "_tgt": "generate_ppt_add_textbox",
+      "source": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "target": "generate_ppt_add_textbox",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L80",
+      "weight": 1.0,
+      "_src": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "_tgt": "generate_ppt_add_paragraph",
+      "source": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "target": "generate_ppt_add_paragraph",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L91",
+      "weight": 1.0,
+      "_src": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "_tgt": "generate_ppt_add_shape_rect",
+      "source": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "target": "generate_ppt_add_shape_rect",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L99",
+      "weight": 1.0,
+      "_src": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "_tgt": "generate_ppt_add_orange_bar",
+      "source": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "target": "generate_ppt_add_orange_bar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L103",
+      "weight": 1.0,
+      "_src": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "_tgt": "generate_ppt_add_slide_title",
+      "source": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "target": "generate_ppt_add_slide_title",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L112",
+      "weight": 1.0,
+      "_src": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "_tgt": "generate_ppt_save_chart",
+      "source": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "target": "generate_ppt_save_chart",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L120",
+      "weight": 1.0,
+      "_src": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "_tgt": "generate_ppt_style_chart",
+      "source": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "target": "generate_ppt_style_chart",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L132",
+      "weight": 1.0,
+      "_src": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "_tgt": "generate_ppt_read_csv",
+      "source": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "target": "generate_ppt_read_csv",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L222",
+      "weight": 1.0,
+      "_src": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "_tgt": "generate_ppt_draw_box",
+      "source": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "target": "generate_ppt_draw_box",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L463",
+      "weight": 1.0,
+      "_src": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "_tgt": "generate_ppt_parse_cpu",
+      "source": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "target": "generate_ppt_parse_cpu",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L466",
+      "weight": 1.0,
+      "_src": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "_tgt": "generate_ppt_parse_mem",
+      "source": "home_ec2_user_kata_benchmark_v2_generate_ppt_py",
+      "target": "generate_ppt_parse_mem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L104",
+      "weight": 1.0,
+      "_src": "generate_ppt_add_slide_title",
+      "_tgt": "generate_ppt_add_textbox",
+      "source": "generate_ppt_add_textbox",
+      "target": "generate_ppt_add_slide_title",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L100",
+      "weight": 1.0,
+      "_src": "generate_ppt_add_orange_bar",
+      "_tgt": "generate_ppt_add_shape_rect",
+      "source": "generate_ppt_add_shape_rect",
+      "target": "generate_ppt_add_orange_bar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "/home/ec2-user/kata-benchmark-v2/generate_ppt.py",
+      "source_location": "L106",
+      "weight": 1.0,
+      "_src": "generate_ppt_add_slide_title",
+      "_tgt": "generate_ppt_add_orange_bar",
+      "source": "generate_ppt_add_orange_bar",
+      "target": "generate_ppt_add_slide_title",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": []
+}
