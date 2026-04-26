@@ -1,0 +1,175 @@
+[2026-04-26T00:37:56Z] ==========================================
+[2026-04-26T00:37:56Z] kata-fc Max Pod Density Test
+[2026-04-26T00:37:56Z] m7g.metal: 64 vCPU, 256 GiB, aarch64
+[2026-04-26T00:37:56Z] FC overhead: cpu=250m mem=130Mi
+[2026-04-26T00:37:56Z] Pod request: mem=64Mi cpu=10m
+[2026-04-26T00:37:56Z] Effective/pod: mem=194Mi cpu=260m
+[2026-04-26T00:37:56Z] Theoretical max: CPU=63770/260=~245, EKS=250
+[2026-04-26T00:37:56Z] ==========================================
+[2026-04-26T00:37:59Z] [baseline] running=0 pending=0 failed=0
+[2026-04-26T00:37:59Z] --- Deploy 1..10 ---
+[2026-04-26T00:38:06Z]   wait 1: running=9 pending=0
+[2026-04-26T00:38:13Z]   wait 2: running=9 pending=0
+[2026-04-26T00:38:22Z] [10] running=10 pending=0 failed=0
+[2026-04-26T00:38:22Z]   10 pods running
+[2026-04-26T00:38:22Z] --- Deploy 11..20 ---
+[2026-04-26T00:38:29Z]   wait 1: running=16 pending=0
+[2026-04-26T00:38:35Z]   wait 2: running=16 pending=0
+[2026-04-26T00:38:41Z]   wait 3: running=19 pending=0
+[2026-04-26T00:38:50Z] [20] running=20 pending=0 failed=0
+[2026-04-26T00:38:50Z]   20 pods running
+[2026-04-26T00:38:50Z] --- Deploy 21..30 ---
+[2026-04-26T00:38:57Z]   wait 1: running=27 pending=0
+[2026-04-26T00:39:04Z]   wait 2: running=27 pending=0
+[2026-04-26T00:39:10Z]   wait 3: running=29 pending=0
+[2026-04-26T00:39:19Z] [30] running=30 pending=0 failed=0
+[2026-04-26T00:39:19Z]   30 pods running
+[2026-04-26T00:39:19Z] --- Deploy 31..40 ---
+[2026-04-26T00:39:29Z] [40] running=40 pending=0 failed=0
+[2026-04-26T00:39:29Z]   40 pods running
+[2026-04-26T00:39:29Z] --- Deploy 41..50 ---
+[2026-04-26T00:39:36Z]   wait 1: running=45 pending=0
+[2026-04-26T00:39:43Z]   wait 2: running=45 pending=0
+[2026-04-26T00:39:52Z] [50] running=50 pending=0 failed=0
+[2026-04-26T00:39:52Z]   50 pods running
+[2026-04-26T00:39:52Z] --- Deploy 51..60 ---
+[2026-04-26T00:39:59Z]   wait 1: running=56 pending=0
+[2026-04-26T00:40:05Z]   wait 2: running=56 pending=0
+[2026-04-26T00:40:12Z]   wait 3: running=59 pending=0
+[2026-04-26T00:40:18Z]   wait 4: running=59 pending=0
+[2026-04-26T00:40:27Z] [60] running=60 pending=0 failed=0
+[2026-04-26T00:40:27Z]   60 pods running
+[2026-04-26T00:40:27Z] --- Deploy 61..70 ---
+[2026-04-26T00:40:34Z]   wait 1: running=65 pending=0
+[2026-04-26T00:40:40Z]   wait 2: running=65 pending=0
+[2026-04-26T00:40:47Z]   wait 3: running=69 pending=0
+[2026-04-26T00:40:56Z] [70] running=70 pending=0 failed=0
+[2026-04-26T00:40:56Z]   70 pods running
+[2026-04-26T00:40:56Z] --- Deploy 71..80 ---
+[2026-04-26T00:41:03Z]   wait 1: running=75 pending=0
+[2026-04-26T00:41:09Z]   wait 2: running=75 pending=0
+[2026-04-26T00:41:15Z]   wait 3: running=79 pending=0
+[2026-04-26T00:41:22Z]   wait 4: running=79 pending=0
+[2026-04-26T00:41:31Z] [80] running=80 pending=0 failed=0
+[2026-04-26T00:41:31Z]   80 pods running
+[2026-04-26T00:41:31Z] --- Deploy 81..90 ---
+[2026-04-26T00:41:38Z]   wait 1: running=87 pending=0
+[2026-04-26T00:41:44Z]   wait 2: running=87 pending=0
+[2026-04-26T00:41:53Z] [90] running=90 pending=0 failed=0
+[2026-04-26T00:41:53Z]   90 pods running
+[2026-04-26T00:41:53Z] --- Deploy 91..100 ---
+[2026-04-26T00:42:01Z]   wait 1: running=94 pending=0
+[2026-04-26T00:42:07Z]   wait 2: running=94 pending=0
+[2026-04-26T00:42:13Z]   wait 3: running=99 pending=0
+[2026-04-26T00:42:20Z]   wait 4: running=99 pending=0
+[2026-04-26T00:42:29Z] [100] running=100 pending=0 failed=0
+[2026-04-26T00:42:29Z]   100 pods running
+[2026-04-26T00:42:29Z] --- Deploy 101..110 ---
+[2026-04-26T00:42:36Z]   wait 1: running=105 pending=0
+[2026-04-26T00:42:43Z]   wait 2: running=105 pending=0
+[2026-04-26T00:42:52Z] [110] running=110 pending=0 failed=0
+[2026-04-26T00:42:52Z]   110 pods running
+[2026-04-26T00:42:52Z] --- Deploy 111..120 ---
+[2026-04-26T00:42:59Z]   wait 1: running=117 pending=0
+[2026-04-26T00:43:06Z]   wait 2: running=117 pending=0
+[2026-04-26T00:43:15Z] [120] running=120 pending=0 failed=0
+[2026-04-26T00:43:15Z]   120 pods running
+[2026-04-26T00:43:15Z] --- Deploy 121..130 ---
+[2026-04-26T00:43:22Z]   wait 1: running=125 pending=0
+[2026-04-26T00:43:28Z]   wait 2: running=125 pending=0
+[2026-04-26T00:43:35Z]   wait 3: running=129 pending=0
+[2026-04-26T00:43:41Z]   wait 4: running=129 pending=0
+[2026-04-26T00:43:47Z]   wait 5: running=129 pending=0
+[2026-04-26T00:43:56Z] [130] running=130 pending=0 failed=0
+[2026-04-26T00:43:56Z]   130 pods running
+[2026-04-26T00:43:56Z] --- Deploy 131..140 ---
+[2026-04-26T00:44:04Z]   wait 1: running=136 pending=0
+[2026-04-26T00:44:10Z]   wait 2: running=136 pending=0
+[2026-04-26T00:44:17Z]   wait 3: running=139 pending=0
+[2026-04-26T00:44:26Z] [140] running=140 pending=0 failed=0
+[2026-04-26T00:44:26Z]   140 pods running
+[2026-04-26T00:44:26Z] --- Deploy 141..150 ---
+[2026-04-26T00:44:33Z]   wait 1: running=146 pending=0
+[2026-04-26T00:44:39Z]   wait 2: running=146 pending=0
+[2026-04-26T00:44:46Z]   wait 3: running=148 pending=0
+[2026-04-26T00:44:55Z] [150] running=150 pending=0 failed=0
+[2026-04-26T00:44:55Z]   150 pods running
+[2026-04-26T00:44:55Z] --- Deploy 151..160 ---
+[2026-04-26T00:45:02Z]   wait 1: running=158 pending=0
+[2026-04-26T00:45:09Z]   wait 2: running=158 pending=0
+[2026-04-26T00:45:15Z]   wait 3: running=159 pending=0
+[2026-04-26T00:45:24Z] [160] running=160 pending=0 failed=0
+[2026-04-26T00:45:24Z]   160 pods running
+[2026-04-26T00:45:24Z] --- Deploy 161..170 ---
+[2026-04-26T00:45:32Z]   wait 1: running=168 pending=0
+[2026-04-26T00:45:38Z]   wait 2: running=168 pending=0
+[2026-04-26T00:45:47Z] [170] running=170 pending=0 failed=0
+[2026-04-26T00:45:47Z]   170 pods running
+[2026-04-26T00:45:47Z] --- Deploy 171..180 ---
+[2026-04-26T00:45:54Z]   wait 1: running=177 pending=0
+[2026-04-26T00:46:04Z] [180] running=180 pending=0 failed=0
+[2026-04-26T00:46:04Z]   180 pods running
+[2026-04-26T00:46:04Z] --- Deploy 181..190 ---
+[2026-04-26T00:46:11Z]   wait 1: running=185 pending=0
+[2026-04-26T00:46:17Z]   wait 2: running=185 pending=0
+[2026-04-26T00:46:26Z] [190] running=190 pending=0 failed=0
+[2026-04-26T00:46:26Z]   190 pods running
+[2026-04-26T00:46:26Z] --- Deploy 191..200 ---
+[2026-04-26T00:46:34Z]   wait 1: running=195 pending=0
+[2026-04-26T00:46:40Z]   wait 2: running=195 pending=0
+[2026-04-26T00:46:46Z]   wait 3: running=199 pending=0
+[2026-04-26T00:46:56Z] [200] running=200 pending=0 failed=0
+[2026-04-26T00:46:56Z]   200 pods running
+[2026-04-26T00:46:56Z] --- Deploy 201..210 ---
+[2026-04-26T00:47:03Z]   wait 1: running=206 pending=0
+[2026-04-26T00:47:09Z]   wait 2: running=206 pending=0
+[2026-04-26T00:47:16Z]   wait 3: running=209 pending=0
+[2026-04-26T00:47:25Z] [210] running=210 pending=0 failed=0
+[2026-04-26T00:47:25Z]   210 pods running
+[2026-04-26T00:47:25Z] --- Deploy 211..220 ---
+[2026-04-26T00:47:32Z]   wait 1: running=216 pending=0
+[2026-04-26T00:47:39Z]   wait 2: running=216 pending=0
+[2026-04-26T00:47:48Z] [220] running=220 pending=0 failed=0
+[2026-04-26T00:47:48Z]   220 pods running
+[2026-04-26T00:47:48Z] --- Deploy 221..230 ---
+[2026-04-26T00:47:55Z]   wait 1: running=224 pending=0
+[2026-04-26T00:48:01Z]   wait 2: running=224 pending=0
+[2026-04-26T00:48:10Z] [230] running=230 pending=0 failed=0
+[2026-04-26T00:48:10Z]   230 pods running
+[2026-04-26T00:48:10Z] --- Deploy 231..240 ---
+[2026-04-26T00:48:18Z]   wait 1: running=237 pending=0
+[2026-04-26T00:48:24Z]   wait 2: running=237 pending=0
+[2026-04-26T00:48:33Z] [240] running=240 pending=0 failed=0
+[2026-04-26T00:48:33Z]   240 pods running
+[2026-04-26T00:48:33Z] --- Deploy 241..250 ---
+[2026-04-26T00:48:42Z] UNSCHEDULABLE: 0/3 nodes are available: 1 Insufficient cpu, 1 node(s) didn't match Pod's node affinity/selector, 1 node(s) had untolerated taint(s). no new claims to deallocate, preemption: 0/3 nodes are available: 1 No preemption victims found for incoming pod, 2 Preemption is not helpful for scheduling.
+[2026-04-26T00:48:42Z] 
+[2026-04-26T00:48:42Z] ========== FINAL ==========
+[2026-04-26T00:48:44Z] [final] running=240 pending=10 failed=0
+[2026-04-26T00:48:45Z]   240 Running
+[2026-04-26T00:48:45Z]   10 Pending
+[2026-04-26T00:48:45Z] Limit reason: scheduling
+[2026-04-26T00:48:46Z] === Pending Reasons ===
+[2026-04-26T00:48:47Z]   fc-maxpods-0241: 0/3 nodes are available: 1 Insufficient cpu, 1 node(s) didn't match Pod's node affinity/selector, 1 node(s) had untolerated taint(s). no new claims to deallocate, preemption: 0/3 nodes are available: 1 No preemption victims found for incoming pod, 2 Preemption is not helpful for scheduling.
+[2026-04-26T00:48:48Z]   fc-maxpods-0242: 0/3 nodes are available: 1 Insufficient cpu, 1 node(s) didn't match Pod's node affinity/selector, 1 node(s) had untolerated taint(s). no new claims to deallocate, preemption: 0/3 nodes are available: 1 No preemption victims found for incoming pod, 2 Preemption is not helpful for scheduling.
+[2026-04-26T00:48:49Z]   fc-maxpods-0243: 0/3 nodes are available: 1 Insufficient cpu, 1 node(s) didn't match Pod's node affinity/selector, 1 node(s) had untolerated taint(s). no new claims to deallocate, preemption: 0/3 nodes are available: 1 No preemption victims found for incoming pod, 2 Preemption is not helpful for scheduling.
+[2026-04-26T00:48:49Z] 
+[2026-04-26T00:48:49Z] === Node Allocated ===
+[2026-04-26T00:48:50Z]   Allocated resources:
+[2026-04-26T00:48:50Z]   (Total limits may be over 100 percent, i.e., overcommitted.)
+[2026-04-26T00:48:50Z]   Resource           Requests       Limits
+[2026-04-26T00:48:50Z]   --------           --------       ------
+[2026-04-26T00:48:50Z]   cpu                63590m (99%)   63650m (99%)
+[2026-04-26T00:48:50Z]   memory             47734Mi (19%)  48452Mi (19%)
+[2026-04-26T00:48:50Z]   ephemeral-storage  0 (0%)         0 (0%)
+[2026-04-26T00:48:50Z]   hugepages-1Gi      0 (0%)         0 (0%)
+[2026-04-26T00:48:50Z]   hugepages-2Mi      0 (0%)         0 (0%)
+[2026-04-26T00:48:50Z]   hugepages-32Mi     0 (0%)         0 (0%)
+[2026-04-26T00:48:50Z]   hugepages-64Ki     0 (0%)         0 (0%)
+[2026-04-26T00:48:50Z]   Events:              <none>
+[2026-04-26T00:48:50Z] 
+[2026-04-26T00:48:50Z] ============================================
+[2026-04-26T00:48:50Z] MAX KATA-FC PODS ON m7g.metal: 240
+[2026-04-26T00:48:50Z] ============================================
+[2026-04-26T00:48:50Z] CSV: /home/ec2-user/kata-benchmark-v2/results/v2-test-fc-maxpods.csv  Log: /home/ec2-user/kata-benchmark-v2/results/v2-test-fc-maxpods-stdout.log
+[2026-04-26T00:48:50Z] Cleanup: kubectl delete ns bench-fc-maxpods
