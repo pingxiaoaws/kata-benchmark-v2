@@ -1,0 +1,482 @@
+[2026-04-26 08:58:52 UTC] === Max Pod Full-Load Test: kata-fc on c7g.metal ===
+[2026-04-26 08:58:52 UTC] 64 vCPU, 128 GiB, Graviton3 bare metal, aarch64
+[2026-04-26 08:58:52 UTC] Runtime: kata-fc, Overhead: cpu=250m mem=130Mi
+[2026-04-26 08:58:52 UTC] Pod: 4 containers (busybox), 450m/2048Mi + overhead = 700m/2178Mi
+[2026-04-26 08:58:52 UTC] Theoretical max: CPU=63770/700=~91, MEM=248847/2178=~114
+[2026-04-26 08:58:52 UTC] Image: busybox:1.36 (kata-fc devmapper only supports single-layer)
+[2026-04-26 08:58:52 UTC] Checking node...
+ip-172-31-16-251.us-west-2.compute.internal cpu=63770m mem=122947596Ki
+[2026-04-26 08:58:54 UTC] Allocatable: 63770m CPU, 120066 MiB memory
+[2026-04-26 08:58:55 UTC] Baseline top node: ip-172-31-16-251.us-west-2.compute.internal   28m   0%    954Mi   0%    
+[2026-04-26 08:58:55 UTC] Starting incremental pod deployment...
+[2026-04-26 08:58:55 UTC] --- Deploying pod 1 ---
+namespace/maxpod-fc-1 created
+pod/stress-1 created
+[2026-04-26 08:58:56 UTC] Waiting for pod stress-1 to be Ready (max 300s)...
+[2026-04-26 08:59:00 UTC] Settling 60s...
+[2026-04-26 09:00:03 UTC] Pod 1: ok=OK restarts=0 cpu=481m(0%) mem=2119Mi(1%) pod_cpu=451m pod_mem=1000Mi
+[2026-04-26 09:00:03 UTC] Pod 1 stable.
+[2026-04-26 09:00:03 UTC] --- Deploying pod 2 ---
+namespace/maxpod-fc-2 created
+pod/stress-2 created
+[2026-04-26 09:00:04 UTC] Waiting for pod stress-2 to be Ready (max 300s)...
+[2026-04-26 09:00:08 UTC] Settling 60s...
+[2026-04-26 09:01:12 UTC] Pod 2: ok=OK restarts=0 cpu=946m(1%) mem=3296Mi(2%) pod_cpu=451m pod_mem=999Mi
+[2026-04-26 09:01:12 UTC] Pod 2 stable.
+[2026-04-26 09:01:12 UTC] --- Deploying pod 3 ---
+namespace/maxpod-fc-3 created
+pod/stress-3 created
+[2026-04-26 09:01:14 UTC] Waiting for pod stress-3 to be Ready (max 300s)...
+[2026-04-26 09:01:17 UTC] Settling 60s...
+[2026-04-26 09:02:23 UTC] Pod 3: ok=OK restarts=0 cpu=1399m(2%) mem=4476Mi(3%) pod_cpu=452m pod_mem=1000Mi
+[2026-04-26 09:02:23 UTC] Pod 3 stable.
+[2026-04-26 09:02:23 UTC] --- Deploying pod 4 ---
+namespace/maxpod-fc-4 created
+pod/stress-4 created
+[2026-04-26 09:02:24 UTC] Waiting for pod stress-4 to be Ready (max 300s)...
+[2026-04-26 09:02:28 UTC] Settling 60s...
+[2026-04-26 09:03:35 UTC] Pod 4: ok=OK restarts=0 cpu=1840m(2%) mem=5669Mi(4%) pod_cpu=452m pod_mem=999Mi
+[2026-04-26 09:03:35 UTC] Pod 4 stable.
+[2026-04-26 09:03:35 UTC] --- Deploying pod 5 ---
+namespace/maxpod-fc-5 created
+pod/stress-5 created
+[2026-04-26 09:03:36 UTC] Waiting for pod stress-5 to be Ready (max 300s)...
+[2026-04-26 09:03:39 UTC] Settling 60s...
+[2026-04-26 09:04:48 UTC] Pod 5: ok=OK restarts=0 cpu=2312m(3%) mem=6844Mi(5%) pod_cpu=453m pod_mem=999Mi
+[2026-04-26 09:04:48 UTC] Pod 5 stable.
+[2026-04-26 09:04:48 UTC] --- Deploying pod 6 ---
+namespace/maxpod-fc-6 created
+pod/stress-6 created
+[2026-04-26 09:04:49 UTC] Waiting for pod stress-6 to be Ready (max 300s)...
+[2026-04-26 09:04:53 UTC] Settling 60s...
+[2026-04-26 09:06:02 UTC] Pod 6: ok=OK restarts=0 cpu=2773m(4%) mem=8022Mi(6%) pod_cpu=451m pod_mem=1000Mi
+[2026-04-26 09:06:02 UTC] Pod 6 stable.
+[2026-04-26 09:06:02 UTC] --- Deploying pod 7 ---
+namespace/maxpod-fc-7 created
+pod/stress-7 created
+[2026-04-26 09:06:04 UTC] Waiting for pod stress-7 to be Ready (max 300s)...
+[2026-04-26 09:06:07 UTC] Settling 60s...
+[2026-04-26 09:07:18 UTC] Pod 7: ok=OK restarts=0 cpu=3238m(5%) mem=9212Mi(7%) pod_cpu=452m pod_mem=1000Mi
+[2026-04-26 09:07:18 UTC] Pod 7 stable.
+[2026-04-26 09:07:18 UTC] --- Deploying pod 8 ---
+namespace/maxpod-fc-8 created
+pod/stress-8 created
+[2026-04-26 09:07:19 UTC] Waiting for pod stress-8 to be Ready (max 300s)...
+[2026-04-26 09:07:23 UTC] Settling 60s...
+[2026-04-26 09:08:35 UTC] Pod 8: ok=OK restarts=0 cpu=3695m(5%) mem=10401Mi(8%) pod_cpu=452m pod_mem=1000Mi
+[2026-04-26 09:08:35 UTC] Pod 8 stable.
+[2026-04-26 09:08:35 UTC] --- Deploying pod 9 ---
+namespace/maxpod-fc-9 created
+pod/stress-9 created
+[2026-04-26 09:08:36 UTC] Waiting for pod stress-9 to be Ready (max 300s)...
+[2026-04-26 09:08:40 UTC] Settling 60s...
+[2026-04-26 09:09:53 UTC] Pod 9: ok=OK restarts=0 cpu=4126m(6%) mem=11577Mi(9%) pod_cpu=451m pod_mem=999Mi
+[2026-04-26 09:09:53 UTC] Pod 9 stable.
+[2026-04-26 09:09:53 UTC] --- Deploying pod 10 ---
+namespace/maxpod-fc-10 created
+pod/stress-10 created
+[2026-04-26 09:09:54 UTC] Waiting for pod stress-10 to be Ready (max 300s)...
+[2026-04-26 09:09:58 UTC] Settling 60s...
+[2026-04-26 09:11:12 UTC] Pod 10: ok=OK restarts=0 cpu=4569m(7%) mem=12758Mi(10%) pod_cpu=450m pod_mem=999Mi
+[2026-04-26 09:11:12 UTC] Pod 10 stable.
+[2026-04-26 09:11:12 UTC] --- Deploying pod 11 ---
+namespace/maxpod-fc-11 created
+pod/stress-11 created
+[2026-04-26 09:11:14 UTC] Waiting for pod stress-11 to be Ready (max 300s)...
+[2026-04-26 09:11:17 UTC] Settling 60s...
+[2026-04-26 09:12:33 UTC] Pod 11: ok=OK restarts=0 cpu=5031m(7%) mem=13940Mi(11%) pod_cpu=451m pod_mem=999Mi
+[2026-04-26 09:12:33 UTC] Pod 11 stable.
+[2026-04-26 09:12:33 UTC] --- Deploying pod 12 ---
+namespace/maxpod-fc-12 created
+pod/stress-12 created
+[2026-04-26 09:12:34 UTC] Waiting for pod stress-12 to be Ready (max 300s)...
+[2026-04-26 09:12:38 UTC] Settling 60s...
+[2026-04-26 09:13:54 UTC] Pod 12: ok=OK restarts=0 cpu=5516m(8%) mem=15131Mi(12%) pod_cpu=452m pod_mem=1000Mi
+[2026-04-26 09:13:54 UTC] Pod 12 stable.
+[2026-04-26 09:13:54 UTC] --- Deploying pod 13 ---
+namespace/maxpod-fc-13 created
+pod/stress-13 created
+[2026-04-26 09:13:56 UTC] Waiting for pod stress-13 to be Ready (max 300s)...
+[2026-04-26 09:13:59 UTC] Settling 60s...
+[2026-04-26 09:15:18 UTC] Pod 13: ok=OK restarts=0 cpu=5936m(9%) mem=16312Mi(13%) pod_cpu=453m pod_mem=1000Mi
+[2026-04-26 09:15:18 UTC] Pod 13 stable.
+[2026-04-26 09:15:18 UTC] --- Deploying pod 14 ---
+namespace/maxpod-fc-14 created
+pod/stress-14 created
+[2026-04-26 09:15:20 UTC] Waiting for pod stress-14 to be Ready (max 300s)...
+[2026-04-26 09:15:24 UTC] Settling 60s...
+[2026-04-26 09:16:43 UTC] Pod 14: ok=OK restarts=0 cpu=6415m(10%) mem=17493Mi(14%) pod_cpu=453m pod_mem=999Mi
+[2026-04-26 09:16:43 UTC] Pod 14 stable.
+[2026-04-26 09:16:43 UTC] --- Deploying pod 15 ---
+namespace/maxpod-fc-15 created
+pod/stress-15 created
+[2026-04-26 09:16:44 UTC] Waiting for pod stress-15 to be Ready (max 300s)...
+[2026-04-26 09:16:48 UTC] Settling 60s...
+[2026-04-26 09:18:08 UTC] Pod 15: ok=OK restarts=0 cpu=6862m(10%) mem=18678Mi(15%) pod_cpu=454m pod_mem=999Mi
+[2026-04-26 09:18:08 UTC] Pod 15 stable.
+[2026-04-26 09:18:08 UTC] --- Deploying pod 16 ---
+namespace/maxpod-fc-16 created
+pod/stress-16 created
+[2026-04-26 09:18:10 UTC] Waiting for pod stress-16 to be Ready (max 300s)...
+[2026-04-26 09:18:13 UTC] Settling 60s...
+[2026-04-26 09:19:35 UTC] Pod 16: ok=OK restarts=0 cpu=7310m(11%) mem=19860Mi(16%) pod_cpu=452m pod_mem=1000Mi
+[2026-04-26 09:19:35 UTC] Pod 16 stable.
+[2026-04-26 09:19:35 UTC] --- Deploying pod 17 ---
+namespace/maxpod-fc-17 created
+pod/stress-17 created
+[2026-04-26 09:19:36 UTC] Waiting for pod stress-17 to be Ready (max 300s)...
+[2026-04-26 09:19:40 UTC] Settling 60s...
+[2026-04-26 09:21:03 UTC] Pod 17: ok=OK restarts=0 cpu=7767m(12%) mem=21040Mi(17%) pod_cpu=451m pod_mem=999Mi
+[2026-04-26 09:21:03 UTC] Pod 17 stable.
+[2026-04-26 09:21:03 UTC] --- Deploying pod 18 ---
+namespace/maxpod-fc-18 created
+pod/stress-18 created
+[2026-04-26 09:21:04 UTC] Waiting for pod stress-18 to be Ready (max 300s)...
+[2026-04-26 09:21:08 UTC] Settling 60s...
+[2026-04-26 09:22:32 UTC] Pod 18: ok=OK restarts=0 cpu=8247m(12%) mem=22220Mi(18%) pod_cpu=452m pod_mem=1000Mi
+[2026-04-26 09:22:32 UTC] Pod 18 stable.
+[2026-04-26 09:22:32 UTC] --- Deploying pod 19 ---
+namespace/maxpod-fc-19 created
+pod/stress-19 created
+[2026-04-26 09:22:33 UTC] Waiting for pod stress-19 to be Ready (max 300s)...
+[2026-04-26 09:22:37 UTC] Settling 60s...
+[2026-04-26 09:24:03 UTC] Pod 19: ok=OK restarts=0 cpu=8695m(13%) mem=23417Mi(19%) pod_cpu=452m pod_mem=999Mi
+[2026-04-26 09:24:03 UTC] Pod 19 stable.
+[2026-04-26 09:24:03 UTC] --- Deploying pod 20 ---
+namespace/maxpod-fc-20 created
+pod/stress-20 created
+[2026-04-26 09:24:04 UTC] Waiting for pod stress-20 to be Ready (max 300s)...
+[2026-04-26 09:24:07 UTC] Settling 60s...
+[2026-04-26 09:25:34 UTC] Pod 20: ok=OK restarts=0 cpu=9129m(14%) mem=24591Mi(20%) pod_cpu=452m pod_mem=999Mi
+[2026-04-26 09:25:34 UTC] Pod 20 stable.
+[2026-04-26 09:25:34 UTC] --- Deploying pod 21 ---
+namespace/maxpod-fc-21 created
+pod/stress-21 created
+[2026-04-26 09:25:35 UTC] Waiting for pod stress-21 to be Ready (max 300s)...
+[2026-04-26 09:25:39 UTC] Settling 60s...
+[2026-04-26 09:27:07 UTC] Pod 21: ok=OK restarts=0 cpu=9609m(15%) mem=25775Mi(21%) pod_cpu=451m pod_mem=1000Mi
+[2026-04-26 09:27:07 UTC] Pod 21 stable.
+[2026-04-26 09:27:07 UTC] --- Deploying pod 22 ---
+namespace/maxpod-fc-22 created
+pod/stress-22 created
+[2026-04-26 09:27:09 UTC] Waiting for pod stress-22 to be Ready (max 300s)...
+[2026-04-26 09:27:12 UTC] Settling 60s...
+[2026-04-26 09:28:42 UTC] Pod 22: ok=OK restarts=0 cpu=10060m(15%) mem=26967Mi(22%) pod_cpu=453m pod_mem=1000Mi
+[2026-04-26 09:28:42 UTC] Pod 22 stable.
+[2026-04-26 09:28:42 UTC] --- Deploying pod 23 ---
+namespace/maxpod-fc-23 created
+pod/stress-23 created
+[2026-04-26 09:28:43 UTC] Waiting for pod stress-23 to be Ready (max 300s)...
+[2026-04-26 09:28:47 UTC] Settling 60s...
+[2026-04-26 09:30:17 UTC] Pod 23: ok=OK restarts=0 cpu=10498m(16%) mem=28139Mi(23%) pod_cpu=453m pod_mem=999Mi
+[2026-04-26 09:30:17 UTC] Pod 23 stable.
+[2026-04-26 09:30:17 UTC] --- Deploying pod 24 ---
+namespace/maxpod-fc-24 created
+pod/stress-24 created
+[2026-04-26 09:30:19 UTC] Waiting for pod stress-24 to be Ready (max 300s)...
+[2026-04-26 09:30:23 UTC] Settling 60s...
+[2026-04-26 09:31:55 UTC] Pod 24: ok=OK restarts=0 cpu=10979m(17%) mem=29327Mi(24%) pod_cpu=452m pod_mem=999Mi
+[2026-04-26 09:31:55 UTC] Pod 24 stable.
+[2026-04-26 09:31:55 UTC] --- Deploying pod 25 ---
+namespace/maxpod-fc-25 created
+pod/stress-25 created
+[2026-04-26 09:31:56 UTC] Waiting for pod stress-25 to be Ready (max 300s)...
+[2026-04-26 09:32:00 UTC] Settling 60s...
+[2026-04-26 09:33:33 UTC] Pod 25: ok=OK restarts=0 cpu=11405m(17%) mem=30512Mi(25%) pod_cpu=452m pod_mem=999Mi
+[2026-04-26 09:33:33 UTC] Pod 25 stable.
+[2026-04-26 09:33:33 UTC] --- Deploying pod 26 ---
+namespace/maxpod-fc-26 created
+pod/stress-26 created
+[2026-04-26 09:33:35 UTC] Waiting for pod stress-26 to be Ready (max 300s)...
+[2026-04-26 09:33:38 UTC] Settling 60s...
+[2026-04-26 09:35:13 UTC] Pod 26: ok=OK restarts=0 cpu=11860m(18%) mem=31688Mi(26%) pod_cpu=450m pod_mem=1000Mi
+[2026-04-26 09:35:13 UTC] Pod 26 stable.
+[2026-04-26 09:35:13 UTC] --- Deploying pod 27 ---
+namespace/maxpod-fc-27 created
+pod/stress-27 created
+[2026-04-26 09:35:14 UTC] Waiting for pod stress-27 to be Ready (max 300s)...
+[2026-04-26 09:35:17 UTC] Settling 60s...
+[2026-04-26 09:36:53 UTC] Pod 27: ok=OK restarts=0 cpu=12346m(19%) mem=32871Mi(27%) pod_cpu=452m pod_mem=999Mi
+[2026-04-26 09:36:53 UTC] Pod 27 stable.
+[2026-04-26 09:36:53 UTC] --- Deploying pod 28 ---
+namespace/maxpod-fc-28 created
+pod/stress-28 created
+[2026-04-26 09:36:54 UTC] Waiting for pod stress-28 to be Ready (max 300s)...
+[2026-04-26 09:36:58 UTC] Settling 60s...
+[2026-04-26 09:38:35 UTC] Pod 28: ok=OK restarts=0 cpu=12767m(20%) mem=34059Mi(28%) pod_cpu=451m pod_mem=999Mi
+[2026-04-26 09:38:35 UTC] Pod 28 stable.
+[2026-04-26 09:38:35 UTC] --- Deploying pod 29 ---
+namespace/maxpod-fc-29 created
+pod/stress-29 created
+[2026-04-26 09:38:37 UTC] Waiting for pod stress-29 to be Ready (max 300s)...
+[2026-04-26 09:38:40 UTC] Settling 60s...
+[2026-04-26 09:40:18 UTC] Pod 29: ok=OK restarts=0 cpu=13226m(20%) mem=35235Mi(29%) pod_cpu=453m pod_mem=1000Mi
+[2026-04-26 09:40:18 UTC] Pod 29 stable.
+[2026-04-26 09:40:18 UTC] --- Deploying pod 30 ---
+namespace/maxpod-fc-30 created
+pod/stress-30 created
+[2026-04-26 09:40:20 UTC] Waiting for pod stress-30 to be Ready (max 300s)...
+[2026-04-26 09:40:24 UTC] Settling 60s...
+[2026-04-26 09:42:04 UTC] Pod 30: ok=OK restarts=0 cpu=13690m(21%) mem=36424Mi(30%) pod_cpu=451m pod_mem=999Mi
+[2026-04-26 09:42:04 UTC] Pod 30 stable.
+[2026-04-26 09:42:04 UTC] --- Deploying pod 31 ---
+namespace/maxpod-fc-31 created
+pod/stress-31 created
+[2026-04-26 09:42:05 UTC] Waiting for pod stress-31 to be Ready (max 300s)...
+[2026-04-26 09:42:09 UTC] Settling 60s...
+[2026-04-26 09:43:49 UTC] Pod 31: ok=OK restarts=0 cpu=14172m(22%) mem=37615Mi(31%) pod_cpu=452m pod_mem=1000Mi
+[2026-04-26 09:43:49 UTC] Pod 31 stable.
+[2026-04-26 09:43:49 UTC] --- Deploying pod 32 ---
+namespace/maxpod-fc-32 created
+pod/stress-32 created
+[2026-04-26 09:43:51 UTC] Waiting for pod stress-32 to be Ready (max 300s)...
+[2026-04-26 09:43:54 UTC] Settling 60s...
+[2026-04-26 09:45:37 UTC] Pod 32: ok=OK restarts=0 cpu=14597m(22%) mem=38791Mi(32%) pod_cpu=451m pod_mem=999Mi
+[2026-04-26 09:45:37 UTC] Pod 32 stable.
+[2026-04-26 09:45:37 UTC] --- Deploying pod 33 ---
+namespace/maxpod-fc-33 created
+pod/stress-33 created
+[2026-04-26 09:45:39 UTC] Waiting for pod stress-33 to be Ready (max 300s)...
+[2026-04-26 09:45:42 UTC] Settling 60s...
+[2026-04-26 09:47:26 UTC] Pod 33: ok=OK restarts=0 cpu=15061m(23%) mem=39975Mi(33%) pod_cpu=453m pod_mem=999Mi
+[2026-04-26 09:47:26 UTC] Pod 33 stable.
+[2026-04-26 09:47:26 UTC] --- Deploying pod 34 ---
+namespace/maxpod-fc-34 created
+pod/stress-34 created
+[2026-04-26 09:47:27 UTC] Waiting for pod stress-34 to be Ready (max 300s)...
+[2026-04-26 09:47:31 UTC] Settling 60s...
+[2026-04-26 09:49:16 UTC] Pod 34: ok=OK restarts=0 cpu=15555m(24%) mem=41158Mi(34%) pod_cpu=451m pod_mem=1000Mi
+[2026-04-26 09:49:16 UTC] Pod 34 stable.
+[2026-04-26 09:49:16 UTC] --- Deploying pod 35 ---
+namespace/maxpod-fc-35 created
+pod/stress-35 created
+[2026-04-26 09:49:17 UTC] Waiting for pod stress-35 to be Ready (max 300s)...
+[2026-04-26 09:49:21 UTC] Settling 60s...
+[2026-04-26 09:51:07 UTC] Pod 35: ok=OK restarts=0 cpu=15971m(25%) mem=42341Mi(35%) pod_cpu=452m pod_mem=1000Mi
+[2026-04-26 09:51:07 UTC] Pod 35 stable.
+[2026-04-26 09:51:07 UTC] --- Deploying pod 36 ---
+namespace/maxpod-fc-36 created
+pod/stress-36 created
+[2026-04-26 09:51:09 UTC] Waiting for pod stress-36 to be Ready (max 300s)...
+[2026-04-26 09:51:12 UTC] Settling 60s...
+[2026-04-26 09:52:59 UTC] Pod 36: ok=OK restarts=0 cpu=16555m(25%) mem=43540Mi(36%) pod_cpu=452m pod_mem=999Mi
+[2026-04-26 09:52:59 UTC] Pod 36 stable.
+[2026-04-26 09:52:59 UTC] --- Deploying pod 37 ---
+namespace/maxpod-fc-37 created
+pod/stress-37 created
+[2026-04-26 09:53:01 UTC] Waiting for pod stress-37 to be Ready (max 300s)...
+[2026-04-26 09:53:04 UTC] Settling 60s...
+[2026-04-26 09:54:52 UTC] Pod 37: ok=OK restarts=0 cpu=16867m(26%) mem=44711Mi(37%) pod_cpu=452m pod_mem=999Mi
+[2026-04-26 09:54:52 UTC] Pod 37 stable.
+[2026-04-26 09:54:52 UTC] --- Deploying pod 38 ---
+namespace/maxpod-fc-38 created
+pod/stress-38 created
+[2026-04-26 09:54:54 UTC] Waiting for pod stress-38 to be Ready (max 300s)...
+[2026-04-26 09:54:57 UTC] Settling 60s...
+[2026-04-26 09:56:47 UTC] Pod 38: ok=OK restarts=0 cpu=17327m(27%) mem=45890Mi(38%) pod_cpu=453m pod_mem=999Mi
+[2026-04-26 09:56:47 UTC] Pod 38 stable.
+[2026-04-26 09:56:47 UTC] --- Deploying pod 39 ---
+namespace/maxpod-fc-39 created
+pod/stress-39 created
+[2026-04-26 09:56:48 UTC] Waiting for pod stress-39 to be Ready (max 300s)...
+[2026-04-26 09:56:51 UTC] Settling 60s...
+[2026-04-26 09:58:42 UTC] Pod 39: ok=OK restarts=0 cpu=17819m(27%) mem=47078Mi(39%) pod_cpu=452m pod_mem=999Mi
+[2026-04-26 09:58:42 UTC] Pod 39 stable.
+[2026-04-26 09:58:42 UTC] --- Deploying pod 40 ---
+namespace/maxpod-fc-40 created
+pod/stress-40 created
+[2026-04-26 09:58:43 UTC] Waiting for pod stress-40 to be Ready (max 300s)...
+[2026-04-26 09:58:47 UTC] Settling 60s...
+[2026-04-26 10:00:39 UTC] Pod 40: ok=OK restarts=0 cpu=18242m(28%) mem=48251Mi(40%) pod_cpu=451m pod_mem=1000Mi
+[2026-04-26 10:00:39 UTC] Pod 40 stable.
+[2026-04-26 10:00:39 UTC] --- Deploying pod 41 ---
+namespace/maxpod-fc-41 created
+pod/stress-41 created
+[2026-04-26 10:00:40 UTC] Waiting for pod stress-41 to be Ready (max 300s)...
+[2026-04-26 10:00:44 UTC] Settling 60s...
+[2026-04-26 10:02:38 UTC] Pod 41: ok=OK restarts=0 cpu=18727m(29%) mem=49446Mi(41%) pod_cpu=454m pod_mem=1000Mi
+[2026-04-26 10:02:38 UTC] Pod 41 stable.
+[2026-04-26 10:02:38 UTC] --- Deploying pod 42 ---
+namespace/maxpod-fc-42 created
+pod/stress-42 created
+[2026-04-26 10:02:39 UTC] Waiting for pod stress-42 to be Ready (max 300s)...
+[2026-04-26 10:02:42 UTC] Settling 60s...
+[2026-04-26 10:04:36 UTC] Pod 42: ok=OK restarts=0 cpu=19159m(30%) mem=50621Mi(42%) pod_cpu=451m pod_mem=1000Mi
+[2026-04-26 10:04:36 UTC] Pod 42 stable.
+[2026-04-26 10:04:36 UTC] --- Deploying pod 43 ---
+namespace/maxpod-fc-43 created
+pod/stress-43 created
+[2026-04-26 10:04:38 UTC] Waiting for pod stress-43 to be Ready (max 300s)...
+[2026-04-26 10:04:41 UTC] Settling 60s...
+[2026-04-26 10:06:38 UTC] Pod 43: ok=OK restarts=0 cpu=19656m(30%) mem=51814Mi(43%) pod_cpu=453m pod_mem=999Mi
+[2026-04-26 10:06:38 UTC] Pod 43 stable.
+[2026-04-26 10:06:38 UTC] --- Deploying pod 44 ---
+namespace/maxpod-fc-44 created
+pod/stress-44 created
+[2026-04-26 10:06:39 UTC] Waiting for pod stress-44 to be Ready (max 300s)...
+[2026-04-26 10:06:43 UTC] Settling 60s...
+[2026-04-26 10:08:40 UTC] Pod 44: ok=OK restarts=0 cpu=20083m(31%) mem=52993Mi(44%) pod_cpu=452m pod_mem=1000Mi
+[2026-04-26 10:08:40 UTC] Pod 44 stable.
+[2026-04-26 10:08:40 UTC] --- Deploying pod 45 ---
+namespace/maxpod-fc-45 created
+pod/stress-45 created
+[2026-04-26 10:08:41 UTC] Waiting for pod stress-45 to be Ready (max 300s)...
+[2026-04-26 10:08:44 UTC] Settling 60s...
+[2026-04-26 10:10:43 UTC] Pod 45: ok=OK restarts=0 cpu=20531m(32%) mem=54178Mi(45%) pod_cpu=451m pod_mem=1000Mi
+[2026-04-26 10:10:43 UTC] Pod 45 stable.
+[2026-04-26 10:10:43 UTC] --- Deploying pod 46 ---
+namespace/maxpod-fc-46 created
+pod/stress-46 created
+[2026-04-26 10:10:44 UTC] Waiting for pod stress-46 to be Ready (max 300s)...
+[2026-04-26 10:10:48 UTC] Settling 60s...
+[2026-04-26 10:12:48 UTC] Pod 46: ok=OK restarts=0 cpu=21024m(32%) mem=55370Mi(46%) pod_cpu=451m pod_mem=999Mi
+[2026-04-26 10:12:48 UTC] Pod 46 stable.
+[2026-04-26 10:12:48 UTC] --- Deploying pod 47 ---
+namespace/maxpod-fc-47 created
+pod/stress-47 created
+[2026-04-26 10:12:49 UTC] Waiting for pod stress-47 to be Ready (max 300s)...
+[2026-04-26 10:12:53 UTC] Settling 60s...
+[2026-04-26 10:14:54 UTC] Pod 47: ok=OK restarts=0 cpu=21432m(33%) mem=56544Mi(47%) pod_cpu=452m pod_mem=1000Mi
+[2026-04-26 10:14:54 UTC] Pod 47 stable.
+[2026-04-26 10:14:54 UTC] --- Deploying pod 48 ---
+namespace/maxpod-fc-48 created
+pod/stress-48 created
+[2026-04-26 10:14:56 UTC] Waiting for pod stress-48 to be Ready (max 300s)...
+[2026-04-26 10:14:59 UTC] Settling 60s...
+[2026-04-26 10:17:02 UTC] Pod 48: ok=OK restarts=0 cpu=21907m(34%) mem=57731Mi(48%) pod_cpu=452m pod_mem=1000Mi
+[2026-04-26 10:17:02 UTC] Pod 48 stable.
+[2026-04-26 10:17:02 UTC] --- Deploying pod 49 ---
+namespace/maxpod-fc-49 created
+pod/stress-49 created
+[2026-04-26 10:17:03 UTC] Waiting for pod stress-49 to be Ready (max 300s)...
+[2026-04-26 10:17:07 UTC] Settling 60s...
+[2026-04-26 10:19:10 UTC] Pod 49: ok=OK restarts=0 cpu=22344m(35%) mem=58915Mi(49%) pod_cpu=454m pod_mem=999Mi
+[2026-04-26 10:19:10 UTC] Pod 49 stable.
+[2026-04-26 10:19:10 UTC] --- Deploying pod 50 ---
+namespace/maxpod-fc-50 created
+pod/stress-50 created
+[2026-04-26 10:19:11 UTC] Waiting for pod stress-50 to be Ready (max 300s)...
+[2026-04-26 10:19:15 UTC] Settling 60s...
+[2026-04-26 10:21:20 UTC] Pod 50: ok=OK restarts=0 cpu=22788m(35%) mem=60090Mi(50%) pod_cpu=452m pod_mem=1000Mi
+[2026-04-26 10:21:20 UTC] Pod 50 stable.
+[2026-04-26 10:21:20 UTC] --- Deploying pod 51 ---
+namespace/maxpod-fc-51 created
+pod/stress-51 created
+[2026-04-26 10:21:21 UTC] Waiting for pod stress-51 to be Ready (max 300s)...
+[2026-04-26 10:21:25 UTC] Settling 60s...
+[2026-04-26 10:23:31 UTC] Pod 51: ok=OK restarts=0 cpu=23268m(36%) mem=61288Mi(51%) pod_cpu=453m pod_mem=999Mi
+[2026-04-26 10:23:31 UTC] Pod 51 stable.
+[2026-04-26 10:23:31 UTC] --- Deploying pod 52 ---
+namespace/maxpod-fc-52 created
+pod/stress-52 created
+[2026-04-26 10:23:32 UTC] Waiting for pod stress-52 to be Ready (max 300s)...
+[2026-04-26 10:23:36 UTC] Settling 60s...
+[2026-04-26 10:25:43 UTC] Pod 52: ok=OK restarts=0 cpu=23723m(37%) mem=62466Mi(52%) pod_cpu=451m pod_mem=999Mi
+[2026-04-26 10:25:43 UTC] Pod 52 stable.
+[2026-04-26 10:25:43 UTC] --- Deploying pod 53 ---
+namespace/maxpod-fc-53 created
+pod/stress-53 created
+[2026-04-26 10:25:44 UTC] Waiting for pod stress-53 to be Ready (max 300s)...
+[2026-04-26 10:25:47 UTC] Settling 60s...
+[2026-04-26 10:27:56 UTC] Pod 53: ok=OK restarts=0 cpu=24197m(37%) mem=63649Mi(53%) pod_cpu=451m pod_mem=1000Mi
+[2026-04-26 10:27:56 UTC] Pod 53 stable.
+[2026-04-26 10:27:56 UTC] --- Deploying pod 54 ---
+namespace/maxpod-fc-54 created
+pod/stress-54 created
+[2026-04-26 10:27:57 UTC] Waiting for pod stress-54 to be Ready (max 300s)...
+[2026-04-26 10:28:00 UTC] Settling 60s...
+[2026-04-26 10:30:10 UTC] Pod 54: ok=OK restarts=0 cpu=24606m(38%) mem=64828Mi(53%) pod_cpu=450m pod_mem=1000Mi
+[2026-04-26 10:30:10 UTC] Pod 54 stable.
+[2026-04-26 10:30:10 UTC] --- Deploying pod 55 ---
+namespace/maxpod-fc-55 created
+pod/stress-55 created
+[2026-04-26 10:30:11 UTC] Waiting for pod stress-55 to be Ready (max 300s)...
+[2026-04-26 10:30:14 UTC] Settling 60s...
+[2026-04-26 10:32:25 UTC] Pod 55: ok=OK restarts=0 cpu=25069m(39%) mem=66012Mi(54%) pod_cpu=453m pod_mem=999Mi
+[2026-04-26 10:32:25 UTC] Pod 55 stable.
+[2026-04-26 10:32:25 UTC] --- Deploying pod 56 ---
+namespace/maxpod-fc-56 created
+pod/stress-56 created
+[2026-04-26 10:32:27 UTC] Waiting for pod stress-56 to be Ready (max 300s)...
+[2026-04-26 10:32:28 UTC] Pod 56 status: Failed — stopping.
+[2026-04-26 10:32:28 UTC] 
+[2026-04-26 10:32:28 UTC] === TEST COMPLETE ===
+[2026-04-26 10:32:28 UTC] Stop reason: Pod 56 failed
+[2026-04-26 10:32:28 UTC] Max stable pods: 55
+[2026-04-26 10:32:28 UTC] 
+[2026-04-26 10:32:28 UTC] === SUMMARY TABLE ===
+pod_num  deploy_time          ready_time           settle_time          pod_status  total_restarts  node_cpu  node_cpu_pct  node_mem  node_mem_pct  all_pods_ok  stress_cpu  stress_mem
+1        2026-04-26 08:58:55  2026-04-26 08:59:00  2026-04-26 09:00:00  Running     0               481m      0%            2119Mi    1%            OK           451m        1000Mi
+2        2026-04-26 09:00:03  2026-04-26 09:00:08  2026-04-26 09:01:08  Running     0               946m      1%            3296Mi    2%            OK           451m        999Mi
+3        2026-04-26 09:01:12  2026-04-26 09:01:17  2026-04-26 09:02:17  Running     0               1399m     2%            4476Mi    3%            OK           452m        1000Mi
+4        2026-04-26 09:02:23  2026-04-26 09:02:28  2026-04-26 09:03:28  Running     0               1840m     2%            5669Mi    4%            OK           452m        999Mi
+5        2026-04-26 09:03:35  2026-04-26 09:03:39  2026-04-26 09:04:39  Running     0               2312m     3%            6844Mi    5%            OK           453m        999Mi
+6        2026-04-26 09:04:48  2026-04-26 09:04:53  2026-04-26 09:05:53  Running     0               2773m     4%            8022Mi    6%            OK           451m        1000Mi
+7        2026-04-26 09:06:02  2026-04-26 09:06:07  2026-04-26 09:07:07  Running     0               3238m     5%            9212Mi    7%            OK           452m        1000Mi
+8        2026-04-26 09:07:18  2026-04-26 09:07:23  2026-04-26 09:08:23  Running     0               3695m     5%            10401Mi   8%            OK           452m        1000Mi
+9        2026-04-26 09:08:35  2026-04-26 09:08:40  2026-04-26 09:09:40  Running     0               4126m     6%            11577Mi   9%            OK           451m        999Mi
+10       2026-04-26 09:09:53  2026-04-26 09:09:58  2026-04-26 09:10:58  Running     0               4569m     7%            12758Mi   10%           OK           450m        999Mi
+11       2026-04-26 09:11:12  2026-04-26 09:11:17  2026-04-26 09:12:17  Running     0               5031m     7%            13940Mi   11%           OK           451m        999Mi
+12       2026-04-26 09:12:33  2026-04-26 09:12:38  2026-04-26 09:13:38  Running     0               5516m     8%            15131Mi   12%           OK           452m        1000Mi
+13       2026-04-26 09:13:54  2026-04-26 09:13:59  2026-04-26 09:14:59  Running     0               5936m     9%            16312Mi   13%           OK           453m        1000Mi
+14       2026-04-26 09:15:18  2026-04-26 09:15:24  2026-04-26 09:16:24  Running     0               6415m     10%           17493Mi   14%           OK           453m        999Mi
+15       2026-04-26 09:16:43  2026-04-26 09:16:48  2026-04-26 09:17:48  Running     0               6862m     10%           18678Mi   15%           OK           454m        999Mi
+16       2026-04-26 09:18:08  2026-04-26 09:18:13  2026-04-26 09:19:13  Running     0               7310m     11%           19860Mi   16%           OK           452m        1000Mi
+17       2026-04-26 09:19:35  2026-04-26 09:19:40  2026-04-26 09:20:40  Running     0               7767m     12%           21040Mi   17%           OK           451m        999Mi
+18       2026-04-26 09:21:03  2026-04-26 09:21:08  2026-04-26 09:22:08  Running     0               8247m     12%           22220Mi   18%           OK           452m        1000Mi
+19       2026-04-26 09:22:32  2026-04-26 09:22:37  2026-04-26 09:23:37  Running     0               8695m     13%           23417Mi   19%           OK           452m        999Mi
+20       2026-04-26 09:24:03  2026-04-26 09:24:07  2026-04-26 09:25:07  Running     0               9129m     14%           24591Mi   20%           OK           452m        999Mi
+21       2026-04-26 09:25:34  2026-04-26 09:25:39  2026-04-26 09:26:39  Running     0               9609m     15%           25775Mi   21%           OK           451m        1000Mi
+22       2026-04-26 09:27:07  2026-04-26 09:27:12  2026-04-26 09:28:12  Running     0               10060m    15%           26967Mi   22%           OK           453m        1000Mi
+23       2026-04-26 09:28:42  2026-04-26 09:28:47  2026-04-26 09:29:47  Running     0               10498m    16%           28139Mi   23%           OK           453m        999Mi
+24       2026-04-26 09:30:17  2026-04-26 09:30:23  2026-04-26 09:31:23  Running     0               10979m    17%           29327Mi   24%           OK           452m        999Mi
+25       2026-04-26 09:31:55  2026-04-26 09:32:00  2026-04-26 09:33:00  Running     0               11405m    17%           30512Mi   25%           OK           452m        999Mi
+26       2026-04-26 09:33:33  2026-04-26 09:33:38  2026-04-26 09:34:38  Running     0               11860m    18%           31688Mi   26%           OK           450m        1000Mi
+27       2026-04-26 09:35:13  2026-04-26 09:35:17  2026-04-26 09:36:17  Running     0               12346m    19%           32871Mi   27%           OK           452m        999Mi
+28       2026-04-26 09:36:53  2026-04-26 09:36:58  2026-04-26 09:37:58  Running     0               12767m    20%           34059Mi   28%           OK           451m        999Mi
+29       2026-04-26 09:38:35  2026-04-26 09:38:40  2026-04-26 09:39:40  Running     0               13226m    20%           35235Mi   29%           OK           453m        1000Mi
+30       2026-04-26 09:40:18  2026-04-26 09:40:24  2026-04-26 09:41:24  Running     0               13690m    21%           36424Mi   30%           OK           451m        999Mi
+31       2026-04-26 09:42:04  2026-04-26 09:42:09  2026-04-26 09:43:09  Running     0               14172m    22%           37615Mi   31%           OK           452m        1000Mi
+32       2026-04-26 09:43:49  2026-04-26 09:43:54  2026-04-26 09:44:54  Running     0               14597m    22%           38791Mi   32%           OK           451m        999Mi
+33       2026-04-26 09:45:37  2026-04-26 09:45:42  2026-04-26 09:46:42  Running     0               15061m    23%           39975Mi   33%           OK           453m        999Mi
+34       2026-04-26 09:47:26  2026-04-26 09:47:31  2026-04-26 09:48:31  Running     0               15555m    24%           41158Mi   34%           OK           451m        1000Mi
+35       2026-04-26 09:49:16  2026-04-26 09:49:21  2026-04-26 09:50:21  Running     0               15971m    25%           42341Mi   35%           OK           452m        1000Mi
+36       2026-04-26 09:51:07  2026-04-26 09:51:12  2026-04-26 09:52:12  Running     0               16555m    25%           43540Mi   36%           OK           452m        999Mi
+37       2026-04-26 09:52:59  2026-04-26 09:53:04  2026-04-26 09:54:04  Running     0               16867m    26%           44711Mi   37%           OK           452m        999Mi
+38       2026-04-26 09:54:52  2026-04-26 09:54:57  2026-04-26 09:55:57  Running     0               17327m    27%           45890Mi   38%           OK           453m        999Mi
+39       2026-04-26 09:56:47  2026-04-26 09:56:51  2026-04-26 09:57:51  Running     0               17819m    27%           47078Mi   39%           OK           452m        999Mi
+40       2026-04-26 09:58:42  2026-04-26 09:58:47  2026-04-26 09:59:47  Running     0               18242m    28%           48251Mi   40%           OK           451m        1000Mi
+41       2026-04-26 10:00:39  2026-04-26 10:00:44  2026-04-26 10:01:44  Running     0               18727m    29%           49446Mi   41%           OK           454m        1000Mi
+42       2026-04-26 10:02:38  2026-04-26 10:02:42  2026-04-26 10:03:42  Running     0               19159m    30%           50621Mi   42%           OK           451m        1000Mi
+43       2026-04-26 10:04:36  2026-04-26 10:04:41  2026-04-26 10:05:41  Running     0               19656m    30%           51814Mi   43%           OK           453m        999Mi
+44       2026-04-26 10:06:38  2026-04-26 10:06:43  2026-04-26 10:07:43  Running     0               20083m    31%           52993Mi   44%           OK           452m        1000Mi
+45       2026-04-26 10:08:40  2026-04-26 10:08:44  2026-04-26 10:09:44  Running     0               20531m    32%           54178Mi   45%           OK           451m        1000Mi
+46       2026-04-26 10:10:43  2026-04-26 10:10:48  2026-04-26 10:11:48  Running     0               21024m    32%           55370Mi   46%           OK           451m        999Mi
+47       2026-04-26 10:12:48  2026-04-26 10:12:53  2026-04-26 10:13:53  Running     0               21432m    33%           56544Mi   47%           OK           452m        1000Mi
+48       2026-04-26 10:14:54  2026-04-26 10:14:59  2026-04-26 10:15:59  Running     0               21907m    34%           57731Mi   48%           OK           452m        1000Mi
+49       2026-04-26 10:17:02  2026-04-26 10:17:07  2026-04-26 10:18:07  Running     0               22344m    35%           58915Mi   49%           OK           454m        999Mi
+50       2026-04-26 10:19:10  2026-04-26 10:19:15  2026-04-26 10:20:15  Running     0               22788m    35%           60090Mi   50%           OK           452m        1000Mi
+51       2026-04-26 10:21:20  2026-04-26 10:21:25  2026-04-26 10:22:25  Running     0               23268m    36%           61288Mi   51%           OK           453m        999Mi
+52       2026-04-26 10:23:31  2026-04-26 10:23:36  2026-04-26 10:24:36  Running     0               23723m    37%           62466Mi   52%           OK           451m        999Mi
+53       2026-04-26 10:25:43  2026-04-26 10:25:47  2026-04-26 10:26:47  Running     0               24197m    37%           63649Mi   53%           OK           451m        1000Mi
+54       2026-04-26 10:27:56  2026-04-26 10:28:00  2026-04-26 10:29:00  Running     0               24606m    38%           64828Mi   53%           OK           450m        1000Mi
+55       2026-04-26 10:30:10  2026-04-26 10:30:14  2026-04-26 10:31:14  Running     0               25069m    39%           66012Mi   54%           OK           453m        999Mi
+[2026-04-26 10:32:28 UTC] 
+[2026-04-26 10:32:28 UTC] === Node Allocated ===
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests        Limits
+  --------           --------        ------
+  cpu                38690m (60%)    38750m (60%)
+  memory             119940Mi (99%)  120658Mi (100%)
+  ephemeral-storage  0 (0%)          0 (0%)
+  hugepages-1Gi      0 (0%)          0 (0%)
+  hugepages-2Mi      0 (0%)          0 (0%)
+  hugepages-32Mi     0 (0%)          0 (0%)
+  hugepages-64Ki     0 (0%)          0 (0%)
+Events:              <none>
+[2026-04-26 10:32:29 UTC] 
+[2026-04-26 10:32:29 UTC] Cleaning up...
+[2026-04-26 10:32:29 UTC] Cleaning up all maxpod-fc-* namespaces...
+[2026-04-26 10:33:06 UTC] Cleanup done.
+[2026-04-26 10:33:06 UTC] Done.
