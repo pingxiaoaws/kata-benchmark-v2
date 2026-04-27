@@ -1,0 +1,16 @@
+[2026-04-27 02:46:01 UTC] === Max Pod Full-Load Test: kata-fc on m7g.metal ===
+[2026-04-27 02:46:01 UTC] 64 vCPU, 256 GiB, Graviton3, bare metal, aarch64
+[2026-04-27 02:46:01 UTC] Runtime: kata-fc, Overhead: cpu=250m mem=130Mi
+[2026-04-27 02:46:01 UTC] Pod: 4 containers (busybox), 450m/2048Mi + overhead = 700m/2178Mi
+[2026-04-27 02:46:01 UTC] Theoretical max: CPU=63770/700=~91, MEM=248847/2178=~114
+[2026-04-27 02:46:01 UTC] Image: busybox:1.36 (kata-fc devmapper only supports single-layer)
+[2026-04-27 02:46:01 UTC] Checking node...
+ip-172-31-42-51.us-west-2.compute.internal cpu=63770m mem=254707100Ki
+[2026-04-27 02:46:03 UTC] Allocatable: 63770m CPU, 248737 MiB memory
+[2026-04-27 02:46:04 UTC] Baseline top node: ip-172-31-42-51.us-west-2.compute.internal   44m   0%    924Mi   0%    
+[2026-04-27 02:46:04 UTC] Starting incremental pod deployment...
+[2026-04-27 02:46:04 UTC] --- Deploying pod 1 ---
+namespace/maxpod-fc-1 created
+pod/stress-1 created
+[2026-04-27 02:46:05 UTC] Waiting for pod stress-1 to be Ready (max 300s)...
+[2026-04-27 02:46:09 UTC] Settling 60s...
